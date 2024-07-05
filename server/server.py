@@ -76,8 +76,8 @@ class Server:
 
                 # Запрос на відключення
                 elif data["type"] == "exit":
-                    self.send_to_all({"type": "exit", "nikname": nikname})
                     self.users.pop(user_socket)
+                    self.send_to_all({"type": "exit", "nikname": nikname})
                     self.send_to_user({"type": "server_ok", "message": "Ви успішно були відʼєднані від сервера"}, user_socket)
                     user_socket.close()
                     print(f"{nikname} вийшов")
@@ -90,9 +90,7 @@ class Server:
                 except:
                     pass
 
-                finally:
-                    print("Andrey був видалений з сервера через помилку")
-                    break
+                print(f"{nikname} був видалений з сервера через помилку")
 
     def send_to_user(self, message: Any, user: socket.socket) -> None:
         """Відправити повідомлення конкретному користувачу"""

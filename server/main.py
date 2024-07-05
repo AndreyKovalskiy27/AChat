@@ -18,7 +18,7 @@ if __name__ == "__main__":
                     server.Server(ip, port)
 
                 except KeyboardInterrupt:
-                    print("Сервер вимкнений")
+                    print("\nСервер вимкнений")
                     exit()
 
             except Exception as error:
