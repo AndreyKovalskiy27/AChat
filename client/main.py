@@ -1,18 +1,13 @@
-"""Тестовий клієнт для сервера"""
+"""Головний модуль. Запускає программу"""
 
 
-from connection import connection
+import sys
+from PyQt6.QtWidgets import QApplication
+import main_window
 
 
-connection_socket = connection.Connection("127.0.0.1", int(input()), "Andrey")
-
-while True:
-    print("saad")
-    message = input("Enter message: ")
-
-    if message == "exit":
-        connection_socket.exit()
-        exit()
-
-    else:
-        connection_socket.send_message({"type": "message", "message": message})
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = main_window.MainWindow()
+    window.show()
+    app.exec()
