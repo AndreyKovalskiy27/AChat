@@ -1,16 +1,18 @@
 """Тестовий клієнт для сервера"""
 
 
-import socket
-import chiper
+from connection import connection
 
 
-connection_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-connection_socket.connect(("127.0.0.1", 5555))
-key = connection_socket.recv(1024)
-key = chiper.loads(key)
-key = chiper.Chiper(key)
-connection_socket.send(key.encrypt({"type": "client_ok"}))
-data = connection_socket.recv(1024)
-data = key.decrypt(data)
-print(data)
+connection_socket = connection.Connection("127.0.0.1", int(input()), "Andrey")
+
+while True:
+    print("saad")
+    message = input("Enter message: ")
+
+    if message == "exit":
+        connection_socket.exit()
+        exit()
+
+    else:
+        connection_socket.send_message({"type": "message", "message": message})
