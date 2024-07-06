@@ -15,14 +15,18 @@ class MessagesMonitor(QThread):
     def run(self) -> None:
         """Запустити монітогинг повідомленнь від сервера та вивід на єкран"""
         while True:
-            data = self.connection.get_data_from_server()
+            try:
+                data = self.connection.get_data_from_server()
 
-            if data["type"] == "message":
-                self.main_window.add_message(f"{data["nikname"]}: {data["message"]}",
-                                        False, aligment=Qt.AlignmentFlag.AlignLeft)
+                if data["type"] == "message":
+                    self.main_window.add_message(f"{data["nikname"]}: {data["message"]}",
+                                            False, aligment=Qt.AlignmentFlag.AlignLeft)
 
-            elif data["type"] == "new_user":
-                self.main_window.add_message(f"{data["nikname"]} приєднався до чату")
+                elif data["type"] == "new_user":
+                    self.main_window.add_message(f"{data["nikname"]} приєднався до чату")
 
-            elif data["type"] == "exit":
-                self.main_window.add_message(f"{data["nikname"]} вийшов з чату")
+                elif data["type"] == "exit":
+                    self.main_window.add_message(f"{data["nikname"]} вийшов з чату")
+
+            except:
+                break

@@ -64,10 +64,16 @@ class MainWindow(QMainWindow):
         message = self.design.message.text()
 
         if message.strip():
-            self.connection.send_message({"type": "message", "message": message})
-            self.add_message(f"{self.connection.nikname}: {message}",
-                             False, aligment=Qt.AlignmentFlag.AlignRight)
+            try:
+                self.connection.send_message({"type": "message", "message": message})
+                self.add_message(f"{self.connection.nikname}: {message}",
+                                False, aligment=Qt.AlignmentFlag.AlignRight)
 
+            except:
+                self.exit()
+                messages.show("Не вдалося відправити повідомлення",
+                              "Схоже, сервер зупинив роботу", 
+                              messages.QMessageBox.Icon.Critical)
         else:
             messages.show("Не вдалося відправити повідомлення", "Повідомлення не може бути пустим")
 
