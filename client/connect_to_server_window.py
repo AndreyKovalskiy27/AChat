@@ -1,11 +1,10 @@
 """Модуль вікна підключення до сервера"""
 
 
-from PyQt6.QtWidgets import QMainWindow, QListWidgetItem
-from PyQt6.QtGui import QFont
-from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QMainWindow
 from design.connect_to_server import ConnectToServerWindowDesign
 from connection.connection import Connection
+from connection.messages_monitor import MessagesMonitor
 import messages
 
 
@@ -32,6 +31,8 @@ class ConnectToServerWindow(QMainWindow):
                     connection = Connection(ip, int(port), nikname)
                     self.main_window.unblock_interface()
                     self.main_window.connection = connection
+                    self.main_window.messages_monitor = MessagesMonitor(connection, self.main_window)
+                    self.main_window.messages_monitor.start()
 
                     self.main_window.design.messages.clear()
                     self.main_window.add_message("Ви успішно підключилися до серверу")

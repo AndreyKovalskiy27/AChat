@@ -22,7 +22,7 @@ class Connection:
         server_answer: dict = self.get_data_from_server()
 
         if server_answer["type"] != "server_ok":
-            raise ConnectionError(server_answer.get("message", None))
+            raise ConnectionError(server_answer.get("message", "Сервер не дав вам дозволу на підключення"))
 
     def get_data_from_server(self) -> Any:
         """Отримати данні з серверу"""

@@ -66,7 +66,7 @@ class MainWindow(QMainWindow):
         if message.strip():
             self.connection.send_message({"type": "message", "message": message})
             self.add_message(f"{self.connection.nikname}: {message}",
-                             False, 25, Qt.AlignmentFlag.AlignRight)
+                             False, aligment=Qt.AlignmentFlag.AlignRight)
 
         else:
             messages.show("Не вдалося відправити повідомлення", "Повідомлення не може бути пустим")
@@ -74,6 +74,7 @@ class MainWindow(QMainWindow):
     def exit(self) -> None:
         """Вийти з серверу"""
         try:
+            self.messages_monitor.terminate()
             self.connection.exit()
 
         except:

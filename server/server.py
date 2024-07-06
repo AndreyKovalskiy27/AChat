@@ -39,10 +39,11 @@ class Server:
                                           user)
 
                     else:
+                        self.send_to_all({"type": "new_user", "nikname": nikname})
                         self.users[user] = nikname
 
                         Thread(target=self.user_handler,
-                            args=(user, nikname)).start()
+                            args=(user,)).start()
 
                         self.send_to_user({"type": "server_ok", "message": "Ви успішно підключенні до сервера"}, user)
                         print(f"{nikname} приєднався до чату")
@@ -50,8 +51,10 @@ class Server:
             except Exception: 
                 pass
 
-    def user_handler(self, user_socket: socket.socket, nikname: str) -> None:
+    def user_handler(self, user_socket: socket.socket) -> None:
         """Обробник користувача"""
+        nikname = self.users[user_socket]
+
         while True:
             try:
                 data = user_socket.recv(1024)
@@ -61,24 +64,19 @@ class Server:
                 if data["type"] == "message":
                     message: str = data["message"]
 
-                    if not message.strip():
-                        self.send_to_user({"type": "server_not_ok", "message": "Повідомлення не може бути пустим"}, user_socket)
-
-                    else:
+                    if message.strip():
                         self.send_to_all(
                             {"type": "message",
                             "message": message,
                             "nikname": nikname},
                             user_socket
                         )
-                        self.send_to_user({"type": "server_ok", "message": "Повідомлення було успішно відправленно"}, user_socket)
                         print(f"{nikname}: {message}")
 
                 # Запрос на відключення
                 elif data["type"] == "exit":
                     self.users.pop(user_socket)
                     self.send_to_all({"type": "exit", "nikname": nikname})
-                    self.send_to_user({"type": "server_ok", "message": "Ви успішно були відʼєднані від сервера"}, user_socket)
                     user_socket.close()
                     print(f"{nikname} вийшов")
                     break
@@ -97,11 +95,12 @@ class Server:
         """Відправити повідомлення конкретному користувачу"""
         message = self.chiper.encrypt(message)
         user.send(message)
+        print(f"Повідомлення відправлено користувачу {self.users[user]}")
 
     def send_to_all(self, message: Any,
                     do_not_send_to: socket.socket=None) -> None:
         """Відправити повідомлення всім користувачам на сервері"""
-        for user in self.users.values():
+        for user in self.users.keys():
             if user != do_not_send_to:
                 try:
                     self.send_to_user(message, user)
@@ -109,6 +108,7 @@ class Server:
                 except:
                     try:
                         self.users.pop(user)
+                        print(f"{self.users[user]} був видалений з сервера через помилку")
 
                     except:
                         pass
