@@ -91,6 +91,7 @@ class Server:
                     pass
 
                 print(f"{nikname} був видалений з сервера через помилку")
+                break
 
     def send_to_user(self, message: Any, user: socket.socket) -> None:
         """Відправити повідомлення конкретному користувачу"""

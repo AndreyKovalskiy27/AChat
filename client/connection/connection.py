@@ -9,6 +9,8 @@ from connection import chiper
 class Connection:
     """Класс для зʼєднання з сервером"""
     def __init__(self, ip: str, port: int, nikname: str) -> None:
+        self.nikname = nikname
+
         self.connection_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.connection_socket.connect((ip, port))
 

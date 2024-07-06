@@ -6,6 +6,7 @@ from PyQt6.QtGui import QFont
 from PyQt6.QtCore import Qt
 from design import main_window
 import connect_to_server_window
+import messages
 
 
 class MainWindow(QMainWindow):
@@ -21,6 +22,7 @@ class MainWindow(QMainWindow):
 
         # Обробка нажаття на кнопки
         self.design.connect_to_server.clicked.connect(self.connect_to_server_window.show)
+        self.design.send_message.clicked.connect(self.send_message)
         self.design.exit.clicked.connect(self.exit)
 
     def block_interface(self) -> None:
@@ -56,6 +58,18 @@ class MainWindow(QMainWindow):
         item.setFont(font)
         item.setTextAlignment(aligment)
         self.design.messages.addItem(item)
+
+    def send_message(self) -> None:
+        """Відправити повідомлення"""
+        message = self.design.message.text()
+
+        if message.strip():
+            self.connection.send_message({"type": "message", "message": message})
+            self.add_message(f"{self.connection.nikname}: {message}",
+                             False, 25, Qt.AlignmentFlag.AlignRight)
+
+        else:
+            messages.show("Не вдалося відправити повідомлення", "Повідомлення не може бути пустим")
 
     def exit(self) -> None:
         """Вийти з серверу"""
