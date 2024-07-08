@@ -82,6 +82,7 @@ class MainWindow(QMainWindow):
             item.setIcon(QIcon(icon))
 
         self.design.messages.addItem(item)
+        self.design.messages.scrollToBottom() # Автоскролл
 
     def send_message(self) -> None:
         """Відправити повідомлення"""
