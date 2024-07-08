@@ -118,3 +118,11 @@ class MainWindow(QMainWindow):
         self.add_message("Ви вийшли з серверу")
         self.block_chat()
         self.connect_to_server_window.unblock_connection_form()
+
+    def closeEvent(self, a0) -> None:
+        """
+        Цей код виконується під час виходу з программи
+        В данному випадку виконується автоматичний вихід з серверу
+        """
+        self.exit()
+        a0.accept()
