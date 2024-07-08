@@ -1,6 +1,7 @@
 """Моніторинг повідомленнь від сервера"""
 
 
+from os.path import join
 from PyQt6.QtCore import Qt, QThread, pyqtSignal
 from connection.connection import Connection
 
@@ -17,10 +18,16 @@ class MessagesMonitor(QThread):
         while True:
             try:
                 data = self.connection.get_data_from_server()
+                print(data)
 
                 if data["type"] == "message":
+                    sticker = data.get("sticker", None)
+
+                    if sticker:
+                        sticker = join("assets", str(f"{sticker}.png"))
                     self.main_window.add_message(f"{data["nikname"]}: {data["message"]}",
-                                            False, aligment=Qt.AlignmentFlag.AlignLeft)
+                                            False, aligment=Qt.AlignmentFlag.AlignLeft,
+                                            icon=sticker)
 
                 elif data["type"] == "new_user":
                     self.main_window.add_message(f"{data["nikname"]} приєднався до чату")
