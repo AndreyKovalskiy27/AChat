@@ -17,7 +17,7 @@ class MainWindow(QMainWindow):
 
         self.design = main_window.MainWindowDesign()
         self.design.setupUi(self)
-        self.block_interface()
+        self.block_chat()
 
         self.selected_sticker = None
         self.stickers = {
@@ -56,26 +56,14 @@ class MainWindow(QMainWindow):
             self.stickers[sticker_number].setStyleSheet("border-radius: 50%; border: 2px solid white;")
             self.selected_sticker = sticker_number
 
-    def block_interface(self) -> None:
-        """
-        Розблоковує кнопку для підключення до серверу та
-        Блокує кнопки для для відправки повідомлень, тощо
-        """
-        self.design.connect_to_server.setEnabled(True)
+    def block_chat(self) -> None:
+        """Заблокувати чат (кнопки для відправки повідомлення та виходу з сервера)"""
         self.design.send_message.setEnabled(False)
-        self.design.message.setEnabled(False)
-        self.design.messages.setEnabled(True)
         self.design.exit.setEnabled(False)
 
-    def unblock_interface(self) -> None:
-        """
-        Блокує кнопку для підключення до серверу та
-        розблоковує кнопки для для відправки повідомлень, тощо
-        """
-        self.design.connect_to_server.setEnabled(False)
+    def unblock_chat(self) -> None:
+        """Розблокувати чат (кнопки для відправки повідомлення та виходу з сервера)"""
         self.design.send_message.setEnabled(True)
-        self.design.message.setEnabled(True)
-        self.design.messages.setEnabled(True)
         self.design.exit.setEnabled(True)
 
     def add_message(self, text: str, bold: bool=True, font_size: int=25,
@@ -128,4 +116,5 @@ class MainWindow(QMainWindow):
             pass
 
         self.add_message("Ви вийшли з серверу")
-        self.block_interface()
+        self.block_chat()
+        self.connect_to_server_window.unblock_connection_form()

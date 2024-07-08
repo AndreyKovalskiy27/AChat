@@ -28,8 +28,10 @@ class ConnectToServerWindow(QMainWindow):
                                                                 self.main_window)
             self.main_window.messages_monitor.start()
 
+            self.close()
+            self.block_connection_form()
             self.main_window.design.messages.clear()
-            self.main_window.unblock_interface()
+            self.main_window.unblock_chat()
             self.main_window.add_message("Ви успішно підключилися до серверу")
             self.connection_thread.terminate()
 
@@ -47,18 +49,9 @@ class ConnectToServerWindow(QMainWindow):
         if ip.strip() and port.strip() and nikname.strip():
             if port.isdecimal():
                 try:
-                    # connection = Connection(ip, int(port), nikname)
                     self.connection_thread = ConnectionThread(ip, int(port), nikname)
                     self.connection_thread.signal.connect(self.connection_signal_handler)
                     self.connection_thread.start()
-
-                    # self.main_window.unblock_interface()
-                    # self.main_window.connection = connection
-                    # self.main_window.messages_monitor = MessagesMonitor(connection, self.main_window)
-                    # self.main_window.messages_monitor.start()
-
-                    # self.main_window.design.messages.clear()
-                    # self.main_window.add_message("Ви успішно підключилися до серверу")
 
                 except Exception as error:
                     messages.show("Не вдалося доєднатися до сервера",
@@ -71,3 +64,17 @@ class ConnectToServerWindow(QMainWindow):
         else:
             messages.show("Введіть вірні данні",
                           "Заповніть всі поля")
+
+    def block_connection_form(self) -> None:
+        """Заблокувати форму для підключення до сервера"""
+        self.design.ip.setEnabled(False)
+        self.design.port.setEnabled(False)
+        self.design.nikname.setEnabled(False)
+        self.design.connect_to_server.setEnabled(False)
+
+    def unblock_connection_form(self) -> None:
+        """Розблокувати форму для підключення до сервера"""
+        self.design.ip.setEnabled(True)
+        self.design.port.setEnabled(True)
+        self.design.nikname.setEnabled(True)
+        self.design.connect_to_server.setEnabled(True)
