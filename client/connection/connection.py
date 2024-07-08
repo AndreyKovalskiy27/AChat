@@ -13,6 +13,7 @@ class Connection:
 
         self.connection_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.connection_socket.connect((ip, port))
+        self.connection_socket.settimeout(3)
 
         key_str = chiper.loads(self.connection_socket.recv(1024))
 
