@@ -1,6 +1,7 @@
 """Модуль головного вікна"""
 
 
+from os.path import join
 from PyQt6.QtWidgets import QMainWindow, QListWidgetItem
 from PyQt6.QtGui import QFont, QIcon
 from PyQt6.QtCore import Qt
@@ -78,16 +79,16 @@ class MainWindow(QMainWindow):
         self.design.exit.setEnabled(True)
 
     def add_message(self, text: str, bold: bool=True, font_size: int=25,
-                    aligment: Qt.AlignmentFlag=Qt.AlignmentFlag.AlignHCenter,
+                    aligment: Qt.AlignmentFlag=Qt.AlignmentFlag.AlignCenter,
                     icon: str=None) -> None:
         """Відображає повідомлення користувачу у список повідомленнь"""
         item = QListWidgetItem()
+        item.setTextAlignment(aligment)
         item.setText(text)
         font = QFont()
         font.setBold(bold)
         font.setPointSize(font_size)
         item.setFont(font)
-        item.setTextAlignment(aligment)
 
         if icon:
             item.setIcon(QIcon(icon))
@@ -103,8 +104,11 @@ class MainWindow(QMainWindow):
                 self.connection.send_message({"type": "message",
                                               "message": message,
                                               "sticker": self.selected_sticker})
+
+                sticker = join("assets", f"{self.selected_sticker}.png") if self.selected_sticker else None
                 self.add_message(f"{self.connection.nikname}: {message}",
-                                False, aligment=Qt.AlignmentFlag.AlignRight)
+                                False, aligment=Qt.AlignmentFlag.AlignRight,
+                                icon=sticker)
 
             except:
                 self.exit()
