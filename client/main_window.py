@@ -2,7 +2,7 @@
 
 
 from PyQt6.QtWidgets import QMainWindow, QListWidgetItem
-from PyQt6.QtGui import QFont
+from PyQt6.QtGui import QFont, QIcon
 from PyQt6.QtCore import Qt
 from design import main_window
 import connect_to_server_window
@@ -78,7 +78,8 @@ class MainWindow(QMainWindow):
         self.design.exit.setEnabled(True)
 
     def add_message(self, text: str, bold: bool=True, font_size: int=25,
-                    aligment: Qt.AlignmentFlag=Qt.AlignmentFlag.AlignHCenter) -> None:
+                    aligment: Qt.AlignmentFlag=Qt.AlignmentFlag.AlignHCenter,
+                    icon: str=None) -> None:
         """Відображає повідомлення користувачу у список повідомленнь"""
         item = QListWidgetItem()
         item.setText(text)
@@ -87,6 +88,10 @@ class MainWindow(QMainWindow):
         font.setPointSize(font_size)
         item.setFont(font)
         item.setTextAlignment(aligment)
+
+        if icon:
+            item.setIcon(QIcon(icon))
+
         self.design.messages.addItem(item)
 
     def send_message(self) -> None:
@@ -95,7 +100,9 @@ class MainWindow(QMainWindow):
 
         if message.strip():
             try:
-                self.connection.send_message({"type": "message", "message": message})
+                self.connection.send_message({"type": "message",
+                                              "message": message,
+                                              "sticker": self.selected_sticker})
                 self.add_message(f"{self.connection.nikname}: {message}",
                                 False, aligment=Qt.AlignmentFlag.AlignRight)
 

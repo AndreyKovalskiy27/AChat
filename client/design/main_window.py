@@ -23,6 +23,7 @@ class MainWindowDesign(object):
         self.messages.setStyleSheet("background-color: rgb(183, 183, 183);\n"
 "border-radius: 15px;")
         self.messages.setObjectName("messages")
+        self.messages.setIconSize(QtCore.QSize(40, 40))
         self.send_message = QtWidgets.QPushButton(parent=self.centralwidget)
         self.send_message.setGeometry(QtCore.QRect(440, 490, 361, 61))
         self.send_message.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))

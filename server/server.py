@@ -68,7 +68,8 @@ class Server:
                         self.send_to_all(
                             {"type": "message",
                             "message": message,
-                            "nikname": nikname},
+                            "nikname": nikname,
+                            "sticker": data.get("sticker", None)},
                             user_socket
                         )
                         print(f"{nikname}: {message}")
