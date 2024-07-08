@@ -15,16 +15,14 @@ class MessagesMonitor(QThread):
 
     def run(self) -> None:
         """Запустити монітогинг повідомленнь від сервера та вивід на єкран"""
+        self.connection.connection_socket.settimeout(None)
+
         while True:
             try:
                 data = self.connection.get_data_from_server()
-                print(data)
 
                 if data["type"] == "message":
-                    sticker = data.get("sticker", None)
-
-                    if sticker:
-                        sticker = join("assets", str(f"{sticker}.png"))
+                    sticker = join("assets", f"{data["sticker"]}.png") if data.get("sticker", None) else None
                     self.main_window.add_message(f"{data["nikname"]}: {data["message"]}",
                                             False, aligment=Qt.AlignmentFlag.AlignLeft,
                                             icon=sticker)
@@ -36,4 +34,4 @@ class MessagesMonitor(QThread):
                     self.main_window.add_message(f"{data["nikname"]} вийшов з чату")
 
             except:
-                break
+                pass
