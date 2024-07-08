@@ -96,7 +96,6 @@ class Server:
         """Відправити повідомлення конкретному користувачу"""
         message = self.chiper.encrypt(message)
         user.send(message)
-        print(f"Повідомлення відправлено користувачу {self.users[user]}")
 
     def send_to_all(self, message: Any,
                     do_not_send_to: socket.socket=None) -> None:
