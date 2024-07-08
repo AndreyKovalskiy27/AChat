@@ -18,12 +18,42 @@ class MainWindow(QMainWindow):
         self.design.setupUi(self)
         self.block_interface()
 
+        self.selected_sticker = None
+        self.stickers = {
+            1: self.design.sticker1,
+            2: self.design.sticker2,
+            3: self.design.sticker3,
+            4: self.design.sticker4,
+            5: self.design.sticker5,
+            6: self.design.sticker6,
+        }
         self.connect_to_server_window = connect_to_server_window.ConnectToServerWindow(self)
 
         # Обробка нажаття на кнопки
         self.design.connect_to_server.clicked.connect(self.connect_to_server_window.show)
         self.design.send_message.clicked.connect(self.send_message)
         self.design.exit.clicked.connect(self.exit)
+
+        # Натискання на стікери
+        self.design.sticker1.clicked.connect(lambda: self.select_sticker(1))
+        self.design.sticker2.clicked.connect(lambda: self.select_sticker(2))
+        self.design.sticker3.clicked.connect(lambda: self.select_sticker(3))
+        self.design.sticker4.clicked.connect(lambda: self.select_sticker(4))
+        self.design.sticker5.clicked.connect(lambda: self.select_sticker(5))
+        self.design.sticker6.clicked.connect(lambda: self.select_sticker(6))
+
+    def select_sticker(self, sticker_number: int) -> None:
+        """Вибрати стікер"""
+        if self.selected_sticker == sticker_number:
+            self.stickers[sticker_number].setStyleSheet("")
+            self.selected_sticker = None
+
+        else:
+            if self.selected_sticker:
+                self.stickers[self.selected_sticker].setStyleSheet("")
+
+            self.stickers[sticker_number].setStyleSheet("border-radius: 50%; border: 2px solid white;")
+            self.selected_sticker = sticker_number
 
     def block_interface(self) -> None:
         """
