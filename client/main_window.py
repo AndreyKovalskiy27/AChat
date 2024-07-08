@@ -33,7 +33,7 @@ class MainWindow(QMainWindow):
         # Обробка нажаття на кнопки
         self.design.connect_to_server.clicked.connect(self.connect_to_server_window.show)
         self.design.send_message.clicked.connect(self.send_message)
-        self.design.exit.clicked.connect(self.exit)
+        self.design.exit.clicked.connect(self.exit_from_server)
 
         # Натискання на стікери
         self.design.sticker1.clicked.connect(lambda: self.select_sticker(1))
@@ -99,14 +99,14 @@ class MainWindow(QMainWindow):
                                 icon=sticker)
 
             except:
-                self.exit()
+                self.exit_from_server()
                 messages.show("Не вдалося відправити повідомлення",
                               "Схоже, сервер зупинив роботу", 
                               messages.QMessageBox.Icon.Critical)
         else:
             messages.show("Не вдалося відправити повідомлення", "Повідомлення не може бути пустим")
 
-    def exit(self) -> None:
+    def exit_from_server(self) -> None:
         """Вийти з серверу"""
         try:
             self.messages_monitor.terminate()
@@ -124,5 +124,5 @@ class MainWindow(QMainWindow):
         Цей код виконується під час виходу з программи
         В данному випадку виконується автоматичний вихід з серверу
         """
-        self.exit()
+        self.exit_from_server()
         a0.accept()
