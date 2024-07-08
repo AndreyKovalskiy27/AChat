@@ -20,9 +20,9 @@
    <widget class="QPushButton" name="connect_to_server">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>210</x>
       <y>220</y>
-      <width>391</width>
+      <width>191</width>
       <height>61</height>
      </rect>
     </property>
@@ -97,6 +97,31 @@ font-size: 15px</string>
     </property>
     <property name="placeholderText">
      <string>Нікнейм</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="save">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>220</y>
+      <width>191</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	background-color: rgb(123, 123, 123);
+	border-radius: 15px;
+}
+QPushButton:hover {
+	background-color: rgb(108, 108, 108);
+}</string>
+    </property>
+    <property name="text">
+     <string>Зберегти</string>
     </property>
    </widget>
   </widget>

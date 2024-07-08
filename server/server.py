@@ -43,7 +43,7 @@ class Server:
                         self.users[user] = nikname
 
                         Thread(target=self.user_handler,
-                            args=(user,)).start()
+                               args=(user,)).start()
 
                         self.send_to_user({"type": "server_ok", "message": "Ви успішно підключенні до сервера"}, user)
                         print(f"{nikname} приєднався до чату")

@@ -17,7 +17,7 @@ class ConnectToServerWindowDesign(object):
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.connect_to_server = QtWidgets.QPushButton(parent=self.centralwidget)
-        self.connect_to_server.setGeometry(QtCore.QRect(10, 220, 391, 61))
+        self.connect_to_server.setGeometry(QtCore.QRect(210, 220, 191, 61))
         self.connect_to_server.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.connect_to_server.setStyleSheet("QPushButton {\n"
 "    background-color: rgb(123, 123, 123);\n"
@@ -48,6 +48,17 @@ class ConnectToServerWindowDesign(object):
 "padding-left: 5px;\n"
 "font-size: 15px")
         self.nikname.setObjectName("nikname")
+        self.save = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.save.setGeometry(QtCore.QRect(10, 220, 191, 61))
+        self.save.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.save.setStyleSheet("QPushButton {\n"
+"    background-color: rgb(123, 123, 123);\n"
+"    border-radius: 15px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(108, 108, 108);\n"
+"}")
+        self.save.setObjectName("save")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -60,3 +71,4 @@ class ConnectToServerWindowDesign(object):
         self.ip.setPlaceholderText(_translate("MainWindow", "IP"))
         self.port.setPlaceholderText(_translate("MainWindow", "Порт"))
         self.nikname.setPlaceholderText(_translate("MainWindow", "Нікнейм"))
+        self.save.setText(_translate("MainWindow", "Зберегти"))
