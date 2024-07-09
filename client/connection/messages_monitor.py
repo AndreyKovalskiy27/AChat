@@ -1,7 +1,7 @@
 """Моніторинг повідомленнь від сервера"""
 
 
-from os.path import join
+from os.path import join, exists
 from PyQt6.QtCore import Qt, QThread
 from connection.connection import Connection
 
@@ -23,6 +23,10 @@ class MessagesMonitor(QThread):
 
                 if data["type"] == "message":
                     sticker = join("assets", f"{data["sticker"]}.png") if data.get("sticker", None) else None
+
+                    if sticker and not exists(sticker):
+                        sticker = join("assets", "error.png")
+
                     self.main_window.add_message(f"{data["nikname"]}: {data["message"]}",
                                             False, aligment=Qt.AlignmentFlag.AlignLeft,
                                             icon=sticker)
