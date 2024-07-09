@@ -2,7 +2,7 @@
 
 
 from os.path import join
-from PyQt6.QtCore import Qt, QThread, pyqtSignal
+from PyQt6.QtCore import Qt, QThread
 from connection.connection import Connection
 
 

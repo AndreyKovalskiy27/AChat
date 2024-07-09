@@ -21,7 +21,7 @@ if __name__ == "__main__":
                     print("\nСервер вимкнений")
                     exit()
 
-            except Exception as error:
+            except Exception:
                 print("\nПомилка під час запуску сервера")
                 print("Перевірте IP та порт")
 
