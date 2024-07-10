@@ -18,7 +18,7 @@ def create_settings_folder() -> None:
 class ConnectionData:
     """Класс для роботи з данними для підключення до серверу"""
     def __init__(self) -> None:
-        self.connection_data_file_path = join(SETTINGS_FOLDER, "settings.json")
+        self.connection_data_file_path = join(SETTINGS_FOLDER, "connection_data.json")
 
     def write(self, ip: str, port: int, nikname: str) -> None:
         """Записати IP, порт та нікнейм у файл"""
