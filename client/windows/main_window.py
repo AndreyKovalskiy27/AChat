@@ -6,7 +6,7 @@ from PyQt6.QtWidgets import QMainWindow, QListWidgetItem
 from PyQt6.QtGui import QFont, QIcon
 from PyQt6.QtCore import Qt
 from design import main_window
-import connect_to_server_window
+from windows import connect_to_server_window
 import messages
 
 
@@ -94,7 +94,7 @@ class MainWindow(QMainWindow):
                                               "message": message,
                                               "sticker": self.selected_sticker})
 
-                sticker = join("assets", f"{self.selected_sticker}.png") if self.selected_sticker else None
+                sticker = join("../assets", f"{self.selected_sticker}.png") if self.selected_sticker else None
                 self.add_message(f"{self.connection.nikname} (Ви): {message}",
                                 False, aligment=Qt.AlignmentFlag.AlignRight,
                                 icon=sticker)

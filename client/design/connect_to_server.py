@@ -12,12 +12,26 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class ConnectToServerWindowDesign(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.setFixedSize(411, 292)
+        MainWindow.setFixedSize(901, 379)
         MainWindow.setStyleSheet("background-color: rgb(64, 65, 62); color: black;")
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.connect_to_server = QtWidgets.QPushButton(parent=self.centralwidget)
-        self.connect_to_server.setGeometry(QtCore.QRect(210, 220, 191, 61))
+        self.frame = QtWidgets.QFrame(parent=self.centralwidget)
+        self.frame.setGeometry(QtCore.QRect(10, 10, 411, 361))
+        self.frame.setStyleSheet("background-color: rgb(35, 35, 35);\n"
+"border-radius: 15px;")
+        self.frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.frame.setObjectName("frame")
+        self.ip = QtWidgets.QLineEdit(parent=self.frame)
+        self.ip.setGeometry(QtCore.QRect(10, 10, 391, 61))
+        self.ip.setStyleSheet("background-color: rgb(229, 229, 229);\n"
+"border-radius: 15px;\n"
+"padding-left: 5px;\n"
+"font-size: 15px")
+        self.ip.setObjectName("ip")
+        self.connect_to_server = QtWidgets.QPushButton(parent=self.frame)
+        self.connect_to_server.setGeometry(QtCore.QRect(10, 290, 391, 61))
         self.connect_to_server.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.connect_to_server.setStyleSheet("QPushButton {\n"
 "    background-color: rgb(123, 123, 123);\n"
@@ -27,29 +41,22 @@ class ConnectToServerWindowDesign(object):
 "    background-color: rgb(108, 108, 108);\n"
 "}")
         self.connect_to_server.setObjectName("connect_to_server")
-        self.ip = QtWidgets.QLineEdit(parent=self.centralwidget)
-        self.ip.setGeometry(QtCore.QRect(10, 10, 391, 61))
-        self.ip.setStyleSheet("background-color: rgb(229, 229, 229);\n"
-"border-radius: 15px;\n"
-"padding-left: 5px;\n"
-"font-size: 15px")
-        self.ip.setObjectName("ip")
-        self.port = QtWidgets.QLineEdit(parent=self.centralwidget)
-        self.port.setGeometry(QtCore.QRect(10, 80, 391, 61))
-        self.port.setStyleSheet("background-color: rgb(229, 229, 229);\n"
-"border-radius: 15px;\n"
-"padding-left: 5px;\n"
-"font-size: 15px")
-        self.port.setObjectName("port")
-        self.nikname = QtWidgets.QLineEdit(parent=self.centralwidget)
+        self.nikname = QtWidgets.QLineEdit(parent=self.frame)
         self.nikname.setGeometry(QtCore.QRect(10, 150, 391, 61))
         self.nikname.setStyleSheet("background-color: rgb(229, 229, 229);\n"
 "border-radius: 15px;\n"
 "padding-left: 5px;\n"
 "font-size: 15px")
         self.nikname.setObjectName("nikname")
-        self.save = QtWidgets.QPushButton(parent=self.centralwidget)
-        self.save.setGeometry(QtCore.QRect(10, 220, 191, 61))
+        self.port = QtWidgets.QLineEdit(parent=self.frame)
+        self.port.setGeometry(QtCore.QRect(10, 80, 391, 61))
+        self.port.setStyleSheet("background-color: rgb(229, 229, 229);\n"
+"border-radius: 15px;\n"
+"padding-left: 5px;\n"
+"font-size: 15px")
+        self.port.setObjectName("port")
+        self.save = QtWidgets.QPushButton(parent=self.frame)
+        self.save.setGeometry(QtCore.QRect(10, 220, 391, 61))
         self.save.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.save.setStyleSheet("QPushButton {\n"
 "    background-color: rgb(123, 123, 123);\n"
@@ -59,6 +66,53 @@ class ConnectToServerWindowDesign(object):
 "    background-color: rgb(108, 108, 108);\n"
 "}")
         self.save.setObjectName("save")
+        self.frame_2 = QtWidgets.QFrame(parent=self.centralwidget)
+        self.frame_2.setGeometry(QtCore.QRect(430, 10, 461, 361))
+        self.frame_2.setStyleSheet("background-color: rgb(35, 35, 35);\n"
+"border-radius: 15px;")
+        self.frame_2.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
+        self.frame_2.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
+        self.frame_2.setObjectName("frame_2")
+        self.servers = QtWidgets.QTableWidget(parent=self.frame_2)
+        self.servers.setGeometry(QtCore.QRect(10, 10, 441, 201))
+        self.servers.setStyleSheet("background-color: rgb(184, 184, 184);\n"
+"border-radius: 15px;")
+        self.servers.setObjectName("servers")
+        self.servers.setColumnCount(0)
+        self.servers.setRowCount(0)
+        self.add_server = QtWidgets.QPushButton(parent=self.frame_2)
+        self.add_server.setGeometry(QtCore.QRect(10, 220, 211, 61))
+        self.add_server.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.add_server.setStyleSheet("QPushButton {\n"
+"    background-color: rgb(123, 123, 123);\n"
+"    border-radius: 15px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(108, 108, 108);\n"
+"}")
+        self.add_server.setObjectName("add_server")
+        self.delete_server = QtWidgets.QPushButton(parent=self.frame_2)
+        self.delete_server.setGeometry(QtCore.QRect(240, 220, 211, 61))
+        self.delete_server.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.delete_server.setStyleSheet("QPushButton {\n"
+"    background-color: rgb(123, 123, 123);\n"
+"    border-radius: 15px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(108, 108, 108);\n"
+"}")
+        self.delete_server.setObjectName("delete_server")
+        self.apply_server = QtWidgets.QPushButton(parent=self.frame_2)
+        self.apply_server.setGeometry(QtCore.QRect(10, 290, 441, 61))
+        self.apply_server.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.apply_server.setStyleSheet("QPushButton {\n"
+"    background-color: rgb(123, 123, 123);\n"
+"    border-radius: 15px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(108, 108, 108);\n"
+"}")
+        self.apply_server.setObjectName("apply_server")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -67,8 +121,11 @@ class ConnectToServerWindowDesign(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "AChat - підключитися до серверу"))
-        self.connect_to_server.setText(_translate("MainWindow", "Підключитися"))
         self.ip.setPlaceholderText(_translate("MainWindow", "IP"))
-        self.port.setPlaceholderText(_translate("MainWindow", "Порт"))
+        self.connect_to_server.setText(_translate("MainWindow", "Підключитися"))
         self.nikname.setPlaceholderText(_translate("MainWindow", "Нікнейм"))
+        self.port.setPlaceholderText(_translate("MainWindow", "Порт"))
         self.save.setText(_translate("MainWindow", "Зберегти"))
+        self.add_server.setText(_translate("MainWindow", "Додати сервер"))
+        self.delete_server.setText(_translate("MainWindow", "Видалити сервер"))
+        self.apply_server.setText(_translate("MainWindow", "Застосувати"))

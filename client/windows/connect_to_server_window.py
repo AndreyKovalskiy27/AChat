@@ -3,6 +3,7 @@
 
 from PyQt6.QtWidgets import QMainWindow
 from design.connect_to_server import ConnectToServerWindowDesign
+from windows.add_server_window import AddServerWindow
 from connection.messages_monitor import MessagesMonitor
 from connection.connection_thread import ConnectionThread
 from connection.connection import Connection
@@ -19,12 +20,14 @@ class ConnectToServerWindow(QMainWindow):
         self.design.setupUi(self)
 
         self.main_window = main_window
+        self.add_server_window = AddServerWindow()
         self.settings = settings.Settings()
         self.load_settings()
 
         # Натискання на кнопки
         self.design.connect_to_server.clicked.connect(self.connect_to_server)
         self.design.save.clicked.connect(self.save_settings)
+        self.design.add_server.clicked.connect(self.add_server_window.show)
 
     def check_not_empty(self) -> None:
         """Перевірити, чи заповнив користувач форму для підключення до серверу"""
