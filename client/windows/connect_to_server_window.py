@@ -23,6 +23,7 @@ class ConnectToServerWindow(QMainWindow):
         self.design.servers.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.design.servers.setColumnCount(3)
         self.design.servers.setHorizontalHeaderLabels(["Назва", "IP", "Порт"])
+        self.design.servers.verticalHeader().setVisible(False)
 
         for column in range(3):
             self.design.servers.setColumnWidth(column, self.design.servers.width() // 3)
