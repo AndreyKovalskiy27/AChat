@@ -94,7 +94,7 @@ class MainWindow(QMainWindow):
                                               "message": message,
                                               "sticker": self.selected_sticker})
 
-                sticker = join("../assets", f"{self.selected_sticker}.png") if self.selected_sticker else None
+                sticker = join("assets", f"{self.selected_sticker}.png") if self.selected_sticker else None
                 self.add_message(f"{self.connection.nikname} (Ви): {message}",
                                 False, aligment=Qt.AlignmentFlag.AlignRight,
                                 icon=sticker)
