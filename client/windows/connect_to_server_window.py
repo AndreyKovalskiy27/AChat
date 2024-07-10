@@ -1,7 +1,7 @@
 """Модуль вікна підключення до сервера"""
 
 
-from PyQt6.QtWidgets import QMainWindow
+from PyQt6.QtWidgets import QMainWindow, QTableWidgetItem, QAbstractItemView
 from design.connect_to_server import ConnectToServerWindowDesign
 from windows.add_server_window import AddServerWindow
 from connection.messages_monitor import MessagesMonitor
@@ -19,14 +19,25 @@ class ConnectToServerWindow(QMainWindow):
         self.design = ConnectToServerWindowDesign()
         self.design.setupUi(self)
 
+        # Налаштування таблиці серверів
+        self.design.servers.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
+        self.design.servers.setColumnCount(3)
+        self.design.servers.setHorizontalHeaderLabels(["Назва", "IP", "Порт"])
+
+        for column in range(3):
+            self.design.servers.setColumnWidth(column, self.design.servers.width() // 3)
+
         self.main_window = main_window
         self.add_server_window = AddServerWindow(self)
         self.connection_data = settings.ConnectionData()
+        self.servers = settings.Servers()
         self.load_connection_data()
+        self.load_servers()
 
         # Натискання на кнопки
         self.design.connect_to_server.clicked.connect(self.connect_to_server)
         self.design.save.clicked.connect(self.save_connection_data)
+
         self.design.add_server.clicked.connect(self.add_server_window.show)
 
     def check_not_empty(self) -> None:
@@ -100,6 +111,23 @@ class ConnectToServerWindow(QMainWindow):
                           "налаштуваннь був пошкодженний. Файл налаштуваннь був видалений",
                           messages.QMessageBox.Icon.Critical,
                           error)
+
+    def load_servers(self) -> None:
+        """Завантажити сервери"""
+        try:
+            servers = self.servers.get_servers()
+            self.design.servers.setRowCount(len(servers.keys()))
+            row = 0
+
+            for server in servers.keys():
+                self.design.servers.setItem(row, 0, QTableWidgetItem(server))
+                self.design.servers.setItem(row, 1, QTableWidgetItem(servers[server]["ip"]))
+                self.design.servers.setItem(row, 2, QTableWidgetItem(servers[server]["port"]))
+                row += 1
+
+        except Exception as error:
+            messages.show("Помилка", "Не вдалося завантажити список ваших серверів",
+                          messages.QMessageBox.Icon.Critical, error)
 
     def block_connection_form(self) -> None:
         """Заблокувати форму для підключення до сервера"""

@@ -9,8 +9,10 @@ import messages
 
 class AddServerWindow(QMainWindow):
     """Вікно додавання сервера"""
-    def __init__(self, parent: QMainWindow) -> None:
-        super().__init__(parent)
+    def __init__(self, connect_to_server_window: QMainWindow) -> None:
+        super().__init__(connect_to_server_window)
+
+        self.connect_to_server_window = connect_to_server_window
 
         self.design = add_server.AddServerWindowDesign()
         self.design.setupUi(self)
@@ -34,6 +36,9 @@ class AddServerWindow(QMainWindow):
                 except Exception as error:
                     messages.show("Помилка", "Не вдалося створити сервер",
                                   messages.QMessageBox.Icon.Critical, error)
+
+                finally:
+                    self.connect_to_server_window.load_servers()
 
             else:
                 messages.show("Введіть вірні данні", "Порт повинен бути числом")
