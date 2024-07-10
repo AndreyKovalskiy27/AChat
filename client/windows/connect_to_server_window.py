@@ -21,12 +21,12 @@ class ConnectToServerWindow(QMainWindow):
 
         self.main_window = main_window
         self.add_server_window = AddServerWindow()
-        self.settings = settings.Settings()
-        self.load_settings()
+        self.connection_data = settings.ConnectionData()
+        self.load_connection_data()
 
         # Натискання на кнопки
         self.design.connect_to_server.clicked.connect(self.connect_to_server)
-        self.design.save.clicked.connect(self.save_settings)
+        self.design.save.clicked.connect(self.save_connection_data)
         self.design.add_server.clicked.connect(self.add_server_window.show)
 
     def check_not_empty(self) -> None:
@@ -76,29 +76,25 @@ class ConnectToServerWindow(QMainWindow):
             self.connection_thread.signal.connect(self.connection_signal_handler)
             self.connection_thread.start()
 
-    def save_settings(self) -> None:
-        """Зберегти налаштування"""
+    def save_connection_data(self) -> None:
+        """Зберегти данні для підключення до серверу"""
         form_data = self.check_not_empty()
 
         if form_data:
-            self.settings.write({
-                "ip": form_data[0],
-                "port": form_data[1],
-                "nikname": form_data[2]
-            })
+            self.connection_data.write(form_data[0], form_data[1], form_data[2])
 
-    def load_settings(self) -> None:
-        """Завантажити налаштування"""
+    def load_connection_data(self) -> None:
+        """Завантажити данні для підключення до серверу"""
         try:
-            settings_json = self.settings.read()
+            connection_data_json = self.connection_data.read()
 
-            if settings_json:
-                self.design.ip.setText(settings_json["ip"])
-                self.design.port.setText(str(settings_json["port"]))
-                self.design.nikname.setText(settings_json["nikname"])
+            if connection_data_json:
+                self.design.ip.setText(connection_data_json["ip"])
+                self.design.port.setText(str(connection_data_json["port"]))
+                self.design.nikname.setText(connection_data_json["nikname"])
 
         except Exception as error:
-            settings.remove(self.settings.settings_file)
+            settings.remove(self.connection_data.connection_data_file_path)
             messages.show("Помилка",
                           "Не вдалося завантажити ваші налаштування. Схоже, файл "\
                           "налаштуваннь був пошкодженний. Файл налаштуваннь був видалений",
