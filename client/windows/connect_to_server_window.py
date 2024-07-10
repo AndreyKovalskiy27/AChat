@@ -20,7 +20,7 @@ class ConnectToServerWindow(QMainWindow):
         self.design.setupUi(self)
 
         self.main_window = main_window
-        self.add_server_window = AddServerWindow()
+        self.add_server_window = AddServerWindow(self)
         self.connection_data = settings.ConnectionData()
         self.load_connection_data()
 
