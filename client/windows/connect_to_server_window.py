@@ -126,6 +126,7 @@ class ConnectToServerWindow(QMainWindow):
                 row += 1
 
         except Exception as error:
+            settings.remove(self.servers.servers_file_path)
             messages.show("Помилка", "Не вдалося завантажити список ваших серверів",
                           messages.QMessageBox.Icon.Critical, error)
 
