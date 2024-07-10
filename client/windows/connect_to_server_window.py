@@ -135,9 +135,15 @@ class ConnectToServerWindow(QMainWindow):
         row = self.design.servers.currentRow()
 
         if row > -1:
-            server_name = self.design.servers.item(row, 0).text()
-            self.servers.delete_server(server_name)
-            self.load_servers()
+            try:
+                server_name = self.design.servers.item(row, 0).text()
+                self.servers.delete_server(server_name)
+                self.load_servers()
+
+            except Exception as error:
+                self.load_servers()
+                messages.show("Помилка", "Не вдалося видалити сервер",
+                              messages.QMessageBox.Icon.Critical, error)
 
     def block_connection_form(self) -> None:
         """Заблокувати форму для підключення до сервера"""
