@@ -39,6 +39,7 @@ class ConnectToServerWindow(QMainWindow):
         self.design.save.clicked.connect(self.save_connection_data)
         self.design.add_server.clicked.connect(self.add_server_window.show)
         self.design.delete_server.clicked.connect(self.delete_server)
+        self.design.apply_server.clicked.connect(self.apply_server)
 
     def check_not_empty(self) -> None:
         """Перевірити, чи заповнив користувач форму для підключення до серверу"""
@@ -129,6 +130,14 @@ class ConnectToServerWindow(QMainWindow):
             settings.remove(self.servers.servers_file_path)
             messages.show("Помилка", "Не вдалося завантажити список ваших серверів",
                           messages.QMessageBox.Icon.Critical, error)
+
+    def apply_server(self) -> None:
+        """Встановити IP та порт вибранного сервера"""
+        row = self.design.servers.currentRow()
+
+        if row > -1:
+            self.design.ip.setText(self.design.servers.item(row, 1).text())
+            self.design.port.setText(self.design.servers.item(row, 2).text())
 
     def delete_server(self) -> None:
         """Видалити сервер"""
