@@ -1,6 +1,8 @@
 """Модуль вікна підключення до сервера"""
 
 
+from os.path import join
+from json import load
 from PyQt6.QtWidgets import QMainWindow, QTableWidgetItem, QAbstractItemView
 from design.connect_to_server import ConnectToServerWindowDesign
 from windows.add_server_window import AddServerWindow
@@ -22,8 +24,13 @@ class ConnectToServerWindow(QMainWindow):
         # Налаштування таблиці серверів
         self.design.servers.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.design.servers.setColumnCount(3)
-        self.design.servers.setHorizontalHeaderLabels(["Назва", "IP", "Порт"])
         self.design.servers.verticalHeader().setVisible(False)
+
+        language = self.design.language
+        with open(join("design", "translation.json"), "r", encoding="utf-8") as translation_file:
+            translation = load(translation_file)[language]
+
+        self.design.servers.setHorizontalHeaderLabels([translation["name"], translation["ip"], translation["port"]])
 
         for column in range(3):
             self.design.servers.setColumnWidth(column, self.design.servers.width() // 3)

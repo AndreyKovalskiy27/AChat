@@ -1,0 +1,36 @@
+{
+    "en": {
+        "stickers": "Stickers",
+        "enter_message": "Enter message",
+        "send": "Send",
+        "exit": "Exit",
+        "connect": "Connect",
+        "connect_to_server_window_title": "AChat - connect to server",
+        "ip": "IP",
+        "port": "Port",
+        "nikname": "Nikname",
+        "name": "Name",
+        "save": "Save",
+        "add_server": "Add server",
+        "add_server_window_title": "AChat - add server",
+        "delete_server": "Delete server",
+        "apply": "Apply"
+    },
+    "ua": {
+        "stickers": "Стікери",
+        "enter_message": "Введіть повідомлення",
+        "send": "Відправити",
+        "exit": "Вийти",
+        "connect": "Підключитися",
+        "connect_to_server_window_title": "AChat - підключитися до серверу",
+        "ip": "IP",
+        "port": "Порт",
+        "nikname": "Нікнейм",
+        "name": "Імʼя",
+        "save": "Зберегти",
+        "add_server": "Додати сервер",
+        "add_server_window_title": "AChat - додати сервер",
+        "delete_server": "Видалити сервер",
+        "apply": "Застосувати"
+    }
+}
