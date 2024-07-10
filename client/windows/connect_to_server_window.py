@@ -37,8 +37,8 @@ class ConnectToServerWindow(QMainWindow):
         # Натискання на кнопки
         self.design.connect_to_server.clicked.connect(self.connect_to_server)
         self.design.save.clicked.connect(self.save_connection_data)
-
         self.design.add_server.clicked.connect(self.add_server_window.show)
+        self.design.delete_server.clicked.connect(self.delete_server)
 
     def check_not_empty(self) -> None:
         """Перевірити, чи заповнив користувач форму для підключення до серверу"""
@@ -129,6 +129,15 @@ class ConnectToServerWindow(QMainWindow):
             settings.remove(self.servers.servers_file_path)
             messages.show("Помилка", "Не вдалося завантажити список ваших серверів",
                           messages.QMessageBox.Icon.Critical, error)
+
+    def delete_server(self) -> None:
+        """Видалити сервер"""
+        row = self.design.servers.currentRow()
+
+        if row > -1:
+            server_name = self.design.servers.item(row, 0).text()
+            self.servers.delete_server(server_name)
+            self.load_servers()
 
     def block_connection_form(self) -> None:
         """Заблокувати форму для підключення до сервера"""

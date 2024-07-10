@@ -63,8 +63,16 @@ class Servers:
         servers[name] = {"ip": ip, "port": port}
         self.write(servers)
 
+    def delete_server(self, name: str) -> None:
+        """Видалити сервер"""
+        servers = self.get_servers()
+        servers.pop(name)
+        self.write(servers)
+
     def get_servers(self) -> Union[dict, None]:
         """Отримати список серверів"""
         if exists(self.servers_file_path):
             with open(self.servers_file_path, "r", encoding="utf-8") as servers_file:
                 return load(servers_file)
+
+        return {}
