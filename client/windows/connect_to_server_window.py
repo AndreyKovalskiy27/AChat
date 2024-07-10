@@ -123,7 +123,7 @@ class ConnectToServerWindow(QMainWindow):
             for server in servers.keys():
                 self.design.servers.setItem(row, 0, QTableWidgetItem(server))
                 self.design.servers.setItem(row, 1, QTableWidgetItem(servers[server]["ip"]))
-                self.design.servers.setItem(row, 2, QTableWidgetItem(servers[server]["port"]))
+                self.design.servers.setItem(row, 2, QTableWidgetItem(str(servers[server]["port"])))
                 row += 1
 
         except Exception as error:

@@ -30,7 +30,7 @@ class AddServerWindow(QMainWindow):
         if name.strip() and ip.strip() and port.strip():
             if port.isdecimal():
                 try:
-                    self.servers.add_server(name, ip, port)
+                    self.servers.add_server(name, ip, int(port))
                     self.close()
 
                 except Exception as error:
