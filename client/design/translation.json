@@ -14,7 +14,10 @@
         "add_server": "Add server",
         "add_server_window_title": "AChat - add server",
         "delete_server": "Delete server",
-        "apply": "Apply"
+        "apply": "Apply",
+        "language_label": "Language",
+        "set_language": "Set language",
+        "translations_note": "Translations may not be 100% accurate"
     },
     "ua": {
         "stickers": "Стікери",
@@ -31,6 +34,9 @@
         "add_server": "Додати сервер",
         "add_server_window_title": "AChat - додати сервер",
         "delete_server": "Видалити сервер",
-        "apply": "Застосувати"
+        "apply": "Застосувати",
+        "language_label": "Мова",
+        "set_language": "Встановити мову",
+        "translations_note": "Переклади можуть бути не на 100% точними"
     }
 }

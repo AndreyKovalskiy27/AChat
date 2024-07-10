@@ -13,7 +13,6 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 
 class MainWindowDesign(object):
     def setupUi(self, MainWindow, language: str="ua"):
-        self.language = language
         MainWindow.setObjectName("MainWindow")
         MainWindow.setFixedSize(1190, 639)
         MainWindow.setWindowOpacity(1.0)
@@ -193,6 +192,8 @@ class MainWindowDesign(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow, language):
+        self.language = language
+
         with open(join("design", "translation.json"), "r", encoding="utf-8") as translation_file:
             translation = load(translation_file)[language]
 
