@@ -58,7 +58,7 @@ class Servers:
         servers = self.get_servers()
 
         if name in servers.keys():
-            raise ValueError("Сервер з таким імʼям вже існує")
+            raise ValueError("Server exists")
 
         servers[name] = {"ip": ip, "port": port}
         self.write(servers)
