@@ -106,7 +106,8 @@ class MainWindow(QMainWindow):
                               translation.TRANSLATION[self.design.language]["sending_message_error"],
                               messages.QMessageBox.Icon.Critical)
         else:
-            messages.show("Не вдалося відправити повідомлення", "Повідомлення не може бути пустим")
+            messages.show(translation.TRANSLATION[self.design.language]["message_empty"],
+                          translation.TRANSLATION[self.design.language]["message_empty"])
 
     def exit_from_server(self) -> None:
         """Вийти з серверу"""

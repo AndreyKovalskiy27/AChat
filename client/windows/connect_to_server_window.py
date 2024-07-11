@@ -47,12 +47,12 @@ class ConnectToServerWindow(QMainWindow):
                 return ip, int(port), nikname
 
             else:
-                messages.show("Введіть вірні данні",
-                          "Порт повинен бути числом")
+                messages.show(translation.TRANSLATION[self.design.language]["port_must_be_number"],
+                              translation.TRANSLATION[self.design.language]["port_must_be_number"])
 
         else:
-            messages.show("Введіть вірні данні",
-                          "Заповніть всі поля")
+            messages.show(translation.TRANSLATION[self.design.language]["enter_all_fields"],
+                          translation.TRANSLATION[self.design.language]["enter_all_fields"])
 
     def connection_signal_handler(self, value) -> None:
         """Обробник сигналів з потока підключення до сервера"""

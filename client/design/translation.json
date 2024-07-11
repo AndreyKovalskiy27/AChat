@@ -24,7 +24,10 @@
         "sending_message_error": "Error while sending message",
         "exit_message": "You exited server",
         "connection_message": "You connected to server",
-        "you": "You"
+        "you": "You",
+        "enter_all_fields": "Enter all fields",
+        "port_must_be_number": "Port must be number",
+        "message_empty": "Message can't be empty"
     },
     "ua": {
         "stickers": "Стікери",
@@ -51,6 +54,9 @@
         "sending_message_error": "Помилка під час надсилання повідомлення",
         "exit_message": "Ви вийшли з серверу",
         "connection_message": "Ви підключилися до серверу",
-        "you": "Ви"
+        "you": "Ви",
+        "enter_all_fields": "Заповніть всі поля",
+        "port_must_be_number": "Порт повиннен бути числом",
+        "message_empty": "Повідомлення не може бути пустим"
     }
 }
