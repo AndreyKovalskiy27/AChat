@@ -100,7 +100,7 @@ class MainWindow(QMainWindow):
                                 False, aligment=Qt.AlignmentFlag.AlignRight,
                                 icon=sticker)
 
-            except:
+            except Exception:
                 self.exit_from_server()
                 messages.show(translation.TRANSLATION[self.design.language]["sending_message_error"],
                               translation.TRANSLATION[self.design.language]["sending_message_error"],
@@ -115,7 +115,7 @@ class MainWindow(QMainWindow):
             self.messages_monitor.terminate()
             self.connection.exit()
 
-        except:
+        except Exception:
             pass
 
         self.add_message(translation.TRANSLATION[self.design.language]["exit_message"])

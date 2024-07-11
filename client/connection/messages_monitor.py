@@ -37,5 +37,5 @@ class MessagesMonitor(QThread):
                 elif data["type"] == "exit":
                     self.main_window.add_message(f"{data["nikname"]} вийшов з чату")
 
-            except:
+            except Exception:
                 pass

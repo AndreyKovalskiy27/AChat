@@ -116,7 +116,7 @@ class ConnectToServerWindow(QMainWindow):
                 self.design.servers.setItem(row, 2, QTableWidgetItem(str(servers[server]["port"])))
                 row += 1
 
-        except:
+        except Exception:
             settings.remove(self.servers.servers_file_path)
 
     def apply_server(self) -> None:

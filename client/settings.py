@@ -37,7 +37,7 @@ class ConnectionData:
             with open(self.connection_data_file_path, "r") as connection_data_file:
                 return load(connection_data_file)
 
-        except:
+        except Exception:
             pass
 
 
