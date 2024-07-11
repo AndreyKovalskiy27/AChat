@@ -76,3 +76,32 @@ class Servers:
                 return load(servers_file)
 
         return {}
+
+
+class Language:
+    """Класс для роботи з мовою программи"""
+    def __init__(self) -> None:
+        self.language_file_path = join(SETTINGS_FOLDER, "language.json")
+
+    def write(self, language: str) -> None:
+        """Записати IP, порт та нікнейм у файл"""
+        create_settings_folder()
+
+        if exists(self.language_file_path):
+            remove(self.language_file_path)
+
+        with open(self.language_file_path, "w", encoding="utf-8") as language_file:
+            dump({"language": language},
+                 language_file, indent=4)
+
+    def read(self) -> Union[dict, None]: 
+        """Отримати данні з файла"""
+        if exists(self.language_file_path):
+            try:
+                with open(self.language_file_path, "r") as language_file:
+                    return load(language_file)
+
+            except Exception:
+                return "ua"
+
+        return "ua"

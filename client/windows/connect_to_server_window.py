@@ -20,11 +20,13 @@ class ConnectToServerWindow(QMainWindow):
         self.design = ConnectToServerWindowDesign()
         self.design.setupUi(self, language)
 
+        self.connection_data = settings.ConnectionData()
+        self.servers = settings.Servers()
+        self.language = settings.Language()
+
         self.main_window = main_window
         self.language_codes = {"Українська": "ua", "English": "en"}
         self.add_server_window = AddServerWindow(self)
-        self.connection_data = settings.ConnectionData()
-        self.servers = settings.Servers()
         self.load_connection_data()
         self.load_servers()
 
@@ -154,6 +156,7 @@ class ConnectToServerWindow(QMainWindow):
         self.main_window.design.retranslateUi(self.main_window, new_language)
         self.design.retranslateUi(self, new_language)
         self.add_server_window.design.retranslateUi(self.add_server_window, new_language)
+        self.language.write(new_language)
 
     def block_connection_form(self) -> None:
         """Заблокувати форму для підключення до сервера"""
