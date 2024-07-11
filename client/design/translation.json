@@ -27,7 +27,9 @@
         "you": "You",
         "enter_all_fields": "Enter all fields",
         "port_must_be_number": "Port must be number",
-        "message_empty": "Message can't be empty"
+        "message_empty": "Message can't be empty",
+        "new_user_connected": "connected to server",
+        "user_exited": "exited from server"
     },
     "ua": {
         "stickers": "Стікери",
@@ -57,6 +59,8 @@
         "you": "Ви",
         "enter_all_fields": "Заповніть всі поля",
         "port_must_be_number": "Порт повиннен бути числом",
-        "message_empty": "Повідомлення не може бути пустим"
+        "message_empty": "Повідомлення не може бути пустим",
+        "new_user_connected": "підключився до серверу",
+        "user_exited": "вийшов з серверу"
     }
 }

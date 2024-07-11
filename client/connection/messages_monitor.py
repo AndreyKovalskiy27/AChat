@@ -3,6 +3,7 @@
 from os.path import join, exists
 from PyQt6.QtCore import Qt, QThread
 from connection.connection import Connection
+import translation
 
 
 class MessagesMonitor(QThread):
@@ -40,11 +41,13 @@ class MessagesMonitor(QThread):
 
                 elif data["type"] == "new_user":
                     self.main_window.add_message(
-                        f"{data["nikname"]} приєднався до чату"
+                        f"{data["nikname"]} {translation.TRANSLATION[self.main_window.design.language]["new_user_connected"]}"
                     )
 
                 elif data["type"] == "exit":
-                    self.main_window.add_message(f"{data["nikname"]} вийшов з чату")
+                    self.main_window.add_message(
+                        f"{data["nikname"]} {translation.TRANSLATION[self.main_window.design.language]["user_exited"]}"
+                    )
 
             except Exception:
                 pass
