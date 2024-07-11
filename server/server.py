@@ -93,11 +93,11 @@ class Server:
                     print(f"{nikname} вийшов")
                     break
 
-            except:
+            except Exception:
                 try:
                     self.users.pop(user_socket)
 
-                except:
+                except Exception:
                     pass
 
                 print(f"{nikname} був видалений з сервера через помилку")
@@ -115,12 +115,12 @@ class Server:
                 try:
                     self.send_to_user(message, user)
 
-                except:
+                except Exception:
                     try:
                         self.users.pop(user)
                         print(
                             f"{self.users[user]} був видалений з сервера через помилку"
                         )
 
-                    except:
+                    except Exception:
                         pass
