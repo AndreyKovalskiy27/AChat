@@ -17,7 +17,7 @@ class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
 
-        language = Language().read()
+        language = Language().get()
 
         self.design = main_window.MainWindowDesign()
         self.design.setupUi(self, language)

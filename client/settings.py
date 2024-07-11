@@ -84,7 +84,7 @@ class Language:
         self.language_file_path = join(SETTINGS_FOLDER, "language.json")
 
     def write(self, language: str) -> None:
-        """Записати IP, порт та нікнейм у файл"""
+        """Записати мову у файл"""
         create_settings_folder()
 
         if exists(self.language_file_path):
@@ -94,8 +94,8 @@ class Language:
             dump({"language": language},
                  language_file, indent=4)
 
-    def read(self) -> str: 
-        """Отримати данні з файла"""
+    def get(self) -> str: 
+        """Отримати мову"""
         if exists(self.language_file_path):
             try:
                 with open(self.language_file_path, "r") as language_file:
