@@ -17,7 +17,10 @@
         "apply": "Apply",
         "language_label": "Language",
         "set_language": "Set language",
-        "translations_note": "Translations may not be 100% accurate"
+        "translations_note": "Translations may not be 100% accurate",
+        "connection_to_server_error": "Error while connecting to server",
+        "server_deletion_error": "Error while deleting server",
+        "server_add_error": "Error while adding a new server"
     },
     "ua": {
         "stickers": "Стікери",
@@ -37,6 +40,9 @@
         "apply": "Застосувати",
         "language_label": "Мова",
         "set_language": "Встановити мову",
-        "translations_note": "Переклади можуть бути не на 100% точними"
+        "translations_note": "Переклади можуть бути не на 100% точними",
+        "connection_to_server_error": "Помилка під час підключення до сервера",
+        "server_deletion_error": "Помилка під час видалення сервера",
+        "server_add_error": "Помилка під час додавання нового сервера"
     }
 }
