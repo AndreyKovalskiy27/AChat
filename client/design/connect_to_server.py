@@ -12,7 +12,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 
 
 class ConnectToServerWindowDesign(object):
-    def setupUi(self, MainWindow, language: str="en"):
+    def setupUi(self, MainWindow, language: str="ua"):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setFixedSize(901, 579)
         MainWindow.setStyleSheet("background-color: rgb(64, 65, 62);\n"
@@ -170,7 +170,7 @@ class ConnectToServerWindowDesign(object):
         MainWindow.setWindowTitle(_translate("MainWindow", translation["connect_to_server_window_title"]))
         self.ip.setPlaceholderText(_translate("MainWindow", translation["ip"]))
         self.connect_to_server.setText(_translate("MainWindow", translation["connect"]))
-        self.nikname.setPlaceholderText(_translate("MainWindow", translation["ip"]))
+        self.nikname.setPlaceholderText(_translate("MainWindow", translation["nikname"]))
         self.port.setPlaceholderText(_translate("MainWindow", translation["port"]))
         self.save.setText(_translate("MainWindow", translation["save"]))
         self.add_server.setText(_translate("MainWindow", translation["add_server"]))
@@ -181,3 +181,16 @@ class ConnectToServerWindowDesign(object):
         self.new_language.setItemText(1, _translate("MainWindow", "English"))
         self.set_language.setText(_translate("MainWindow", translation["set_language"]))
         self.translations_note.setText(_translate("MainWindow", translation["translations_note"]))
+
+        # Налаштування таблиці серверів
+        self.servers.setEditTriggers(QtWidgets.QAbstractItemView.EditTrigger.NoEditTriggers)
+        self.servers.setColumnCount(3)
+        self.servers.verticalHeader().setVisible(False)
+
+        with open(join("design", "translation.json"), "r", encoding="utf-8") as translation_file:
+            translation = load(translation_file)[language]
+
+        self.servers.setHorizontalHeaderLabels([translation["name"], translation["ip"], translation["port"]])
+
+        for column in range(3):
+            self.servers.setColumnWidth(column, self.servers.width() // 3)

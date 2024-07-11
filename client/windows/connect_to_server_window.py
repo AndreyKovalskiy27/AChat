@@ -15,27 +15,14 @@ import messages
 
 class ConnectToServerWindow(QMainWindow):
     """Вікно підключення до сервера"""
-    def __init__(self, main_window) -> None:
+    def __init__(self, main_window, language: str="ua") -> None:
         super().__init__(main_window)
 
         self.design = ConnectToServerWindowDesign()
-        self.design.setupUi(self)
-
-        # Налаштування таблиці серверів
-        self.design.servers.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
-        self.design.servers.setColumnCount(3)
-        self.design.servers.verticalHeader().setVisible(False)
-
-        language = self.design.language
-        with open(join("design", "translation.json"), "r", encoding="utf-8") as translation_file:
-            translation = load(translation_file)[language]
-
-        self.design.servers.setHorizontalHeaderLabels([translation["name"], translation["ip"], translation["port"]])
-
-        for column in range(3):
-            self.design.servers.setColumnWidth(column, self.design.servers.width() // 3)
+        self.design.setupUi(self, language)
 
         self.main_window = main_window
+        self.language_codes = {"Українська": "ua", "English": "en"}
         self.add_server_window = AddServerWindow(self)
         self.connection_data = settings.ConnectionData()
         self.servers = settings.Servers()
@@ -48,6 +35,7 @@ class ConnectToServerWindow(QMainWindow):
         self.design.add_server.clicked.connect(self.add_server_window.show)
         self.design.delete_server.clicked.connect(self.delete_server)
         self.design.apply_server.clicked.connect(self.apply_server)
+        self.design.set_language.clicked.connect(self.set_language)
 
     def check_not_empty(self) -> None:
         """Перевірити, чи заповнив користувач форму для підключення до серверу"""
@@ -161,6 +149,13 @@ class ConnectToServerWindow(QMainWindow):
                 self.load_servers()
                 messages.show("Помилка", "Не вдалося видалити сервер",
                               messages.QMessageBox.Icon.Critical, error)
+
+    def set_language(self) -> None:
+        """Встановити мову"""
+        new_language = self.language_codes[self.design.new_language.currentText()]
+        self.main_window.design.retranslateUi(self.main_window, new_language)
+        self.design.retranslateUi(self, new_language)
+        self.add_server_window.design.retranslateUi(self.add_server_window, new_language)
 
     def block_connection_form(self) -> None:
         """Заблокувати форму для підключення до сервера"""

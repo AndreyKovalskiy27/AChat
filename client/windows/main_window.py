@@ -12,11 +12,11 @@ import messages
 
 class MainWindow(QMainWindow):
     """Головне вікно"""
-    def __init__(self) -> None:
+    def __init__(self, language: str="ua") -> None:
         super().__init__()
 
         self.design = main_window.MainWindowDesign()
-        self.design.setupUi(self)
+        self.design.setupUi(self, language)
         self.block_chat()
 
         self.selected_sticker = None
