@@ -20,7 +20,8 @@
         "translations_note": "Translations may not be 100% accurate",
         "connection_to_server_error": "Error while connecting to server",
         "server_deletion_error": "Error while deleting server",
-        "server_add_error": "Error while adding a new server"
+        "server_add_error": "Error while adding a new server",
+        "error": "Error"
     },
     "ua": {
         "stickers": "Стікери",
@@ -43,6 +44,7 @@
         "translations_note": "Переклади можуть бути не на 100% точними",
         "connection_to_server_error": "Помилка під час підключення до сервера",
         "server_deletion_error": "Помилка під час видалення сервера",
-        "server_add_error": "Помилка під час додавання нового сервера"
+        "server_add_error": "Помилка під час додавання нового сервера",
+        "error": "Помилка"
     }
 }
