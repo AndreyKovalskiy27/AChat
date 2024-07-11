@@ -10,13 +10,13 @@ import messages
 
 class AddServerWindow(QMainWindow):
     """Вікно додавання сервера"""
-    def __init__(self, connect_to_server_window: QMainWindow) -> None:
+    def __init__(self, connect_to_server_window: QMainWindow, language: str="ua") -> None:
         super().__init__(connect_to_server_window)
 
         self.connect_to_server_window = connect_to_server_window
 
         self.design = add_server.AddServerWindowDesign()
-        self.design.setupUi(self)
+        self.design.setupUi(self, language)
 
         self.servers = Servers()
 

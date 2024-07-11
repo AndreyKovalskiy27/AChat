@@ -26,7 +26,7 @@ class ConnectToServerWindow(QMainWindow):
 
         self.main_window = main_window
         self.language_codes = {"Українська": "ua", "English": "en"}
-        self.add_server_window = AddServerWindow(self)
+        self.add_server_window = AddServerWindow(self, language)
         self.load_connection_data()
         self.load_servers()
 

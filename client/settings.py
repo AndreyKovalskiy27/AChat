@@ -94,12 +94,12 @@ class Language:
             dump({"language": language},
                  language_file, indent=4)
 
-    def read(self) -> Union[dict, None]: 
+    def read(self) -> str: 
         """Отримати данні з файла"""
         if exists(self.language_file_path):
             try:
                 with open(self.language_file_path, "r") as language_file:
-                    return load(language_file)
+                    return load(language_file)["language"]
 
             except Exception:
                 return "ua"

@@ -7,6 +7,7 @@ from PyQt6.QtGui import QFont, QIcon
 from PyQt6.QtCore import Qt
 from design import main_window
 from windows import connect_to_server_window
+from settings import Language
 import messages
 import translation
 
@@ -16,8 +17,10 @@ class MainWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
 
+        language = Language().read()
+
         self.design = main_window.MainWindowDesign()
-        self.design.setupUi(self)
+        self.design.setupUi(self, language)
         self.block_chat()
 
         self.selected_sticker = None
@@ -29,7 +32,7 @@ class MainWindow(QMainWindow):
             5: self.design.sticker5,
             6: self.design.sticker6,
         }
-        self.connect_to_server_window = connect_to_server_window.ConnectToServerWindow(self)
+        self.connect_to_server_window = connect_to_server_window.ConnectToServerWindow(self, language)
 
         # Обробка нажаття на кнопки
         self.design.connect_to_server.clicked.connect(self.connect_to_server_window.show)
