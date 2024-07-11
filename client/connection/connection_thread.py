@@ -1,6 +1,5 @@
 """Поток для підключення до серверу"""
 
-
 from PyQt6.QtCore import QThread, pyqtSignal
 from connection.connection import Connection
 
@@ -11,6 +10,7 @@ class ConnectionThread(QThread):
     Потрібен для того, щоб підключитися до серверу на фоні,
     без зависання інтерфейсу
     """
+
     signal = pyqtSignal(object)
 
     def __init__(self, ip: str, port: int, nikname: str) -> None:
@@ -21,8 +21,7 @@ class ConnectionThread(QThread):
 
     def run(self) -> None:
         try:
-            connection = Connection(self.ip, self.port,
-                                        self.nikname)
+            connection = Connection(self.ip, self.port, self.nikname)
             self.signal.emit(connection)
 
         except TimeoutError:

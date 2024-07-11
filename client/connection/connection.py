@@ -1,6 +1,5 @@
 """Модуль для зʼєднання з сервером"""
 
-
 from typing import Any
 import socket
 from connection import chiper
@@ -8,6 +7,7 @@ from connection import chiper
 
 class Connection:
     """Класс для зʼєднання з сервером"""
+
     def __init__(self, ip: str, port: int, nikname: str) -> None:
         self.nikname = nikname
 
@@ -23,8 +23,11 @@ class Connection:
         server_answer: dict = self.get_data_from_server()
 
         if server_answer["type"] != "server_ok":
-            raise ConnectionError(server_answer.get("message",
-                                                    "The server did not give you permission to connect"))
+            raise ConnectionError(
+                server_answer.get(
+                    "message", "The server did not give you permission to connect"
+                )
+            )
 
     def get_data_from_server(self) -> Any:
         """Отримати данні з серверу"""

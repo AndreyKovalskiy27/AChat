@@ -1,6 +1,5 @@
 """Модуль головного вікна"""
 
-
 from os.path import join
 from PyQt6.QtWidgets import QMainWindow, QListWidgetItem
 from PyQt6.QtGui import QFont, QIcon
@@ -14,6 +13,7 @@ import translation
 
 class MainWindow(QMainWindow):
     """Головне вікно"""
+
     def __init__(self) -> None:
         super().__init__()
 
@@ -32,10 +32,14 @@ class MainWindow(QMainWindow):
             5: self.design.sticker5,
             6: self.design.sticker6,
         }
-        self.connect_to_server_window = connect_to_server_window.ConnectToServerWindow(self, language)
+        self.connect_to_server_window = connect_to_server_window.ConnectToServerWindow(
+            self, language
+        )
 
         # Обробка нажаття на кнопки
-        self.design.connect_to_server.clicked.connect(self.connect_to_server_window.show)
+        self.design.connect_to_server.clicked.connect(
+            self.connect_to_server_window.show
+        )
         self.design.send_message.clicked.connect(self.send_message)
         self.design.exit.clicked.connect(self.exit_from_server)
 
@@ -57,7 +61,9 @@ class MainWindow(QMainWindow):
             if self.selected_sticker:
                 self.stickers[self.selected_sticker].setStyleSheet("")
 
-            self.stickers[sticker_number].setStyleSheet("border-radius: 50%; border: 2px solid white;")
+            self.stickers[sticker_number].setStyleSheet(
+                "border-radius: 50%; border: 2px solid white;"
+            )
             self.selected_sticker = sticker_number
 
     def block_chat(self) -> None:
@@ -70,9 +76,14 @@ class MainWindow(QMainWindow):
         self.design.send_message.setEnabled(True)
         self.design.exit.setEnabled(True)
 
-    def add_message(self, text: str, bold: bool=True, font_size: int=25,
-                    aligment: Qt.AlignmentFlag=Qt.AlignmentFlag.AlignCenter,
-                    icon: str=None) -> None:
+    def add_message(
+        self,
+        text: str,
+        bold: bool = True,
+        font_size: int = 25,
+        aligment: Qt.AlignmentFlag = Qt.AlignmentFlag.AlignCenter,
+        icon: str = None,
+    ) -> None:
         """Відображає повідомлення користувачу у список повідомленнь"""
         item = QListWidgetItem()
         item.setTextAlignment(aligment)
@@ -86,7 +97,7 @@ class MainWindow(QMainWindow):
             item.setIcon(QIcon(icon))
 
         self.design.messages.addItem(item)
-        self.design.messages.scrollToBottom() # Автоскролл
+        self.design.messages.scrollToBottom()  # Автоскролл
 
     def send_message(self) -> None:
         """Відправити повідомлення"""
@@ -94,23 +105,42 @@ class MainWindow(QMainWindow):
 
         if message.strip():
             try:
-                self.connection.send_message({"type": "message",
-                                              "message": message,
-                                              "sticker": self.selected_sticker})
+                self.connection.send_message(
+                    {
+                        "type": "message",
+                        "message": message,
+                        "sticker": self.selected_sticker,
+                    }
+                )
 
-                sticker = join("assets", f"{self.selected_sticker}.png") if self.selected_sticker else None
-                self.add_message(f"{self.connection.nikname} ({translation.TRANSLATION[self.design.language]["you"]}): {message}",
-                                False, aligment=Qt.AlignmentFlag.AlignRight,
-                                icon=sticker)
+                sticker = (
+                    join("assets", f"{self.selected_sticker}.png")
+                    if self.selected_sticker
+                    else None
+                )
+                self.add_message(
+                    f"{self.connection.nikname} ({translation.TRANSLATION[self.design.language]["you"]}): {message}",
+                    False,
+                    aligment=Qt.AlignmentFlag.AlignRight,
+                    icon=sticker,
+                )
 
             except Exception:
                 self.exit_from_server()
-                messages.show(translation.TRANSLATION[self.design.language]["sending_message_error"],
-                              translation.TRANSLATION[self.design.language]["sending_message_error"],
-                              messages.QMessageBox.Icon.Critical)
+                messages.show(
+                    translation.TRANSLATION[self.design.language][
+                        "sending_message_error"
+                    ],
+                    translation.TRANSLATION[self.design.language][
+                        "sending_message_error"
+                    ],
+                    messages.QMessageBox.Icon.Critical,
+                )
         else:
-            messages.show(translation.TRANSLATION[self.design.language]["message_empty"],
-                          translation.TRANSLATION[self.design.language]["message_empty"])
+            messages.show(
+                translation.TRANSLATION[self.design.language]["message_empty"],
+                translation.TRANSLATION[self.design.language]["message_empty"],
+            )
 
     def exit_from_server(self) -> None:
         """Вийти з серверу"""

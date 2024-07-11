@@ -1,6 +1,5 @@
 """Головний модуль. Запускає программу"""
 
-
 import sys
 from PyQt6.QtWidgets import QApplication
 from windows import main_window

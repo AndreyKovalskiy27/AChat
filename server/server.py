@@ -1,6 +1,5 @@
 """Сервер"""
 
-
 from typing import Any
 from threading import Thread
 import socket
@@ -9,9 +8,9 @@ import chiper
 
 class Server:
     """Сервер"""
-    def __init__(self, ip: str, port: int, max_users: int=0) -> None:
-        self.server_socket = socket.socket(socket.AF_INET,
-                                           socket.SOCK_STREAM)
+
+    def __init__(self, ip: str, port: int, max_users: int = 0) -> None:
+        self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_socket.bind((ip, port))
         self.server_socket.listen(max_users)
 
@@ -35,20 +34,30 @@ class Server:
                     nikname = data["nikname"]
 
                     if nikname in self.users.values():
-                        self.send_to_user({"type": "server_not_ok", "message": "Такий нікнейм вже зайнятий"},
-                                          user)
+                        self.send_to_user(
+                            {
+                                "type": "server_not_ok",
+                                "message": "Такий нікнейм вже зайнятий",
+                            },
+                            user,
+                        )
 
                     else:
                         self.send_to_all({"type": "new_user", "nikname": nikname})
                         self.users[user] = nikname
 
-                        Thread(target=self.user_handler,
-                               args=(user,)).start()
+                        Thread(target=self.user_handler, args=(user,)).start()
 
-                        self.send_to_user({"type": "server_ok", "message": "Ви успішно підключенні до сервера"}, user)
+                        self.send_to_user(
+                            {
+                                "type": "server_ok",
+                                "message": "Ви успішно підключенні до сервера",
+                            },
+                            user,
+                        )
                         print(f"{nikname} приєднався до чату")
 
-            except Exception: 
+            except Exception:
                 pass
 
     def user_handler(self, user_socket: socket.socket) -> None:
@@ -66,11 +75,13 @@ class Server:
 
                     if message.strip():
                         self.send_to_all(
-                            {"type": "message",
-                            "message": message,
-                            "nikname": nikname,
-                            "sticker": data.get("sticker", None)},
-                            user_socket
+                            {
+                                "type": "message",
+                                "message": message,
+                                "nikname": nikname,
+                                "sticker": data.get("sticker", None),
+                            },
+                            user_socket,
                         )
                         print(f"{nikname}: {message}")
 
@@ -97,8 +108,7 @@ class Server:
         message = self.chiper.encrypt(message)
         user.send(message)
 
-    def send_to_all(self, message: Any,
-                    do_not_send_to: socket.socket=None) -> None:
+    def send_to_all(self, message: Any, do_not_send_to: socket.socket = None) -> None:
         """Відправити повідомлення всім користувачам на сервері"""
         for user in self.users.keys():
             if user != do_not_send_to:
@@ -108,7 +118,9 @@ class Server:
                 except:
                     try:
                         self.users.pop(user)
-                        print(f"{self.users[user]} був видалений з сервера через помилку")
+                        print(
+                            f"{self.users[user]} був видалений з сервера через помилку"
+                        )
 
                     except:
                         pass

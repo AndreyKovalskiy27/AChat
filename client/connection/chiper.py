@@ -1,6 +1,5 @@
 """Шифрувальник"""
 
-
 from typing import Any
 from pickle import dumps, loads
 from cryptography.fernet import Fernet
@@ -8,6 +7,7 @@ from cryptography.fernet import Fernet
 
 class Chiper:
     """Шифрувальник"""
+
     def __init__(self, key) -> None:
         self.chiper = Fernet(key)
 

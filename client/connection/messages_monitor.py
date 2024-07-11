@@ -1,6 +1,5 @@
 """Моніторинг повідомленнь від сервера"""
 
-
 from os.path import join, exists
 from PyQt6.QtCore import Qt, QThread
 from connection.connection import Connection
@@ -8,6 +7,7 @@ from connection.connection import Connection
 
 class MessagesMonitor(QThread):
     """Монітогинг повідомленнь від сервера та вивід на єкран"""
+
     def __init__(self, connection: Connection, main_window) -> None:
         super().__init__()
         self.connection = connection
@@ -22,17 +22,26 @@ class MessagesMonitor(QThread):
                 data = self.connection.get_data_from_server()
 
                 if data["type"] == "message":
-                    sticker = join("assets", f"{data["sticker"]}.png") if data.get("sticker", None) else None
+                    sticker = (
+                        join("assets", f"{data["sticker"]}.png")
+                        if data.get("sticker", None)
+                        else None
+                    )
 
                     if sticker and not exists(sticker):
                         sticker = join("assets", "error.png")
 
-                    self.main_window.add_message(f"{data["nikname"]}: {data["message"]}",
-                                            False, aligment=Qt.AlignmentFlag.AlignLeft,
-                                            icon=sticker)
+                    self.main_window.add_message(
+                        f"{data["nikname"]}: {data["message"]}",
+                        False,
+                        aligment=Qt.AlignmentFlag.AlignLeft,
+                        icon=sticker,
+                    )
 
                 elif data["type"] == "new_user":
-                    self.main_window.add_message(f"{data["nikname"]} приєднався до чату")
+                    self.main_window.add_message(
+                        f"{data["nikname"]} приєднався до чату"
+                    )
 
                 elif data["type"] == "exit":
                     self.main_window.add_message(f"{data["nikname"]} вийшов з чату")

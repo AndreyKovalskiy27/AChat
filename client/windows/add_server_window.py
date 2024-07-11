@@ -1,6 +1,5 @@
 """Вікно додавання сервера"""
 
-
 import translation
 from PyQt6.QtWidgets import QMainWindow
 from design import add_server
@@ -10,7 +9,10 @@ import messages
 
 class AddServerWindow(QMainWindow):
     """Вікно додавання сервера"""
-    def __init__(self, connect_to_server_window: QMainWindow, language: str="ua") -> None:
+
+    def __init__(
+        self, connect_to_server_window: QMainWindow, language: str = "ua"
+    ) -> None:
         super().__init__(connect_to_server_window)
 
         self.connect_to_server_window = connect_to_server_window
@@ -35,17 +37,32 @@ class AddServerWindow(QMainWindow):
                     self.close()
 
                 except Exception as error:
-                    messages.show(translation.TRANSLATION[self.design.language]["server_add_error"],
-                                  translation.TRANSLATION[self.design.language]["server_add_error"],
-                                  messages.QMessageBox.Icon.Critical, error)
+                    messages.show(
+                        translation.TRANSLATION[self.design.language][
+                            "server_add_error"
+                        ],
+                        translation.TRANSLATION[self.design.language][
+                            "server_add_error"
+                        ],
+                        messages.QMessageBox.Icon.Critical,
+                        error,
+                    )
 
                 finally:
                     self.connect_to_server_window.load_servers()
 
             else:
-                messages.show(translation.TRANSLATION[self.design.language]["port_must_be_number"],
-                              translation.TRANSLATION[self.design.language]["port_must_be_number"])
+                messages.show(
+                    translation.TRANSLATION[self.design.language][
+                        "port_must_be_number"
+                    ],
+                    translation.TRANSLATION[self.design.language][
+                        "port_must_be_number"
+                    ],
+                )
 
         else:
-            messages.show(translation.TRANSLATION[self.design.language]["enter_all_fields"],
-                          translation.TRANSLATION[self.design.language]["enter_all_fields"])
+            messages.show(
+                translation.TRANSLATION[self.design.language]["enter_all_fields"],
+                translation.TRANSLATION[self.design.language]["enter_all_fields"],
+            )

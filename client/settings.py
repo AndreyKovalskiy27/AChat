@@ -1,6 +1,5 @@
 """Модуль для роботи з налаштуваннями программи"""
 
-
 from typing import Union
 from os.path import expanduser, join, exists
 from os import mkdir, remove
@@ -8,6 +7,7 @@ from json import load, dump
 
 
 SETTINGS_FOLDER = join(expanduser("~"), ".achat-data")
+
 
 def create_settings_folder() -> None:
     """Створити папку налаштуваннь"""
@@ -17,6 +17,7 @@ def create_settings_folder() -> None:
 
 class ConnectionData:
     """Класс для роботи з данними для підключення до серверу"""
+
     def __init__(self) -> None:
         self.connection_data_file_path = join(SETTINGS_FOLDER, "connection_data.json")
 
@@ -27,11 +28,16 @@ class ConnectionData:
         if exists(self.connection_data_file_path):
             remove(self.connection_data_file_path)
 
-        with open(self.connection_data_file_path, "w", encoding="utf-8") as connection_data_file:
-            dump({"ip": ip, "port": port, "nikname": nikname},
-                 connection_data_file, indent=4)
+        with open(
+            self.connection_data_file_path, "w", encoding="utf-8"
+        ) as connection_data_file:
+            dump(
+                {"ip": ip, "port": port, "nikname": nikname},
+                connection_data_file,
+                indent=4,
+            )
 
-    def read(self) -> Union[dict, None]: 
+    def read(self) -> Union[dict, None]:
         """Отримати данні з файла"""
         try:
             with open(self.connection_data_file_path, "r") as connection_data_file:
@@ -43,6 +49,7 @@ class ConnectionData:
 
 class Servers:
     """Класс для роботи з серверами"""
+
     def __init__(self) -> None:
         self.servers_file_path = join(SETTINGS_FOLDER, "servers.json")
 
@@ -80,6 +87,7 @@ class Servers:
 
 class Language:
     """Класс для роботи з мовою программи"""
+
     def __init__(self) -> None:
         self.language_file_path = join(SETTINGS_FOLDER, "language.json")
 
@@ -91,10 +99,9 @@ class Language:
             remove(self.language_file_path)
 
         with open(self.language_file_path, "w", encoding="utf-8") as language_file:
-            dump({"language": language},
-                 language_file, indent=4)
+            dump({"language": language}, language_file, indent=4)
 
-    def get(self) -> str: 
+    def get(self) -> str:
         """Отримати мову"""
         if exists(self.language_file_path):
             try:
