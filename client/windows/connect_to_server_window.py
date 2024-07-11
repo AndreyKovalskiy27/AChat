@@ -1,9 +1,7 @@
 """Модуль вікна підключення до сервера"""
 
 
-from os.path import join
-from json import load
-from PyQt6.QtWidgets import QMainWindow, QTableWidgetItem, QAbstractItemView
+from PyQt6.QtWidgets import QMainWindow, QTableWidgetItem
 from design.connect_to_server import ConnectToServerWindowDesign
 from windows.add_server_window import AddServerWindow
 from connection.messages_monitor import MessagesMonitor
@@ -11,6 +9,7 @@ from connection.connection_thread import ConnectionThread
 from connection.connection import Connection
 import settings
 import messages
+import translation
 
 
 class ConnectToServerWindow(QMainWindow):
@@ -67,12 +66,12 @@ class ConnectToServerWindow(QMainWindow):
             self.block_connection_form()
             self.main_window.design.messages.clear()
             self.main_window.unblock_chat()
-            self.main_window.add_message("Ви успішно підключилися до серверу")
+            self.main_window.add_message(translation.TRANSLATION[self.design.language]["connection_message"])
             self.connection_thread.terminate()
 
         else:
-            messages.show("Не вдалося доєднатися до сервера",
-                        "Не вдалося доєднатися до сервера. Перевірте IP та порт",
+            messages.show(translation.TRANSLATION[self.design.language]["connection_to_server_error"],
+                        translation.TRANSLATION[self.design.language]["connection_to_server_error"],
                         messages.QMessageBox.Icon.Critical, value)
 
     def connect_to_server(self) -> None:
@@ -101,13 +100,8 @@ class ConnectToServerWindow(QMainWindow):
                 self.design.port.setText(str(connection_data_json["port"]))
                 self.design.nikname.setText(connection_data_json["nikname"])
 
-        except Exception as error:
+        except Exception:
             settings.remove(self.connection_data.connection_data_file_path)
-            messages.show("Помилка",
-                          "Не вдалося завантажити ваші налаштування. Схоже, файл "\
-                          "налаштуваннь був пошкодженний. Файл налаштуваннь був видалений",
-                          messages.QMessageBox.Icon.Critical,
-                          error)
 
     def load_servers(self) -> None:
         """Завантажити сервери"""
@@ -122,7 +116,7 @@ class ConnectToServerWindow(QMainWindow):
                 self.design.servers.setItem(row, 2, QTableWidgetItem(str(servers[server]["port"])))
                 row += 1
 
-        except Exception as error:
+        except:
             settings.remove(self.servers.servers_file_path)
 
     def apply_server(self) -> None:
@@ -145,12 +139,18 @@ class ConnectToServerWindow(QMainWindow):
 
             except Exception as error:
                 self.load_servers()
-                messages.show("Помилка", "Не вдалося видалити сервер",
+                messages.show(translation.TRANSLATION[self.design.language]["server_deletion_error"],
+                              translation.TRANSLATION[self.design.language]["server_deletion_error"],
                               messages.QMessageBox.Icon.Critical, error)
 
     def set_language(self) -> None:
         """Встановити мову"""
         new_language = self.language_codes[self.design.new_language.currentText()]
+
+        self.main_window.design.language = new_language
+        self.design.language = new_language
+        self.add_server_window.design.language = new_language
+
         self.main_window.design.retranslateUi(self.main_window, new_language)
         self.design.retranslateUi(self, new_language)
         self.add_server_window.design.retranslateUi(self.add_server_window, new_language)

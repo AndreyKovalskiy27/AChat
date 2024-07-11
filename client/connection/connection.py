@@ -28,8 +28,10 @@ class Connection:
 
     def get_data_from_server(self) -> Any:
         """Отримати данні з серверу"""
+        self.connection_socket.settimeout(1)
         data = self.connection_socket.recv(1024)
         data = self.chiper.decrypt(data)
+        self.connection_socket.settimeout(None)
         return data
 
     def send_message(self, message: Any) -> None:

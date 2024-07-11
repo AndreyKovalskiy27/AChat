@@ -1,6 +1,7 @@
 """Вікно додавання сервера"""
 
 
+import translation
 from PyQt6.QtWidgets import QMainWindow
 from design import add_server
 from settings import Servers
@@ -9,13 +10,13 @@ import messages
 
 class AddServerWindow(QMainWindow):
     """Вікно додавання сервера"""
-    def __init__(self, connect_to_server_window: QMainWindow, language: str="ua") -> None:
+    def __init__(self, connect_to_server_window: QMainWindow) -> None:
         super().__init__(connect_to_server_window)
 
         self.connect_to_server_window = connect_to_server_window
 
         self.design = add_server.AddServerWindowDesign()
-        self.design.setupUi(self, language)
+        self.design.setupUi(self)
 
         self.servers = Servers()
 
@@ -34,7 +35,8 @@ class AddServerWindow(QMainWindow):
                     self.close()
 
                 except Exception as error:
-                    messages.show("Помилка", "Не вдалося створити сервер",
+                    messages.show(translation.TRANSLATION[self.design.language]["server_add_error"],
+                                  translation.TRANSLATION[self.design.language]["server_add_error"],
                                   messages.QMessageBox.Icon.Critical, error)
 
                 finally:

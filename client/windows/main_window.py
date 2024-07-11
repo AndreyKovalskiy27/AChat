@@ -8,15 +8,16 @@ from PyQt6.QtCore import Qt
 from design import main_window
 from windows import connect_to_server_window
 import messages
+import translation
 
 
 class MainWindow(QMainWindow):
     """Головне вікно"""
-    def __init__(self, language: str="ua") -> None:
+    def __init__(self) -> None:
         super().__init__()
 
         self.design = main_window.MainWindowDesign()
-        self.design.setupUi(self, language)
+        self.design.setupUi(self)
         self.block_chat()
 
         self.selected_sticker = None
@@ -95,14 +96,14 @@ class MainWindow(QMainWindow):
                                               "sticker": self.selected_sticker})
 
                 sticker = join("assets", f"{self.selected_sticker}.png") if self.selected_sticker else None
-                self.add_message(f"{self.connection.nikname} (Ви): {message}",
+                self.add_message(f"{self.connection.nikname} ({translation.TRANSLATION[self.design.language]["you"]}): {message}",
                                 False, aligment=Qt.AlignmentFlag.AlignRight,
                                 icon=sticker)
 
             except:
                 self.exit_from_server()
-                messages.show("Не вдалося відправити повідомлення",
-                              "Схоже, сервер зупинив роботу", 
+                messages.show(translation.TRANSLATION[self.design.language]["sending_message_error"],
+                              translation.TRANSLATION[self.design.language]["sending_message_error"],
                               messages.QMessageBox.Icon.Critical)
         else:
             messages.show("Не вдалося відправити повідомлення", "Повідомлення не може бути пустим")
@@ -116,7 +117,7 @@ class MainWindow(QMainWindow):
         except:
             pass
 
-        self.add_message("Ви вийшли з серверу")
+        self.add_message(translation.TRANSLATION[self.design.language]["exit_message"])
         self.block_chat()
         self.connect_to_server_window.unblock_connection_form()
 

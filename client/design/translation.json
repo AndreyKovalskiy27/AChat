@@ -21,7 +21,10 @@
         "connection_to_server_error": "Error while connecting to server",
         "server_deletion_error": "Error while deleting server",
         "server_add_error": "Error while adding a new server",
-        "error": "Error"
+        "sending_message_error": "Error while sending message",
+        "exit_message": "You exited server",
+        "connection_message": "You connected to server",
+        "you": "You"
     },
     "ua": {
         "stickers": "Стікери",
@@ -45,6 +48,9 @@
         "connection_to_server_error": "Помилка під час підключення до сервера",
         "server_deletion_error": "Помилка під час видалення сервера",
         "server_add_error": "Помилка під час додавання нового сервера",
-        "error": "Помилка"
+        "sending_message_error": "Помилка під час надсилання повідомлення",
+        "exit_message": "Ви вийшли з серверу",
+        "connection_message": "Ви підключилися до серверу",
+        "you": "Ви"
     }
 }
