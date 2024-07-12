@@ -40,8 +40,3 @@ class Connection:
     def send_message(self, message: Any) -> None:
         """Відправити повідомлення на сервер"""
         self.connection_socket.send(self.chiper.encrypt(message))
-
-    def exit(self) -> None:
-        """Вийти з серверу"""
-        self.send_message({"type": "exit"})
-        self.connection_socket.close()

@@ -125,7 +125,7 @@ class MainWindow(QMainWindow):
                     icon=sticker,
                 )
 
-            except Exception:
+            except Exception as error:
                 self.exit_from_server()
                 messages.show(
                     translation.TRANSLATION[self.design.language][
@@ -135,6 +135,7 @@ class MainWindow(QMainWindow):
                         "sending_message_error"
                     ],
                     messages.QMessageBox.Icon.Critical,
+                    error,
                 )
         else:
             messages.show(
@@ -145,8 +146,14 @@ class MainWindow(QMainWindow):
     def exit_from_server(self) -> None:
         """Вийти з серверу"""
         try:
-            self.messages_monitor.terminate()
-            self.connection.exit()
+            self.messages_monitor.quit()
+
+            try:
+                self.connection.send_message({"type": "exit"})
+                self.connection.connection_socket.close()
+
+            except Exception:
+                pass
 
         except Exception:
             pass
