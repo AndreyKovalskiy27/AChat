@@ -79,7 +79,7 @@ class ConnectToServerWindow(QMainWindow):
             self.main_window.messages_monitor.start()
 
             self.close()
-            self.block_connection_form()
+            self.design.connect_to_server.setEnabled(False)
             self.main_window.design.messages.clear()
             self.main_window.unblock_chat()
             self.main_window.add_message(
@@ -195,17 +195,3 @@ class ConnectToServerWindow(QMainWindow):
             self.add_server_window, new_language
         )
         self.language.write(new_language)
-
-    def block_connection_form(self) -> None:
-        """Заблокувати форму для підключення до сервера"""
-        self.design.ip.setEnabled(False)
-        self.design.port.setEnabled(False)
-        self.design.nikname.setEnabled(False)
-        self.design.connect_to_server.setEnabled(False)
-
-    def unblock_connection_form(self) -> None:
-        """Розблокувати форму для підключення до сервера"""
-        self.design.ip.setEnabled(True)
-        self.design.port.setEnabled(True)
-        self.design.nikname.setEnabled(True)
-        self.design.connect_to_server.setEnabled(True)

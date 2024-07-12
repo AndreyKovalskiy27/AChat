@@ -160,7 +160,7 @@ class MainWindow(QMainWindow):
 
         self.add_message(translation.TRANSLATION[self.design.language]["exit_message"])
         self.block_chat()
-        self.connect_to_server_window.unblock_connection_form()
+        self.connect_to_server_window.design.connect_to_server.setEnabled(True)
 
     def closeEvent(self, a0) -> None:
         """
