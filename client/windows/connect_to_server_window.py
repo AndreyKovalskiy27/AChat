@@ -1,5 +1,8 @@
 """Модуль вікна підключення до сервера"""
 
+
+from os import remove
+from os.path import exists
 from PyQt6.QtWidgets import QMainWindow, QTableWidgetItem, QFileDialog
 from PyQt6.QtGui import QPixmap
 from design.connect_to_server import ConnectToServerWindowDesign
@@ -46,6 +49,7 @@ class ConnectToServerWindow(QMainWindow):
         self.design.apply_server.clicked.connect(self.apply_server)
         self.design.set_language.clicked.connect(self.set_language)
         self.design.load_avatar.clicked.connect(self.set_avatar)
+        self.design.delete_avatar.clicked.connect(self.delete_avatar)
 
     def check_not_empty(self) -> tuple:
         """Перевірити, чи заповнив користувач форму для підключення до серверу"""
@@ -209,3 +213,9 @@ class ConnectToServerWindow(QMainWindow):
         if new_avatar_file_path:
             self.avatar.set_avatar(new_avatar_file_path)
             self.design.avatar.setPixmap(QPixmap(new_avatar_file_path))
+
+    def delete_avatar(self) -> None:
+        """Видалити аватар"""
+        if exists(self.avatar.user_avatar_file_path):
+            remove(self.avatar.user_avatar_file_path)
+            self.design.avatar.setPixmap(QPixmap(self.avatar.get_avatar_path()))
