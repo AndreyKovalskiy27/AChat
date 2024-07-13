@@ -114,7 +114,7 @@ class MainWindow(QMainWindow):
                 sticker = (
                     join("assets", f"{self.selected_sticker}.png")
                     if self.selected_sticker
-                    else None
+                    else self.connect_to_server_window.avatar.get_avatar_path()
                 )
                 self.add_message(
                     f"{self.connection.nikname} ({translation.TRANSLATION[self.design.language]["you"]}): {message}",
