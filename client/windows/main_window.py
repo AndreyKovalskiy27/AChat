@@ -3,7 +3,7 @@
 from os.path import join
 from PyQt6.QtWidgets import QMainWindow, QListWidgetItem
 from PyQt6.QtGui import QFont, QIcon, QPixmap
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, QSize
 from design import main_window
 from design import btn_locker
 from windows.connect_to_server_window import ConnectToServerWindow
@@ -22,6 +22,7 @@ class MainWindow(QMainWindow):
 
         self.design = main_window.MainWindowDesign()
         self.design.setupUi(self, language)
+        self.design.messages.setIconSize(QSize(70, 70))
         self.block_chat()
 
         self.selected_sticker = None
