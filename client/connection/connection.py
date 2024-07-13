@@ -15,7 +15,7 @@ class Connection:
         self.connection_socket.connect((ip, port))
         self.connection_socket.settimeout(3)
 
-        key_str = chiper.loads(self.connection_socket.recv(1024))
+        key_str = chiper.loads(self.connection_socket.recv(100000))
 
         self.chiper = chiper.Chiper(key_str)
         self.send_message({"type": "client_ok", "nikname": nikname})
@@ -31,12 +31,10 @@ class Connection:
 
     def get_data_from_server(self) -> Any:
         """Отримати данні з серверу"""
-        self.connection_socket.settimeout(1)
-        data = self.connection_socket.recv(1024)
+        data = self.connection_socket.recv(100000)
         data = self.chiper.decrypt(data)
-        self.connection_socket.settimeout(None)
         return data
 
     def send_message(self, message: Any) -> None:
         """Відправити повідомлення на сервер"""
-        self.connection_socket.send(self.chiper.encrypt(message))
+        self.connection_socket.sendall(self.chiper.encrypt(message))

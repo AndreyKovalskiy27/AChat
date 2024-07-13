@@ -123,13 +123,16 @@ class UserAvatar:
         self.base_avatar_file_path = join("assets", "user.png")
         self.user_avatar_file_path = join(SETTINGS_FOLDER, "user.png")
 
-    def decode_avatar(self, avatar_encoded: bytes) -> bytes:
-        """Декодувати аватар"""
-        return b64decode(avatar_encoded)
+    def has_own_avatar(self) -> bool:
+        """Повертає True, якщо користувач встановив свій аватар. Інакше False"""
+        if exists(self.user_avatar_file_path):
+            return True
+
+        return False
 
     def get_avatar_encoded(self) -> bytes:
         """Отримати аватар закодований через base64"""
-        return b64encode(self.get_avatar_path())
+        return b64encode(open(self.get_avatar_path(), "rb").read())
 
     def get_avatar_path(self) -> str:
         """Отримати шлях до аватару користувача"""

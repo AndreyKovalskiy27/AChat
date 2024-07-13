@@ -1,5 +1,6 @@
 """Сервер"""
 
+
 from typing import Any
 from threading import Thread
 import socket
@@ -27,7 +28,7 @@ class Server:
                 user = self.server_socket.accept()[0]
                 user.send(chiper.dumps(self.chiper.key_str))
 
-                data = user.recv(1024)
+                data = user.recv(100000)
                 data = self.chiper.decrypt(data)
 
                 if data["type"] == "client_ok":
@@ -66,7 +67,7 @@ class Server:
 
         while True:
             try:
-                data = user_socket.recv(1024)
+                data = user_socket.recv(100000)
                 data = self.chiper.decrypt(data)
 
                 # Запрос на відправку повідомлення
@@ -79,7 +80,7 @@ class Server:
                                 "type": "message",
                                 "message": message,
                                 "nikname": nikname,
-                                "sticker": data.get("sticker", None),
+                                "avatar": data.get("avatar", None),
                             },
                             user_socket,
                         )
@@ -100,13 +101,14 @@ class Server:
                 except Exception:
                     pass
 
+                self.send_to_all({"type": "exit", "nikname": nikname})
                 print(f"{nikname} був видалений з сервера через помилку")
                 break
 
     def send_to_user(self, message: Any, user: socket.socket) -> None:
         """Відправити повідомлення конкретному користувачу"""
         message = self.chiper.encrypt(message)
-        user.send(message)
+        user.sendall(message)
 
     def send_to_all(self, message: Any, do_not_send_to: socket.socket = None) -> None:
         """Відправити повідомлення всім користувачам на сервері"""

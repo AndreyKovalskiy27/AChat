@@ -2,7 +2,7 @@
 
 from os.path import join
 from PyQt6.QtWidgets import QMainWindow, QListWidgetItem
-from PyQt6.QtGui import QFont, QIcon
+from PyQt6.QtGui import QFont, QIcon, QPixmap
 from PyQt6.QtCore import Qt
 from design import main_window
 from windows.connect_to_server_window import ConnectToServerWindow
@@ -92,7 +92,13 @@ class MainWindow(QMainWindow):
         item.setFont(font)
 
         if icon:
-            item.setIcon(QIcon(icon))
+            if isinstance(icon, bytes):
+                pixmap = QPixmap()
+                pixmap.loadFromData(icon)
+                item.setIcon(QIcon(pixmap))
+
+            else:
+                item.setIcon(QIcon(icon))
 
         self.design.messages.addItem(item)
         self.design.messages.scrollToBottom()  # Автоскролл
@@ -107,7 +113,11 @@ class MainWindow(QMainWindow):
                     {
                         "type": "message",
                         "message": message,
-                        "sticker": self.selected_sticker,
+                        "avatar": self.selected_sticker
+                        if self.selected_sticker
+                        else self.connect_to_server_window.avatar.get_avatar_encoded()
+                        if self.connect_to_server_window.avatar.has_own_avatar()
+                        else None,
                     }
                 )
 
