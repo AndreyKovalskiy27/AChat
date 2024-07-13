@@ -4,6 +4,8 @@ from typing import Union
 from os.path import expanduser, join, exists
 from os import mkdir, remove
 from json import load, dump
+from shutil import copy
+from base64 import b64encode, b64decode
 
 
 SETTINGS_FOLDER = join(expanduser("~"), ".achat-data")
@@ -112,3 +114,33 @@ class Language:
                 return "ua"
 
         return "ua"
+
+
+class UserAvatar:
+    """Класс для роботи з аватаром користувача"""
+
+    def __init__(self) -> None:
+        self.base_avatar_file_path = join("assets", "user.png")
+        self.user_avatar_file_path = join(SETTINGS_FOLDER, "user.png")
+
+    def decode_avatar(self, avatar_encoded: bytes) -> bytes:
+        """Декодувати аватар"""
+        return b64decode(avatar_encoded)
+
+    def get_avatar_encoded(self) -> bytes:
+        """Отримати аватар закодований через base64"""
+        return b64encode(self.get_avatar_path())
+
+    def get_avatar_path(self) -> str:
+        """Отримати шлях до аватару користувача"""
+        if exists(self.user_avatar_file_path):
+            return self.user_avatar_file_path
+
+        return self.base_avatar_file_path
+
+    def set_avatar(self, new_avatar_file_path: str) -> None:
+        """Встановити аватар"""
+        if exists(self.user_avatar_file_path):
+            remove(self.user_avatar_file_path)
+
+        copy(new_avatar_file_path, self.user_avatar_file_path)

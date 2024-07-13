@@ -1,6 +1,7 @@
 """Модуль вікна підключення до сервера"""
 
-from PyQt6.QtWidgets import QMainWindow, QTableWidgetItem
+from PyQt6.QtWidgets import QMainWindow, QTableWidgetItem, QFileDialog
+from PyQt6.QtGui import QPixmap
 from design.connect_to_server import ConnectToServerWindowDesign
 from windows.add_server_window import AddServerWindow
 from connection.messages_monitor import MessagesMonitor
@@ -23,6 +24,7 @@ class ConnectToServerWindow(QMainWindow):
         self.connection_data = settings.ConnectionData()
         self.servers = settings.Servers()
         self.language = settings.Language()
+        self.avatar = settings.UserAvatar()
 
         self.main_window = main_window
         self.language_codes = {"Українська": "ua", "English": "en"}
@@ -42,6 +44,7 @@ class ConnectToServerWindow(QMainWindow):
         self.design.delete_server.clicked.connect(self.delete_server)
         self.design.apply_server.clicked.connect(self.apply_server)
         self.design.set_language.clicked.connect(self.set_language)
+        self.design.load_avatar.clicked.connect(self.set_avatar)
 
     def check_not_empty(self) -> tuple:
         """Перевірити, чи заповнив користувач форму для підключення до серверу"""
@@ -195,3 +198,13 @@ class ConnectToServerWindow(QMainWindow):
             self.add_server_window, new_language
         )
         self.language.write(new_language)
+
+    def set_avatar(self) -> None:
+        """Встановити аватар"""
+        new_avatar_file_path = QFileDialog(
+            self, None, None, "Image (*.png *.jpg);"
+        ).getOpenFileName()[0]
+
+        if new_avatar_file_path:
+            self.avatar.set_avatar(new_avatar_file_path)
+            self.design.avatar.setPixmap(QPixmap(new_avatar_file_path))
