@@ -3,6 +3,7 @@
 from typing import Any
 import socket
 from connection import chiper
+import rsa
 
 
 class Connection:
@@ -15,7 +16,11 @@ class Connection:
         self.connection_socket.connect((ip, port))
         self.connection_socket.settimeout(3)
 
-        key_str = chiper.loads(self.connection_socket.recv(100000))
+        # Отримання ключа шифрування від сервера
+        public_key, private_key = rsa.newkeys(500)
+        self.connection_socket.send(public_key.save_pkcs1())
+        key_str = self.connection_socket.recv(100000)
+        key_str = rsa.decrypt(key_str, private_key)
 
         self.chiper = chiper.Chiper(key_str)
         self.send_message({"type": "client_ok", "nikname": nikname})

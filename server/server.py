@@ -5,6 +5,7 @@ from typing import Any
 from threading import Thread
 import socket
 import chiper
+import rsa
 
 
 class Server:
@@ -26,7 +27,11 @@ class Server:
         while True:
             try:
                 user = self.server_socket.accept()[0]
-                user.send(chiper.dumps(self.chiper.key_str))
+
+                # Відправка клієнту ключа шифрування
+                user_public_key = user.recv(100000)
+                user_public_key = rsa.PublicKey.load_pkcs1(user_public_key)
+                user.send(rsa.encrypt(self.chiper.key_str, user_public_key))
 
                 data = user.recv(100000)
                 data = self.chiper.decrypt(data)
