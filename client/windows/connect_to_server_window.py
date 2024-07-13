@@ -1,6 +1,5 @@
 """Модуль вікна підключення до сервера"""
 
-
 from os import remove
 from os.path import exists
 from PyQt6.QtWidgets import QMainWindow, QTableWidgetItem, QFileDialog
@@ -206,9 +205,9 @@ class ConnectToServerWindow(QMainWindow):
 
     def set_avatar(self) -> None:
         """Встановити аватар"""
-        new_avatar_file_path = QFileDialog(
-            self, None, None, "Image (*.png *.jpg);"
-        ).getOpenFileName()[0]
+        new_avatar_file_path = QFileDialog.getOpenFileName(
+            self, None, None, "Image (*.png *.jpg *.jpeg)"
+        )[0]
 
         if new_avatar_file_path:
             self.avatar.set_avatar(new_avatar_file_path)
