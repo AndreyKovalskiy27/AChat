@@ -5,7 +5,6 @@ from base64 import b64decode
 from PyQt6.QtCore import Qt, QThread
 from connection.connection import Connection
 import translation
-import traceback
 
 
 class MessagesMonitor(QThread):
@@ -51,7 +50,7 @@ class MessagesMonitor(QThread):
                         avatar = join("assets", "user.png")
 
                     self.main_window.add_message(
-                        f"{data["nikname"]}: {data["message"]}",
+                        f"{data["nikname"]}:\n{data["message"]}",
                         False,
                         aligment=Qt.AlignmentFlag.AlignLeft,
                         icon=avatar,

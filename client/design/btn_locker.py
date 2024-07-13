@@ -1,6 +1,5 @@
 """Заблокувати кнопки"""
 
-
 from PyQt6.QtWidgets import QPushButton
 
 
@@ -24,6 +23,7 @@ def lock_btn(btn: QPushButton) -> None:
     """Заблокувати кнопку"""
     btn.setEnabled(False)
     btn.setStyleSheet(LOCKED_STYLE)
+
 
 def unlock_btn(btn: QPushButton) -> None:
     """Розблокувати кнопку"""

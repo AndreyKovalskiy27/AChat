@@ -5,7 +5,7 @@ from os.path import expanduser, join, exists
 from os import mkdir, remove
 from json import load, dump
 from shutil import copy
-from base64 import b64encode, b64decode
+from base64 import b64encode
 
 
 SETTINGS_FOLDER = join(expanduser("~"), ".achat-data")
