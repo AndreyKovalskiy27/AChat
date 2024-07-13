@@ -5,6 +5,7 @@ from os.path import exists
 from PyQt6.QtWidgets import QMainWindow, QFileDialog
 from PyQt6.QtGui import QPixmap
 from design.connect_to_server import ConnectToServerWindowDesign
+from design import btn_locker
 from windows.add_server_window import AddServerWindow
 from connection.messages_monitor import MessagesMonitor
 from connection.connection_thread import ConnectionThread
@@ -70,7 +71,7 @@ class ConnectToServerWindow(QMainWindow):
             self.main_window.messages_monitor.start()
 
             self.close()
-            self.design.connect_to_server.setEnabled(False)
+            btn_locker.lock_btn(self.design.connect_to_server)
             self.main_window.design.messages.clear()
             self.main_window.unblock_chat()
             self.main_window.add_message(

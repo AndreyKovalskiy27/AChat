@@ -5,6 +5,7 @@ from PyQt6.QtWidgets import QMainWindow, QListWidgetItem
 from PyQt6.QtGui import QFont, QIcon, QPixmap
 from PyQt6.QtCore import Qt
 from design import main_window
+from design import btn_locker
 from windows.connect_to_server_window import ConnectToServerWindow
 from settings import Language
 import messages
@@ -66,13 +67,13 @@ class MainWindow(QMainWindow):
 
     def block_chat(self) -> None:
         """Заблокувати чат (кнопки для відправки повідомлення та виходу з сервера)"""
-        self.design.send_message.setEnabled(False)
-        self.design.exit.setEnabled(False)
+        btn_locker.lock_btn(self.design.send_message)
+        btn_locker.lock_btn(self.design.exit)
 
     def unblock_chat(self) -> None:
         """Розблокувати чат (кнопки для відправки повідомлення та виходу з сервера)"""
-        self.design.send_message.setEnabled(True)
-        self.design.exit.setEnabled(True)
+        btn_locker.unlock_btn(self.design.send_message)
+        btn_locker.unlock_btn(self.design.exit)
 
     def add_message(
         self,
@@ -127,7 +128,7 @@ class MainWindow(QMainWindow):
                     else self.connect_to_server_window.avatar.get_avatar_path()
                 )
                 self.add_message(
-                    f"{self.connection.nikname} ({translation.TRANSLATION[self.design.language]["you"]}): {message}",
+                    f"{self.connection.nikname} ({translation.TRANSLATION[self.design.language]["you"]}):\n{message}",
                     False,
                     aligment=Qt.AlignmentFlag.AlignRight,
                     icon=sticker,
@@ -168,7 +169,7 @@ class MainWindow(QMainWindow):
 
         self.add_message(translation.TRANSLATION[self.design.language]["exit_message"])
         self.block_chat()
-        self.connect_to_server_window.design.connect_to_server.setEnabled(True)
+        btn_locker.unlock_btn(self.connect_to_server_window.design.connect_to_server)
 
     def closeEvent(self, a0) -> None:
         """
