@@ -34,6 +34,7 @@ class ConnectToServerWindow(QMainWindow):
                 self.language.get()
             ]
         )
+        self.design.avatar.setPixmap(QPixmap(self.avatar.get_avatar_path()))
         self.load_connection_data()
         self.load_servers()
 
