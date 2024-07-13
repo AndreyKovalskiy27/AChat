@@ -5,7 +5,7 @@ from PyQt6.QtWidgets import QMainWindow, QListWidgetItem
 from PyQt6.QtGui import QFont, QIcon
 from PyQt6.QtCore import Qt
 from design import main_window
-from windows import connect_to_server_window
+from windows.connect_to_server_window import ConnectToServerWindow
 from settings import Language
 import messages
 import translation
@@ -32,9 +32,7 @@ class MainWindow(QMainWindow):
             5: self.design.sticker5,
             6: self.design.sticker6,
         }
-        self.connect_to_server_window = connect_to_server_window.ConnectToServerWindow(
-            self, language
-        )
+        self.connect_to_server_window = ConnectToServerWindow(self, language)
 
         # Обробка нажаття на кнопки
         self.design.connect_to_server.clicked.connect(

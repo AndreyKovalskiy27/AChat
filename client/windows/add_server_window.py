@@ -4,6 +4,7 @@ import translation
 from PyQt6.QtWidgets import QMainWindow
 from design import add_server
 from settings import Servers
+from .connect_to_server_window.servers import load_servers
 import messages
 
 
@@ -49,7 +50,7 @@ class AddServerWindow(QMainWindow):
                     )
 
                 finally:
-                    self.connect_to_server_window.load_servers()
+                    load_servers(self.connect_to_server_window)
 
             else:
                 messages.show(

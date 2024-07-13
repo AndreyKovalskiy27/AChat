@@ -2,13 +2,23 @@
 
 from os import remove
 from os.path import exists
-from PyQt6.QtWidgets import QMainWindow, QTableWidgetItem, QFileDialog
+from PyQt6.QtWidgets import QMainWindow, QFileDialog
 from PyQt6.QtGui import QPixmap
 from design.connect_to_server import ConnectToServerWindowDesign
 from windows.add_server_window import AddServerWindow
 from connection.messages_monitor import MessagesMonitor
 from connection.connection_thread import ConnectionThread
 from connection.connection import Connection
+from windows.connect_to_server_window.servers import (
+    load_servers,
+    apply_server,
+    delete_server,
+)
+from windows.connect_to_server_window.connection_data import (
+    load_connection_data,
+    save_connection_data,
+    check_not_empty,
+)
 import settings
 import messages
 import translation
@@ -37,44 +47,18 @@ class ConnectToServerWindow(QMainWindow):
             ]
         )
         self.design.avatar.setPixmap(QPixmap(self.avatar.get_avatar_path()))
-        self.load_connection_data()
-        self.load_servers()
+        load_connection_data(self)
+        load_servers(self)
 
         # Натискання на кнопки
         self.design.connect_to_server.clicked.connect(self.connect_to_server)
-        self.design.save.clicked.connect(self.save_connection_data)
+        self.design.save.clicked.connect(lambda: save_connection_data(self))
         self.design.add_server.clicked.connect(self.add_server_window.show)
-        self.design.delete_server.clicked.connect(self.delete_server)
-        self.design.apply_server.clicked.connect(self.apply_server)
+        self.design.delete_server.clicked.connect(lambda: delete_server(self))
+        self.design.apply_server.clicked.connect(lambda: apply_server(self))
         self.design.set_language.clicked.connect(self.set_language)
         self.design.load_avatar.clicked.connect(self.set_avatar)
         self.design.delete_avatar.clicked.connect(self.delete_avatar)
-
-    def check_not_empty(self) -> tuple:
-        """Перевірити, чи заповнив користувач форму для підключення до серверу"""
-        ip = self.design.ip.text()
-        port = self.design.port.text()
-        nikname = self.design.nikname.text()
-
-        if ip.strip() and port.strip() and nikname.strip():
-            if port.isdecimal():
-                return ip, int(port), nikname
-
-            else:
-                messages.show(
-                    translation.TRANSLATION[self.design.language][
-                        "port_must_be_number"
-                    ],
-                    translation.TRANSLATION[self.design.language][
-                        "port_must_be_number"
-                    ],
-                )
-
-        else:
-            messages.show(
-                translation.TRANSLATION[self.design.language]["enter_all_fields"],
-                translation.TRANSLATION[self.design.language]["enter_all_fields"],
-            )
 
     def connection_signal_handler(self, value) -> None:
         """Обробник сигналів з потока підключення до сервера"""
@@ -108,7 +92,7 @@ class ConnectToServerWindow(QMainWindow):
 
     def connect_to_server(self) -> None:
         """Підключитися до серверу"""
-        form_data = self.check_not_empty()
+        form_data = check_not_empty(self)
 
         if form_data:
             self.connection_thread = ConnectionThread(
@@ -116,77 +100,6 @@ class ConnectToServerWindow(QMainWindow):
             )
             self.connection_thread.signal.connect(self.connection_signal_handler)
             self.connection_thread.start()
-
-    def save_connection_data(self) -> None:
-        """Зберегти данні для підключення до серверу"""
-        form_data = self.check_not_empty()
-
-        if form_data:
-            self.connection_data.write(form_data[0], form_data[1], form_data[2])
-
-    def load_connection_data(self) -> None:
-        """Завантажити данні для підключення до серверу"""
-        try:
-            connection_data_json = self.connection_data.read()
-
-            if connection_data_json:
-                self.design.ip.setText(connection_data_json["ip"])
-                self.design.port.setText(str(connection_data_json["port"]))
-                self.design.nikname.setText(connection_data_json["nikname"])
-
-        except Exception:
-            settings.remove(self.connection_data.connection_data_file_path)
-
-    def load_servers(self) -> None:
-        """Завантажити сервери"""
-        try:
-            servers = self.servers.get_servers()
-            self.design.servers.setRowCount(len(servers.keys()))
-            row = 0
-
-            for server in servers.keys():
-                self.design.servers.setItem(row, 0, QTableWidgetItem(server))
-                self.design.servers.setItem(
-                    row, 1, QTableWidgetItem(servers[server]["ip"])
-                )
-                self.design.servers.setItem(
-                    row, 2, QTableWidgetItem(str(servers[server]["port"]))
-                )
-                row += 1
-
-        except Exception:
-            settings.remove(self.servers.servers_file_path)
-
-    def apply_server(self) -> None:
-        """Встановити IP та порт вибранного сервера"""
-        row = self.design.servers.currentRow()
-
-        if row > -1:
-            self.design.ip.setText(self.design.servers.item(row, 1).text())
-            self.design.port.setText(self.design.servers.item(row, 2).text())
-
-    def delete_server(self) -> None:
-        """Видалити сервер"""
-        row = self.design.servers.currentRow()
-
-        if row > -1:
-            try:
-                server_name = self.design.servers.item(row, 0).text()
-                self.servers.delete_server(server_name)
-                self.load_servers()
-
-            except Exception as error:
-                self.load_servers()
-                messages.show(
-                    translation.TRANSLATION[self.design.language][
-                        "server_deletion_error"
-                    ],
-                    translation.TRANSLATION[self.design.language][
-                        "server_deletion_error"
-                    ],
-                    messages.QMessageBox.Icon.Critical,
-                    error,
-                )
 
     def set_language(self) -> None:
         """Встановити мову"""
