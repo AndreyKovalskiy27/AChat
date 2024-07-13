@@ -29,7 +29,9 @@
         "port_must_be_number": "Port must be number",
         "message_empty": "Message can't be empty",
         "new_user_connected": "connected to server",
-        "user_exited": "exited from server"
+        "user_exited": "exited from server",
+        "load": "Load",
+        "delete": "Delete"
     },
     "ua": {
         "stickers": "Стікери",
@@ -61,6 +63,8 @@
         "port_must_be_number": "Порт повиннен бути числом",
         "message_empty": "Повідомлення не може бути пустим",
         "new_user_connected": "підключився до серверу",
-        "user_exited": "вийшов з серверу"
+        "user_exited": "вийшов з серверу",
+        "load": "Завантажити",
+        "delete": "Видалити"
     }
 }

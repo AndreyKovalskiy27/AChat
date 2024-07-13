@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>901</width>
-    <height>579</height>
+    <height>609</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,7 +22,7 @@ color: black;</string>
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>10</y>
+      <y>240</y>
       <width>411</width>
       <height>361</height>
      </rect>
@@ -149,7 +149,7 @@ QPushButton:hover {
     <property name="geometry">
      <rect>
       <x>430</x>
-      <y>10</y>
+      <y>240</y>
       <width>461</width>
       <height>361</height>
      </rect>
@@ -257,10 +257,10 @@ QPushButton:hover {
    <widget class="QFrame" name="frame_3">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>380</y>
-      <width>881</width>
-      <height>191</height>
+      <x>490</x>
+      <y>10</y>
+      <width>401</width>
+      <height>221</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -277,9 +277,9 @@ border-radius: 15px;</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>0</y>
-       <width>861</width>
-       <height>41</height>
+       <y>10</y>
+       <width>381</width>
+       <height>51</height>
       </rect>
      </property>
      <property name="font">
@@ -299,11 +299,30 @@ border-radius: 15px;</string>
       <set>Qt::AlignCenter</set>
      </property>
     </widget>
+    <widget class="QLabel" name="translations_note">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>190</y>
+       <width>381</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: white;</string>
+     </property>
+     <property name="text">
+      <string>Переклади можуть бути не на 100% точними</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
     <widget class="QComboBox" name="new_language">
      <property name="geometry">
       <rect>
-       <x>300</x>
-       <y>60</y>
+       <x>50</x>
+       <y>70</y>
        <width>141</width>
        <height>91</height>
       </rect>
@@ -326,8 +345,8 @@ color: white;</string>
     <widget class="QPushButton" name="set_language">
      <property name="geometry">
       <rect>
-       <x>450</x>
-       <y>60</y>
+       <x>210</x>
+       <y>70</y>
        <width>151</width>
        <height>91</height>
       </rect>
@@ -348,23 +367,93 @@ QPushButton:hover {
       <string>Встановити мову</string>
      </property>
     </widget>
-    <widget class="QLabel" name="translations_note">
+   </widget>
+   <widget class="QFrame" name="frame_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>471</width>
+      <height>221</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgb(35, 35, 35);
+border-radius: 15px;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QLabel" name="avatar">
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>160</y>
-       <width>861</width>
-       <height>20</height>
+       <y>10</y>
+       <width>201</width>
+       <height>201</height>
       </rect>
      </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="pixmap">
+      <pixmap>../../assets/user.png</pixmap>
+     </property>
+     <property name="scaledContents">
+      <bool>true</bool>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="load_avatar">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>10</y>
+       <width>241</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
      <property name="styleSheet">
-      <string notr="true">color: white;</string>
+      <string notr="true">QPushButton {
+	background-color: rgb(123, 123, 123);
+	border-radius: 15px;
+}
+QPushButton:hover {
+	background-color: rgb(108, 108, 108);
+}</string>
      </property>
      <property name="text">
-      <string>Переклади можуть бути не на 100% точними</string>
+      <string>Завантажити</string>
      </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
+    </widget>
+    <widget class="QPushButton" name="delete_avatar">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>120</y>
+       <width>241</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="cursor">
+      <cursorShape>PointingHandCursor</cursorShape>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+	background-color: rgb(123, 123, 123);
+	border-radius: 15px;
+}
+QPushButton:hover {
+	background-color: rgb(108, 108, 108);
+}</string>
+     </property>
+     <property name="text">
+      <string>Видалити</string>
      </property>
     </widget>
    </widget>
