@@ -11,80 +11,22 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 
 
 class MainWindowDesign(object):
-    def setupUi(self, MainWindow, language: str = "ua"):
+    def setupUi(self, MainWindow, language: str):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.setFixedSize(1190, 639)
-        MainWindow.setWindowOpacity(1.0)
+        MainWindow.setFixedSize(1190, 690)
         MainWindow.setStyleSheet("background-color: rgb(64, 65, 62); color: black;")
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.messages = QtWidgets.QListWidget(parent=self.centralwidget)
-        self.messages.setGeometry(QtCore.QRect(440, 20, 731, 391))
-        self.messages.viewport().setProperty(
-            "cursor", QtGui.QCursor(QtCore.Qt.CursorShape.IBeamCursor)
-        )
-        self.messages.setStyleSheet(
-            "background-color: rgb(183, 183, 183);\n" "border-radius: 15px;"
-        )
+        self.messages.setGeometry(QtCore.QRect(440, 20, 731, 441))
+        self.messages.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.CursorShape.IBeamCursor))
+        self.messages.setStyleSheet("background-color: rgb(183, 183, 183);\n"
+"border-radius: 15px;")
         self.messages.setObjectName("messages")
-        self.messages.setIconSize(QtCore.QSize(40, 40))
-        self.send_message = QtWidgets.QPushButton(parent=self.centralwidget)
-        self.send_message.setGeometry(QtCore.QRect(440, 490, 361, 61))
-        self.send_message.setCursor(
-            QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor)
-        )
-        self.send_message.setStyleSheet(
-            "QPushButton {\n"
-            "    background-color: rgb(123, 123, 123);\n"
-            "    border-radius: 15px;\n"
-            "}\n"
-            "QPushButton:hover {\n"
-            "    background-color: rgb(108, 108, 108);\n"
-            "}"
-        )
-        self.send_message.setObjectName("send_message")
-        self.connect_to_server = QtWidgets.QPushButton(parent=self.centralwidget)
-        self.connect_to_server.setGeometry(QtCore.QRect(440, 560, 731, 61))
-        self.connect_to_server.setCursor(
-            QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor)
-        )
-        self.connect_to_server.setStyleSheet(
-            "QPushButton {\n"
-            "    background-color: rgb(123, 123, 123);\n"
-            "    border-radius: 15px;\n"
-            "}\n"
-            "QPushButton:hover {\n"
-            "    background-color: rgb(108, 108, 108);\n"
-            "}"
-        )
-        self.connect_to_server.setObjectName("connect_to_server")
-        self.exit = QtWidgets.QPushButton(parent=self.centralwidget)
-        self.exit.setGeometry(QtCore.QRect(810, 490, 361, 61))
-        self.exit.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
-        self.exit.setStyleSheet(
-            "QPushButton {\n"
-            "    background-color: rgb(123, 123, 123);\n"
-            "    border-radius: 15px;\n"
-            "}\n"
-            "QPushButton:hover {\n"
-            "    background-color: rgb(108, 108, 108);\n"
-            "}"
-        )
-        self.exit.setObjectName("exit")
-        self.message = QtWidgets.QLineEdit(parent=self.centralwidget)
-        self.message.setGeometry(QtCore.QRect(440, 420, 731, 61))
-        self.message.setStyleSheet(
-            "background-color: rgb(229, 229, 229);\n"
-            "border-radius: 15px;\n"
-            "padding-left: 5px;\n"
-            "font-size: 15px"
-        )
-        self.message.setObjectName("message")
         self.frame = QtWidgets.QFrame(parent=self.centralwidget)
-        self.frame.setGeometry(QtCore.QRect(10, 10, 411, 621))
-        self.frame.setStyleSheet(
-            "background-color: rgb(35, 35, 35);\n" "border-radius: 15px;"
-        )
+        self.frame.setGeometry(QtCore.QRect(10, 10, 411, 671))
+        self.frame.setStyleSheet("background-color: rgb(35, 35, 35);\n"
+"border-radius: 15px;")
         self.frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame.setObjectName("frame")
@@ -102,11 +44,7 @@ class MainWindowDesign(object):
         self.sticker1.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.sticker1.setText("")
         icon = QtGui.QIcon()
-        icon.addPixmap(
-            QtGui.QPixmap("design/QtDesigner/../../assets/1.png"),
-            QtGui.QIcon.Mode.Normal,
-            QtGui.QIcon.State.Off,
-        )
+        icon.addPixmap(QtGui.QPixmap("design/QtDesigner/../../assets/1.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.sticker1.setIcon(icon)
         self.sticker1.setIconSize(QtCore.QSize(100, 100))
         self.sticker1.setCheckable(False)
@@ -121,11 +59,7 @@ class MainWindowDesign(object):
         self.sticker2.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.sticker2.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(
-            QtGui.QPixmap("design/QtDesigner/../../assets/2.png"),
-            QtGui.QIcon.Mode.Normal,
-            QtGui.QIcon.State.Off,
-        )
+        icon1.addPixmap(QtGui.QPixmap("design/QtDesigner/../../assets/2.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.sticker2.setIcon(icon1)
         self.sticker2.setIconSize(QtCore.QSize(100, 100))
         self.sticker2.setCheckable(False)
@@ -140,11 +74,7 @@ class MainWindowDesign(object):
         self.sticker3.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.sticker3.setText("")
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(
-            QtGui.QPixmap("design/QtDesigner/../../assets/3.png"),
-            QtGui.QIcon.Mode.Normal,
-            QtGui.QIcon.State.Off,
-        )
+        icon2.addPixmap(QtGui.QPixmap("design/QtDesigner/../../assets/3.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.sticker3.setIcon(icon2)
         self.sticker3.setIconSize(QtCore.QSize(100, 100))
         self.sticker3.setCheckable(False)
@@ -159,11 +89,7 @@ class MainWindowDesign(object):
         self.sticker5.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.sticker5.setText("")
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(
-            QtGui.QPixmap("design/QtDesigner/../../assets/5.png"),
-            QtGui.QIcon.Mode.Normal,
-            QtGui.QIcon.State.Off,
-        )
+        icon3.addPixmap(QtGui.QPixmap("design/QtDesigner/../../assets/5.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.sticker5.setIcon(icon3)
         self.sticker5.setIconSize(QtCore.QSize(100, 100))
         self.sticker5.setCheckable(False)
@@ -178,11 +104,7 @@ class MainWindowDesign(object):
         self.sticker6.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.sticker6.setText("")
         icon4 = QtGui.QIcon()
-        icon4.addPixmap(
-            QtGui.QPixmap("design/QtDesigner/../../assets/6.png"),
-            QtGui.QIcon.Mode.Normal,
-            QtGui.QIcon.State.Off,
-        )
+        icon4.addPixmap(QtGui.QPixmap("design/QtDesigner/../../assets/6.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.sticker6.setIcon(icon4)
         self.sticker6.setIconSize(QtCore.QSize(100, 100))
         self.sticker6.setCheckable(False)
@@ -197,11 +119,7 @@ class MainWindowDesign(object):
         self.sticker4.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.sticker4.setText("")
         icon5 = QtGui.QIcon()
-        icon5.addPixmap(
-            QtGui.QPixmap("design/QtDesigner/../../assets/4.png"),
-            QtGui.QIcon.Mode.Normal,
-            QtGui.QIcon.State.Off,
-        )
+        icon5.addPixmap(QtGui.QPixmap("design/QtDesigner/../../assets/4.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.sticker4.setIcon(icon5)
         self.sticker4.setIconSize(QtCore.QSize(100, 100))
         self.sticker4.setCheckable(False)
@@ -211,20 +129,190 @@ class MainWindowDesign(object):
         self.sticker4.setDefault(False)
         self.sticker4.setFlat(False)
         self.sticker4.setObjectName("sticker4")
+        self.sticker7 = QtWidgets.QPushButton(parent=self.frame)
+        self.sticker7.setGeometry(QtCore.QRect(20, 310, 111, 111))
+        self.sticker7.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.sticker7.setText("")
+        icon6 = QtGui.QIcon()
+        icon6.addPixmap(QtGui.QPixmap("design/QtDesigner/../../assets/7.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.sticker7.setIcon(icon6)
+        self.sticker7.setIconSize(QtCore.QSize(100, 100))
+        self.sticker7.setCheckable(False)
+        self.sticker7.setAutoRepeat(False)
+        self.sticker7.setAutoExclusive(False)
+        self.sticker7.setAutoDefault(False)
+        self.sticker7.setDefault(False)
+        self.sticker7.setFlat(False)
+        self.sticker7.setObjectName("sticker7")
+        self.sticker8 = QtWidgets.QPushButton(parent=self.frame)
+        self.sticker8.setGeometry(QtCore.QRect(150, 310, 111, 111))
+        self.sticker8.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.sticker8.setText("")
+        icon7 = QtGui.QIcon()
+        icon7.addPixmap(QtGui.QPixmap("design/QtDesigner/../../assets/8.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.sticker8.setIcon(icon7)
+        self.sticker8.setIconSize(QtCore.QSize(100, 100))
+        self.sticker8.setCheckable(False)
+        self.sticker8.setAutoRepeat(False)
+        self.sticker8.setAutoExclusive(False)
+        self.sticker8.setAutoDefault(False)
+        self.sticker8.setDefault(False)
+        self.sticker8.setFlat(False)
+        self.sticker8.setObjectName("sticker8")
+        self.sticker9 = QtWidgets.QPushButton(parent=self.frame)
+        self.sticker9.setGeometry(QtCore.QRect(280, 310, 111, 111))
+        self.sticker9.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.sticker9.setText("")
+        icon8 = QtGui.QIcon()
+        icon8.addPixmap(QtGui.QPixmap("design/QtDesigner/../../assets/9.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.sticker9.setIcon(icon8)
+        self.sticker9.setIconSize(QtCore.QSize(100, 100))
+        self.sticker9.setCheckable(False)
+        self.sticker9.setAutoRepeat(False)
+        self.sticker9.setAutoExclusive(False)
+        self.sticker9.setAutoDefault(False)
+        self.sticker9.setDefault(False)
+        self.sticker9.setFlat(False)
+        self.sticker9.setObjectName("sticker9")
+        self.sticker10 = QtWidgets.QPushButton(parent=self.frame)
+        self.sticker10.setGeometry(QtCore.QRect(20, 430, 111, 111))
+        self.sticker10.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.sticker10.setText("")
+        icon9 = QtGui.QIcon()
+        icon9.addPixmap(QtGui.QPixmap("design/QtDesigner/../../assets/10.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.sticker10.setIcon(icon9)
+        self.sticker10.setIconSize(QtCore.QSize(100, 100))
+        self.sticker10.setCheckable(False)
+        self.sticker10.setAutoRepeat(False)
+        self.sticker10.setAutoExclusive(False)
+        self.sticker10.setAutoDefault(False)
+        self.sticker10.setDefault(False)
+        self.sticker10.setFlat(False)
+        self.sticker10.setObjectName("sticker10")
+        self.sticker11 = QtWidgets.QPushButton(parent=self.frame)
+        self.sticker11.setGeometry(QtCore.QRect(150, 430, 111, 111))
+        self.sticker11.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.sticker11.setText("")
+        icon10 = QtGui.QIcon()
+        icon10.addPixmap(QtGui.QPixmap("design/QtDesigner/../../assets/11.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.sticker11.setIcon(icon10)
+        self.sticker11.setIconSize(QtCore.QSize(100, 100))
+        self.sticker11.setCheckable(False)
+        self.sticker11.setAutoRepeat(False)
+        self.sticker11.setAutoExclusive(False)
+        self.sticker11.setAutoDefault(False)
+        self.sticker11.setDefault(False)
+        self.sticker11.setFlat(False)
+        self.sticker11.setObjectName("sticker11")
+        self.sticker12 = QtWidgets.QPushButton(parent=self.frame)
+        self.sticker12.setGeometry(QtCore.QRect(280, 430, 111, 111))
+        self.sticker12.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.sticker12.setText("")
+        icon11 = QtGui.QIcon()
+        icon11.addPixmap(QtGui.QPixmap("design/QtDesigner/../../assets/12.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.sticker12.setIcon(icon11)
+        self.sticker12.setIconSize(QtCore.QSize(100, 100))
+        self.sticker12.setCheckable(False)
+        self.sticker12.setAutoRepeat(False)
+        self.sticker12.setAutoExclusive(False)
+        self.sticker12.setAutoDefault(False)
+        self.sticker12.setDefault(False)
+        self.sticker12.setFlat(False)
+        self.sticker12.setObjectName("sticker12")
+        self.sticker13 = QtWidgets.QPushButton(parent=self.frame)
+        self.sticker13.setGeometry(QtCore.QRect(20, 550, 111, 111))
+        self.sticker13.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.sticker13.setText("")
+        icon12 = QtGui.QIcon()
+        icon12.addPixmap(QtGui.QPixmap("design/QtDesigner/../../assets/13.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.sticker13.setIcon(icon12)
+        self.sticker13.setIconSize(QtCore.QSize(100, 100))
+        self.sticker13.setCheckable(False)
+        self.sticker13.setAutoRepeat(False)
+        self.sticker13.setAutoExclusive(False)
+        self.sticker13.setAutoDefault(False)
+        self.sticker13.setDefault(False)
+        self.sticker13.setFlat(False)
+        self.sticker13.setObjectName("sticker13")
+        self.sticker14 = QtWidgets.QPushButton(parent=self.frame)
+        self.sticker14.setGeometry(QtCore.QRect(150, 550, 111, 111))
+        self.sticker14.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.sticker14.setText("")
+        icon13 = QtGui.QIcon()
+        icon13.addPixmap(QtGui.QPixmap("design/QtDesigner/../../assets/14.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.sticker14.setIcon(icon13)
+        self.sticker14.setIconSize(QtCore.QSize(100, 100))
+        self.sticker14.setCheckable(False)
+        self.sticker14.setAutoRepeat(False)
+        self.sticker14.setAutoExclusive(False)
+        self.sticker14.setAutoDefault(False)
+        self.sticker14.setDefault(False)
+        self.sticker14.setFlat(False)
+        self.sticker14.setObjectName("sticker14")
+        self.sticker15 = QtWidgets.QPushButton(parent=self.frame)
+        self.sticker15.setGeometry(QtCore.QRect(280, 550, 111, 111))
+        self.sticker15.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.sticker15.setText("")
+        icon14 = QtGui.QIcon()
+        icon14.addPixmap(QtGui.QPixmap("design/QtDesigner/../../assets/15.png"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        self.sticker15.setIcon(icon14)
+        self.sticker15.setIconSize(QtCore.QSize(100, 100))
+        self.sticker15.setCheckable(False)
+        self.sticker15.setAutoRepeat(False)
+        self.sticker15.setAutoExclusive(False)
+        self.sticker15.setAutoDefault(False)
+        self.sticker15.setDefault(False)
+        self.sticker15.setFlat(False)
+        self.sticker15.setObjectName("sticker15")
         self.frame_2 = QtWidgets.QFrame(parent=self.centralwidget)
-        self.frame_2.setGeometry(QtCore.QRect(430, 10, 751, 621))
-        self.frame_2.setStyleSheet(
-            "background-color: rgb(35, 35, 35);\n" "border-radius: 15px;"
-        )
+        self.frame_2.setGeometry(QtCore.QRect(430, 10, 751, 671))
+        self.frame_2.setStyleSheet("background-color: rgb(35, 35, 35);\n"
+"border-radius: 15px;")
         self.frame_2.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame_2.setObjectName("frame_2")
+        self.message = QtWidgets.QLineEdit(parent=self.frame_2)
+        self.message.setGeometry(QtCore.QRect(10, 460, 731, 61))
+        self.message.setStyleSheet("background-color: rgb(229, 229, 229);\n"
+"border-radius: 15px;\n"
+"padding-left: 5px;\n"
+"font-size: 15px")
+        self.message.setObjectName("message")
+        self.exit = QtWidgets.QPushButton(parent=self.frame_2)
+        self.exit.setGeometry(QtCore.QRect(380, 530, 361, 61))
+        self.exit.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.exit.setStyleSheet("QPushButton {\n"
+"    background-color: rgb(123, 123, 123);\n"
+"    border-radius: 15px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(108, 108, 108);\n"
+"}")
+        self.exit.setObjectName("exit")
+        self.send_message = QtWidgets.QPushButton(parent=self.frame_2)
+        self.send_message.setGeometry(QtCore.QRect(10, 530, 361, 61))
+        self.send_message.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.send_message.setStyleSheet("QPushButton {\n"
+"    background-color: rgb(123, 123, 123);\n"
+"    border-radius: 15px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(108, 108, 108);\n"
+"}")
+        self.send_message.setObjectName("send_message")
+        self.connect_to_server = QtWidgets.QPushButton(parent=self.frame_2)
+        self.connect_to_server.setGeometry(QtCore.QRect(10, 600, 731, 61))
+        self.connect_to_server.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.connect_to_server.setStyleSheet("QPushButton {\n"
+"    background-color: rgb(123, 123, 123);\n"
+"    border-radius: 15px;\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color: rgb(108, 108, 108);\n"
+"}")
+        self.connect_to_server.setObjectName("connect_to_server")
         self.frame_2.raise_()
         self.messages.raise_()
-        self.send_message.raise_()
-        self.connect_to_server.raise_()
-        self.exit.raise_()
-        self.message.raise_()
         self.frame.raise_()
         MainWindow.setCentralWidget(self.centralwidget)
 

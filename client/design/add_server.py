@@ -11,7 +11,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 
 
 class AddServerWindowDesign(object):
-    def setupUi(self, MainWindow, language: str = "ua"):
+    def setupUi(self, MainWindow, language: str):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setFixedSize(410, 289)
         MainWindow.setStyleSheet("background-color: rgb(64, 65, 62); color: black;")

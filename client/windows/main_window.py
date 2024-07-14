@@ -33,6 +33,15 @@ class MainWindow(QMainWindow):
             4: self.design.sticker4,
             5: self.design.sticker5,
             6: self.design.sticker6,
+            7: self.design.sticker7,
+            8: self.design.sticker8,
+            9: self.design.sticker9,
+            10: self.design.sticker10,
+            11: self.design.sticker11,
+            12: self.design.sticker12,
+            13: self.design.sticker13,
+            14: self.design.sticker14,
+            15: self.design.sticker15
         }
         self.connect_to_server_window = ConnectToServerWindow(self, language)
 
@@ -50,6 +59,15 @@ class MainWindow(QMainWindow):
         self.design.sticker4.clicked.connect(lambda: self.select_sticker(4))
         self.design.sticker5.clicked.connect(lambda: self.select_sticker(5))
         self.design.sticker6.clicked.connect(lambda: self.select_sticker(6))
+        self.design.sticker7.clicked.connect(lambda: self.select_sticker(7))
+        self.design.sticker8.clicked.connect(lambda: self.select_sticker(8))
+        self.design.sticker9.clicked.connect(lambda: self.select_sticker(9))
+        self.design.sticker10.clicked.connect(lambda: self.select_sticker(10))
+        self.design.sticker11.clicked.connect(lambda: self.select_sticker(11))
+        self.design.sticker12.clicked.connect(lambda: self.select_sticker(12))
+        self.design.sticker13.clicked.connect(lambda: self.select_sticker(13))
+        self.design.sticker14.clicked.connect(lambda: self.select_sticker(14))
+        self.design.sticker15.clicked.connect(lambda: self.select_sticker(15))
 
     def select_sticker(self, sticker_number: int) -> None:
         """Вибрати стікер"""
