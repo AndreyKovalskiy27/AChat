@@ -16,7 +16,6 @@ class Server:
         self.server_socket.bind((ip, port))
         self.server_socket.listen(max_users)
 
-        self.chiper = chiper.Chiper()
         self.users = {}
 
         print("Сервер запущений!")
@@ -31,10 +30,11 @@ class Server:
                 # Відправка клієнту ключа шифрування
                 user_public_key = user.recv(100000)
                 user_public_key = rsa.PublicKey.load_pkcs1(user_public_key)
-                user.send(rsa.encrypt(self.chiper.key_str, user_public_key))
+                user_chiper = chiper.Chiper()
+                user.send(rsa.encrypt(user_chiper.key_str, user_public_key))
 
                 data = user.recv(100000)
-                data = self.chiper.decrypt(data)
+                data = user_chiper.decrypt(data)
 
                 if data["type"] == "client_ok":
                     nikname = data["nikname"]
@@ -50,7 +50,7 @@ class Server:
 
                     else:
                         self.send_to_all({"type": "new_user", "nikname": nikname})
-                        self.users[user] = nikname
+                        self.users[user] = {"nikname": nikname, "chiper": user_chiper}
 
                         Thread(target=self.user_handler, args=(user,)).start()
 
@@ -68,12 +68,13 @@ class Server:
 
     def user_handler(self, user_socket: socket.socket) -> None:
         """Обробник користувача"""
-        nikname = self.users[user_socket]
+        nikname = self.users[user_socket]["nikname"]
 
         while True:
             try:
                 data = user_socket.recv(100000)
-                data = self.chiper.decrypt(data)
+                data = self.users[user_socket]["chiper"].decrypt(data)
+                print(data)
 
                 # Запрос на відправку повідомлення
                 if data["type"] == "message":
@@ -112,7 +113,7 @@ class Server:
 
     def send_to_user(self, message: Any, user: socket.socket) -> None:
         """Відправити повідомлення конкретному користувачу"""
-        message = self.chiper.encrypt(message)
+        message = self.users[user]["chiper"].encrypt(message)
         user.sendall(message)
 
     def send_to_all(self, message: Any, do_not_send_to: socket.socket = None) -> None:
