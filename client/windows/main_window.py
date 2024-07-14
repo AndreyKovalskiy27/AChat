@@ -41,7 +41,7 @@ class MainWindow(QMainWindow):
             12: self.design.sticker12,
             13: self.design.sticker13,
             14: self.design.sticker14,
-            15: self.design.sticker15
+            15: self.design.sticker15,
         }
         self.connect_to_server_window = ConnectToServerWindow(self, language)
 
