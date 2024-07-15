@@ -1,6 +1,5 @@
 """Сервер"""
 
-
 from typing import Any
 from threading import Thread
 import socket
@@ -39,14 +38,16 @@ class Server:
                 if data["type"] == "client_ok":
                     nikname = data["nikname"]
 
-                    if nikname in self.users.values():
-                        self.send_to_user(
-                            {
-                                "type": "server_not_ok",
-                                "message": "Такий нікнейм вже зайнятий",
-                            },
-                            user,
-                        )
+                    for value in self.users.values():
+                        if value["nikname"] == nikname:
+                            user.send(
+                                user_chiper.encrypt(
+                                    {
+                                        "type": "server_not_ok",
+                                        "message": "Такий нікнейм вже зайнятий",
+                                    },
+                                )
+                            )
 
                     else:
                         self.send_to_all({"type": "new_user", "nikname": nikname})
@@ -74,7 +75,6 @@ class Server:
             try:
                 data = user_socket.recv(100000)
                 data = self.users[user_socket]["chiper"].decrypt(data)
-                print(data)
 
                 # Запрос на відправку повідомлення
                 if data["type"] == "message":
