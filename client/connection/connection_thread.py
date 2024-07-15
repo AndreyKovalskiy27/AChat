@@ -25,7 +25,7 @@ class ConnectionThread(QThread):
             self.signal.emit(connection)
 
         except TimeoutError:
-            self.signal.emit("Сервер не відповідає більше 3 секунди")
+            self.signal.emit("Server not answering more than 3 seconds")
 
         except Exception as error:
             self.signal.emit(str(error))

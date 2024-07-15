@@ -44,7 +44,7 @@ class Server:
                                 user_chiper.encrypt(
                                     {
                                         "type": "server_not_ok",
-                                        "message": "Такий нікнейм вже зайнятий",
+                                        "message": "This nikname is already taken",
                                     },
                                 )
                             )
