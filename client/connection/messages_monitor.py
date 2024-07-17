@@ -62,8 +62,14 @@ class MessagesMonitor(QThread):
                     )
 
                 elif data["type"] == "exit":
+                    text = f"{data["nikname"]} {translation.TRANSLATION[self.main_window.design.language]["user_exited"]}"
+                    was_error = data.get("was_error", False)
+
+                    if was_error:
+                        text = f"{data["nikname"]} {translation.TRANSLATION[self.main_window.design.language]["user_deleted_by_an_error"]}"
+
                     self.main_window.add_message(
-                        f"{data["nikname"]} {translation.TRANSLATION[self.main_window.design.language]["user_exited"]}"
+                        text
                     )
 
             except Exception:
