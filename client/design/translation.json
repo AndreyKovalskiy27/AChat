@@ -32,7 +32,8 @@
         "user_exited": "exited from server",
         "load": "Load",
         "delete": "Delete",
-        "user_deleted_by_an_error": "was deleted from server by an error"
+        "user_deleted_by_an_error": "was deleted from server by an error",
+        "port_range_error": "Post must be number from 0 to 65535"
     },
     "ua": {
         "stickers": "Стікери",
@@ -67,6 +68,7 @@
         "user_exited": "вийшов з серверу",
         "load": "Завантажити",
         "delete": "Видалити",
-        "user_deleted_by_an_error": "був видалений з сервера через помилку"
+        "user_deleted_by_an_error": "був видалений з сервера через помилку",
+        "port_range_error": "Порт повиннен бути числом з 0 до 65535"
     }
 }

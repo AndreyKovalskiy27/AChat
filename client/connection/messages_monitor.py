@@ -68,9 +68,7 @@ class MessagesMonitor(QThread):
                     if was_error:
                         text = f"{data["nikname"]} {translation.TRANSLATION[self.main_window.design.language]["user_deleted_by_an_error"]}"
 
-                    self.main_window.add_message(
-                        text
-                    )
+                    self.main_window.add_message(text)
 
             except Exception:
                 pass

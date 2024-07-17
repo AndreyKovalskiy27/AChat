@@ -1,11 +1,12 @@
 """Обробка кнопок для роботи з данними для підключення до сервера"""
 
+from typing import Union
 from os import remove
 import messages
 import translation
 
 
-def check_not_empty(self) -> tuple:
+def check_not_empty(self) -> Union[tuple, None]:
     """Перевірити, чи заповнив користувач форму для підключення до серверу"""
     ip = self.design.ip.text()
     port = self.design.port.text()
@@ -13,7 +14,15 @@ def check_not_empty(self) -> tuple:
 
     if ip.strip() and port.strip() and nikname.strip():
         if port.isdecimal():
-            return ip, int(port), nikname
+            port = int(port)
+
+            if port >= 0 and port <= 65535:
+                return ip, port, nikname
+        
+            messages.show(
+                translation.TRANSLATION[self.design.language]["port_range_error"],
+                translation.TRANSLATION[self.design.language]["port_range_error"],
+            )
 
         else:
             messages.show(

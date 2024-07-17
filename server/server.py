@@ -110,7 +110,9 @@ class Server:
                 except Exception:
                     pass
 
-                self.send_to_all({"type": "exit", "nikname": nikname, "was_error": True})
+                self.send_to_all(
+                    {"type": "exit", "nikname": nikname, "was_error": True}
+                )
                 print(f"{nikname} був видалений з сервера через помилку")
                 break
 
@@ -130,7 +132,9 @@ class Server:
                     try:
                         nikname = self.users[user]["nikname"]
                         self.users.pop(user)
-                        self.send_to_all({"type": "exit", "nikname": nikname, "was_error": True})
+                        self.send_to_all(
+                            {"type": "exit", "nikname": nikname, "was_error": True}
+                        )
                         print(
                             f"{self.users[user]} був видалений з сервера через помилку"
                         )

@@ -33,24 +33,32 @@ class AddServerWindow(QMainWindow):
 
         if name.strip() and ip.strip() and port.strip():
             if port.isdecimal():
-                try:
-                    self.servers.add_server(name, ip, int(port))
-                    self.close()
+                port = int(port)
 
-                except Exception as error:
-                    messages.show(
-                        translation.TRANSLATION[self.design.language][
-                            "server_add_error"
-                        ],
-                        translation.TRANSLATION[self.design.language][
-                            "server_add_error"
-                        ],
-                        messages.QMessageBox.Icon.Critical,
-                        error,
-                    )
+                if port >= 0 and port <= 65535:
+                    try:
+                        self.servers.add_server(name, ip, int(port))
+                        self.close()
 
-                finally:
-                    load_servers(self.connect_to_server_window)
+                    except Exception as error:
+                        messages.show(
+                            translation.TRANSLATION[self.design.language][
+                                "server_add_error"
+                            ],
+                            translation.TRANSLATION[self.design.language][
+                                "server_add_error"
+                            ],
+                            messages.QMessageBox.Icon.Critical,
+                            error,
+                        )
+
+                    finally:
+                        load_servers(self.connect_to_server_window)
+
+                messages.show(
+                    translation.TRANSLATION[self.design.language]["port_range_error"],
+                    translation.TRANSLATION[self.design.language]["port_range_error"],
+                )
 
             else:
                 messages.show(
