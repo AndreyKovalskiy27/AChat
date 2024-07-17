@@ -6,13 +6,13 @@ import messages
 import translation
 
 
-def check_not_empty(self) -> Union[tuple, None]:
+def check_not_empty(self, blank=False) -> Union[tuple, None]:
     """Перевірити, чи заповнив користувач форму для підключення до серверу"""
     ip = self.design.ip.text()
     port = self.design.port.text()
     nikname = self.design.nikname.text()
 
-    if ip.strip() and port.strip() and nikname.strip():
+    if blank or (ip.strip() and port.strip() and nikname.strip()):
         if port.isdecimal():
             port = int(port)
 
@@ -39,7 +39,7 @@ def check_not_empty(self) -> Union[tuple, None]:
 
 def save_connection_data(self) -> None:
     """Зберегти данні для підключення до серверу"""
-    form_data = check_not_empty(self)
+    form_data = check_not_empty(self, True)
 
     if form_data:
         self.connection_data.write(form_data[0], form_data[1], form_data[2])
