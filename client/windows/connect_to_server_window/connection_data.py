@@ -6,29 +6,33 @@ import messages
 import translation
 
 
-def check_not_empty(self, blank=False) -> Union[tuple, None]:
+def check_not_empty(self, check_data=True) -> Union[tuple, None]:
     """Перевірити, чи заповнив користувач форму для підключення до серверу"""
     ip = self.design.ip.text()
     port = self.design.port.text()
     nikname = self.design.nikname.text()
 
-    if blank or (ip.strip() and port.strip() and nikname.strip()):
-        if port.isdecimal():
-            port = int(port)
+    if not check_data or (ip.strip() and port.strip() and nikname.strip()):
+        if check_data:
+            if port.isdecimal():
+                port = int(port)
 
-            if port >= 0 and port <= 65535:
-                return ip, port, nikname
-        
-            messages.show(
-                translation.TRANSLATION[self.design.language]["port_range_error"],
-                translation.TRANSLATION[self.design.language]["port_range_error"],
-            )
+                if port >= 0 and port <= 65535:
+                    return ip, port, nikname
+            
+                messages.show(
+                    translation.TRANSLATION[self.design.language]["port_range_error"],
+                    translation.TRANSLATION[self.design.language]["port_range_error"],
+                    )
+
+            else:
+                messages.show(
+                    translation.TRANSLATION[self.design.language]["port_must_be_number"],
+                    translation.TRANSLATION[self.design.language]["port_must_be_number"],
+                )
 
         else:
-            messages.show(
-                translation.TRANSLATION[self.design.language]["port_must_be_number"],
-                translation.TRANSLATION[self.design.language]["port_must_be_number"],
-            )
+            return ip, port, nikname
 
     else:
         messages.show(
@@ -39,7 +43,7 @@ def check_not_empty(self, blank=False) -> Union[tuple, None]:
 
 def save_connection_data(self) -> None:
     """Зберегти данні для підключення до серверу"""
-    form_data = check_not_empty(self, True)
+    form_data = check_not_empty(self, False)
 
     if form_data:
         self.connection_data.write(form_data[0], form_data[1], form_data[2])
