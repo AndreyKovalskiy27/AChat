@@ -37,9 +37,12 @@ class Server:
 
                 if data["type"] == "client_ok":
                     nikname = data["nikname"]
+                    is_nikname_avalible = True
 
+                    # Перевірка на те, що нікнейм не зайнятий
                     for value in self.users.values():
                         if value["nikname"] == nikname:
+                            is_nikname_avalible = False
                             user.send(
                                 user_chiper.encrypt(
                                     {
@@ -49,7 +52,7 @@ class Server:
                                 )
                             )
 
-                    else:
+                    if is_nikname_avalible:
                         self.send_to_all({"type": "new_user", "nikname": nikname})
                         self.users[user] = {"nikname": nikname, "chiper": user_chiper}
 
