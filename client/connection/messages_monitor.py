@@ -2,9 +2,11 @@
 
 from os.path import join, exists
 from base64 import b64decode
+from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtCore import Qt, QThread
 from connection.connection import Connection
 import translation
+import traceback
 
 
 class MessagesMonitor(QThread):
@@ -49,26 +51,67 @@ class MessagesMonitor(QThread):
                     else:
                         avatar = join("assets", "user.png")
 
+                    text = f"{data["nikname"]}:\n{data["message"]}"
+
                     self.main_window.add_message(
-                        f"{data["nikname"]}:\n{data["message"]}",
+                        text,
                         False,
                         aligment=Qt.AlignmentFlag.AlignLeft,
                         icon=avatar,
                     )
 
+                    icon = avatar
+
+                    if isinstance(icon, bytes):
+                        icon = QPixmap()
+                        icon.loadFromData(icon)
+                        icon = QIcon(icon)
+
+                    else:
+                        icon = QIcon(icon)
+
+                    if not self.main_window.isActiveWindow():
+                        self.main_window.tray_icon.showMessage(
+                            data["nikname"],
+                            data["message"],
+                            icon,
+                            3000
+                        )
+
                 elif data["type"] == "new_user":
-                    self.main_window.add_message(
-                        f"{data["nikname"]} {translation.TRANSLATION[self.main_window.design.language]["new_user_connected"]}"
-                    )
+                    text = (f"{data["nikname"]} {translation.TRANSLATION[
+                        self.main_window.design.language][
+                        "new_user_connected"]}")
+                    self.main_window.add_message(text)
+
+                    if not self.main_window.isActiveWindow():
+                        self.main_window.tray_icon.showMessage(
+                            text,
+                            "",
+                            self.main_window.tray_icon.MessageIcon.NoIcon,
+                            3000)
 
                 elif data["type"] == "exit":
-                    text = f"{data["nikname"]} {translation.TRANSLATION[self.main_window.design.language]["user_exited"]}"
+                    text = (f"{data["nikname"]} "
+                            f"{translation.TRANSLATION[
+                                self.main_window.design.language][
+                                "user_exited"]}")
                     was_error = data.get("was_error", False)
 
                     if was_error:
-                        text = f"{data["nikname"]} {translation.TRANSLATION[self.main_window.design.language]["user_deleted_by_an_error"]}"
+                        text = (f"{data["nikname"]} "
+                        f"{translation.TRANSLATION[
+                            self.main_window.design.language][
+                            "user_deleted_by_an_error"]}")
 
                     self.main_window.add_message(text)
 
+                    if not self.main_window.isActiveWindow():
+                        self.main_window.tray_icon.showMessage(
+                            text,
+                            "",
+                            self.main_window.tray_icon.MessageIcon.NoIcon,
+                            3000)
+
             except Exception:
-                pass
+                traceback.print_exc()

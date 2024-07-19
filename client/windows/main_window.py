@@ -1,7 +1,7 @@
 """Модуль головного вікна"""
 
 from os.path import join
-from PyQt6.QtWidgets import QMainWindow, QListWidgetItem
+from PyQt6.QtWidgets import QMainWindow, QListWidgetItem, QSystemTrayIcon, QApplication
 from PyQt6.QtGui import QFont, QIcon, QPixmap
 from PyQt6.QtCore import Qt, QSize
 from design import main_window
@@ -15,10 +15,13 @@ import translation
 class MainWindow(QMainWindow):
     """Головне вікно"""
 
-    def __init__(self) -> None:
+    def __init__(self, app: QApplication) -> None:
         super().__init__()
 
         language = Language().get()
+        self.tray_icon = QSystemTrayIcon(
+            QIcon(join("assets", "icon.png")), app)
+        self.tray_icon.show()
 
         self.design = main_window.MainWindowDesign()
         self.design.setupUi(self, language)
@@ -147,7 +150,8 @@ class MainWindow(QMainWindow):
                     else self.connect_to_server_window.avatar.get_avatar_path()
                 )
                 self.add_message(
-                    f"{self.connection.nikname} ({translation.TRANSLATION[self.design.language]["you"]}):\n{message}",
+                    f"{self.connection.nikname} ({translation.TRANSLATION[self.design.language]["you"]}):\n{
+                        message}",
                     False,
                     aligment=Qt.AlignmentFlag.AlignRight,
                     icon=sticker,
@@ -186,9 +190,11 @@ class MainWindow(QMainWindow):
         except Exception:
             pass
 
-        self.add_message(translation.TRANSLATION[self.design.language]["exit_message"])
+        self.add_message(
+            translation.TRANSLATION[self.design.language]["exit_message"])
         self.block_chat()
-        btn_locker.unlock_btn(self.connect_to_server_window.design.connect_to_server)
+        btn_locker.unlock_btn(
+            self.connect_to_server_window.design.connect_to_server)
 
     def closeEvent(self, a0) -> None:
         """
