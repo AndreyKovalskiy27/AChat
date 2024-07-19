@@ -1,8 +1,8 @@
 """Модуль головного вікна"""
 
 from os.path import join
-from PyQt6.QtWidgets import QMainWindow, QListWidgetItem, QSystemTrayIcon, QApplication
-from PyQt6.QtGui import QFont, QIcon, QPixmap
+from PyQt6.QtWidgets import QMainWindow, QListWidgetItem, QSystemTrayIcon, QMenu
+from PyQt6.QtGui import QFont, QIcon, QPixmap, QAction
 from PyQt6.QtCore import Qt, QSize
 from design import main_window
 from design import btn_locker
@@ -19,10 +19,6 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         language = Language().get()
-        self.tray_icon = QSystemTrayIcon(
-            QIcon(join("assets", "icon.png")), self)
-
-        self.tray_icon.show()
 
         self.design = main_window.MainWindowDesign()
         self.design.setupUi(self, language)
@@ -48,6 +44,23 @@ class MainWindow(QMainWindow):
             15: self.design.sticker15,
         }
         self.connect_to_server_window = ConnectToServerWindow(self, language)
+
+        # Меню программи у панелі управління
+        self.tray_icon = QSystemTrayIcon(
+            QIcon(join("assets", "icon.png")), self)
+
+        menu = QMenu()
+        connect_to_server_action = QAction("Підключитися до серверу", self)
+        connect_to_server_action.triggered.connect(self.connect_to_server_window.show)
+        exit_server_action = QAction("Вийти з серверу", self)
+        exit_server_action.triggered.connect(self.exit_from_server)
+        quit_achat_action = QAction("Закрити AChat", self)
+        quit_achat_action.triggered.connect(lambda: (self.exit_from_server(), exit(0)))
+        menu.addAction(connect_to_server_action)
+        menu.addAction(exit_server_action)
+        menu.addAction(quit_achat_action)
+        self.tray_icon.setContextMenu(menu)
+        self.tray_icon.show()
 
         # Обробка нажаття на кнопки
         self.design.connect_to_server.clicked.connect(
