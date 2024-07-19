@@ -422,3 +422,4 @@ class MainWindowDesign(object):
             _translate("MainWindow", TRANSLATION["enter_message"])
         )
         self.label.setText(_translate("MainWindow", TRANSLATION["stickers"]))
+        self.messages.setWordWrap(True)
