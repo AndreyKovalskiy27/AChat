@@ -15,12 +15,13 @@ import translation
 class MainWindow(QMainWindow):
     """Головне вікно"""
 
-    def __init__(self, app: QApplication) -> None:
+    def __init__(self) -> None:
         super().__init__()
 
         language = Language().get()
         self.tray_icon = QSystemTrayIcon(
-            QIcon(join("assets", "icon.png")), app)
+            QIcon(join("assets", "icon.png")), self)
+
         self.tray_icon.show()
 
         self.design = main_window.MainWindowDesign()
