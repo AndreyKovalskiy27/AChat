@@ -31,10 +31,9 @@ class OtherSettings:
                 indent=4,
             )
 
-    def get_servers(self) -> Union[dict, None]:
-        """Отримати список серверів"""
-        if exists(self.other_settings_file_path):
-            with open(
-                self.other_settings_file_path, "r", encoding="utf-8"
-            ) as other_settings_file:
-                return load(other_settings_file)
+    def get(self) -> Union[dict, None]:
+        """Отримати інші налаштування"""
+        with open(
+            self.other_settings_file_path, "r", encoding="utf-8"
+        ) as other_settings_file:
+            return load(other_settings_file)

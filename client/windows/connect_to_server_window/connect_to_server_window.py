@@ -1,5 +1,7 @@
 """Модуль вікна підключення до сервера"""
 
+
+from os import remove
 from PyQt6.QtWidgets import QMainWindow
 from PyQt6.QtGui import QPixmap
 from design.connect_to_server import ConnectToServerWindowDesign
@@ -44,6 +46,7 @@ class ConnectToServerWindow(QMainWindow):
         self.design.avatar.setPixmap(QPixmap(self.avatar.get_avatar_path()))
         load_connection_data(self)
         load_servers(self)
+        self.load_other_settings()
 
         # Натискання на кнопки
         self.design.connect_to_server.clicked.connect(lambda: connect_to_server(self))
@@ -55,6 +58,17 @@ class ConnectToServerWindow(QMainWindow):
         self.design.load_avatar.clicked.connect(lambda: set_avatar(self))
         self.design.delete_avatar.clicked.connect(lambda: delete_avatar(self))
         self.design.save_other_settings.clicked.connect(self.save_other_settings)
+
+    def load_other_settings(self) -> None:
+        """Завантажити інші налаштування"""
+        try:
+            other_settings = self.other_settings.get()
+            self.design.push_messages.setChecked(other_settings["push_messages"])
+            self.design.logging.setChecked(other_settings["logging"])
+            self.design.new_theme.setCurrentIndex(0 if other_settings["theme"] == "light" else 1)
+
+        except Exception:
+            remove(self.other_settings.other_settings_file_path)
 
     def save_other_settings(self) -> None:
         """Зберегти інші налаштування"""
