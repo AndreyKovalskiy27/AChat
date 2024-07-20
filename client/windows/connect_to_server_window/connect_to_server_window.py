@@ -1,6 +1,5 @@
 """Модуль вікна підключення до сервера"""
 
-
 from PyQt6.QtWidgets import QMainWindow
 from PyQt6.QtGui import QPixmap
 from design.connect_to_server import ConnectToServerWindowDesign

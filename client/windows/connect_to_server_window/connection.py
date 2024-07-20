@@ -46,5 +46,7 @@ def connect_to_server(self) -> None:
         self.connection_thread = ConnectionThread(
             form_data[0], form_data[1], form_data[2]
         )
-        self.connection_thread.signal.connect(lambda value: connection_signal_handler(self, value))
+        self.connection_thread.signal.connect(
+            lambda value: connection_signal_handler(self, value)
+        )
         self.connection_thread.start()
