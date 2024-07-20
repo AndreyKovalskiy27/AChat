@@ -1,6 +1,5 @@
 """Модуль для роботи з мовою программи"""
 
-
 from json import dump, load
 from os.path import join, exists
 from os import remove

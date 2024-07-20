@@ -1,6 +1,5 @@
 """Модуль для роботи з списком серверів"""
 
-
 from typing import Union
 from os.path import join, exists
 from json import dump, load

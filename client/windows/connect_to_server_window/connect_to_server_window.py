@@ -31,6 +31,7 @@ class ConnectToServerWindow(QMainWindow):
         self.servers = settings.Servers()
         self.language = settings.Language()
         self.avatar = settings.UserAvatar()
+        self.other_settings = settings.OtherSettings()
 
         self.main_window = main_window
         self.language_codes = {"Українська": "ua", "English": "en"}
@@ -53,6 +54,14 @@ class ConnectToServerWindow(QMainWindow):
         self.design.set_language.clicked.connect(self.set_language)
         self.design.load_avatar.clicked.connect(lambda: set_avatar(self))
         self.design.delete_avatar.clicked.connect(lambda: delete_avatar(self))
+        self.design.save_other_settings.clicked.connect(self.save_other_settings)
+
+    def save_other_settings(self) -> None:
+        """Зберегти інші налаштування"""
+        push_messages = self.design.push_messages.isChecked()
+        logging = self.design.logging.isChecked()
+        theme = "light" if self.design.new_theme.currentIndex() == 0 else "dark"
+        self.other_settings.write(push_messages, logging, theme)
 
     def set_language(self) -> None:
         """Встановити мову"""

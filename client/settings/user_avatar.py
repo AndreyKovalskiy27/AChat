@@ -7,7 +7,6 @@ from base64 import b64encode
 from .settings_folder import SETTINGS_FOLDER
 
 
-
 class UserAvatar:
     """Класс для роботи з аватаром користувача"""
 

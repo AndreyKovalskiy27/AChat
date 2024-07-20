@@ -1,5 +1,4 @@
-"""Папка, де зберігаються налаштування""" 
-
+"""Папка, де зберігаються налаштування"""
 
 from os.path import join, expanduser, exists
 from os import mkdir
