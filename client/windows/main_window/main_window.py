@@ -1,9 +1,9 @@
 """Модуль головного вікна"""
 
 from os.path import join
-from PyQt6.QtWidgets import QMainWindow, QListWidgetItem, QSystemTrayIcon, QMenu
-from PyQt6.QtGui import QFont, QIcon, QPixmap, QAction
-from PyQt6.QtCore import Qt, QSize
+from PyQt6.QtWidgets import QMainWindow, QSystemTrayIcon, QMenu
+from PyQt6.QtGui import QIcon, QAction
+from PyQt6.QtCore import QSize
 from design import main_window
 from design import btn_locker
 from windows.connect_to_server_window import ConnectToServerWindow
@@ -35,7 +35,9 @@ class MainWindow(QMainWindow):
         exit_server_action = QAction("Вийти з серверу", self)
         exit_server_action.triggered.connect(lambda: connection.exit_from_server(self))
         quit_achat_action = QAction("Закрити AChat", self)
-        quit_achat_action.triggered.connect(lambda: (lambda: connection.exit_from_server(self), exit(0)))
+        quit_achat_action.triggered.connect(
+            lambda: (lambda: connection.exit_from_server(self), exit(0))
+        )
         menu.addAction(connect_to_server_action)
         menu.addAction(exit_server_action)
         menu.addAction(quit_achat_action)

@@ -1,6 +1,5 @@
 """Функція для додавання повідомлення у список повідомленнь"""
 
-
 from PyQt6.QtWidgets import QListWidgetItem
 from PyQt6.QtGui import QFont, QPixmap, QIcon
 from PyQt6.QtCore import Qt

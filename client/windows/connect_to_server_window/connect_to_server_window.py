@@ -77,7 +77,7 @@ class ConnectToServerWindow(QMainWindow):
             self.main_window.unblock_chat()
             add_message(
                 self.main_window,
-                translation.TRANSLATION[self.design.language]["connection_message"]
+                translation.TRANSLATION[self.design.language]["connection_message"],
             )
             self.connection_thread.terminate()
 

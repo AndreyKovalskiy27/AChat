@@ -26,8 +26,9 @@ def setup_stickers(self) -> None:
     # Натискання на стікери
     for sticker in range(1, len(self.stickers) + 1):
         self.stickers[sticker].clicked.connect(
-            lambda _, current_sticker=sticker: select_sticker(
-                self, current_sticker))
+            lambda _, current_sticker=sticker: select_sticker(self, current_sticker)
+        )
+
 
 def select_sticker(self, sticker_number: int) -> None:
     """Вибрати стікер"""
