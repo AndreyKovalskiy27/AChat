@@ -36,7 +36,7 @@ class MainWindow(QMainWindow):
         exit_server_action.triggered.connect(lambda: connection.exit_from_server(self))
         quit_achat_action = QAction("Закрити AChat", self)
         quit_achat_action.triggered.connect(
-            lambda: (lambda: connection.exit_from_server(self), exit(0))
+            lambda: (connection.exit_from_server(self), exit(0))
         )
         menu.addAction(connect_to_server_action)
         menu.addAction(exit_server_action)
