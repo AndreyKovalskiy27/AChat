@@ -1,6 +1,5 @@
 """Моніторинг вхідних повідомленнь"""
 
-
 from .messages_monitor import MessagesMonitor
 
 

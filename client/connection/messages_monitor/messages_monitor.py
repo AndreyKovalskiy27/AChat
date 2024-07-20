@@ -1,13 +1,9 @@
 """Моніторинг повідомленнь від сервера"""
 
-from os.path import join, exists
-from base64 import b64decode
-from PyQt6.QtGui import QIcon, QPixmap
-from PyQt6.QtCore import Qt, QThread
+from PyQt6.QtCore import QThread
 from connection.connection import Connection
 from . import users_handler
 from .message_handler import message_handler
-import translation
 
 
 class MessagesMonitor(QThread):

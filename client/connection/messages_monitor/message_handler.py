@@ -1,11 +1,10 @@
 """Обробник нового повідомлення"""
 
-
 from os.path import join, exists
 from base64 import b64decode
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtCore import Qt
-import translation
+from windows.main_window.add_message import add_message
 
 
 def message_handler(data: dict, main_window) -> None:
@@ -15,11 +14,7 @@ def message_handler(data: dict, main_window) -> None:
     if avatar:
         # Якщо був відправлений смайлик
         if isinstance(avatar, int):
-            avatar = (
-                join("assets", f"{data["avatar"]}.png")
-                if avatar
-                else None
-            )
+            avatar = join("assets", f"{data["avatar"]}.png") if avatar else None
 
             if not exists(avatar):
                 avatar = join("assets", "error.png")
@@ -37,13 +32,13 @@ def message_handler(data: dict, main_window) -> None:
 
     text = f"{data["nikname"]}:\n{data["message"]}"
 
-    main_window.add_message(
+    add_message(
+        main_window,
         text,
         False,
         aligment=Qt.AlignmentFlag.AlignLeft,
         icon=avatar,
     )
-
 
     # Push-повідомлення
     icon = avatar
@@ -57,9 +52,4 @@ def message_handler(data: dict, main_window) -> None:
         icon = QIcon(icon)
 
     if not main_window.isActiveWindow():
-        main_window.tray_icon.showMessage(
-            data["nikname"],
-            data["message"],
-            icon,
-            3000
-        )
+        main_window.tray_icon.showMessage(data["nikname"], data["message"], icon, 3000)

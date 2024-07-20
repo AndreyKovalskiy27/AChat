@@ -20,6 +20,7 @@ from windows.connect_to_server_window.connection_data import (
     save_connection_data,
     check_not_empty,
 )
+from windows.main_window.add_message import add_message
 import settings
 import messages
 import translation
@@ -74,7 +75,8 @@ class ConnectToServerWindow(QMainWindow):
             btn_locker.lock_btn(self.design.connect_to_server)
             self.main_window.design.messages.clear()
             self.main_window.unblock_chat()
-            self.main_window.add_message(
+            add_message(
+                self.main_window,
                 translation.TRANSLATION[self.design.language]["connection_message"]
             )
             self.connection_thread.terminate()

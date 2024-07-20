@@ -19,16 +19,20 @@ def check_not_empty(self, check_data=True) -> Union[tuple, None]:
 
                 if port >= 0 and port <= 65535:
                     return ip, port, nikname
-            
+
                 messages.show(
                     translation.TRANSLATION[self.design.language]["port_range_error"],
                     translation.TRANSLATION[self.design.language]["port_range_error"],
-                    )
+                )
 
             else:
                 messages.show(
-                    translation.TRANSLATION[self.design.language]["port_must_be_number"],
-                    translation.TRANSLATION[self.design.language]["port_must_be_number"],
+                    translation.TRANSLATION[self.design.language][
+                        "port_must_be_number"
+                    ],
+                    translation.TRANSLATION[self.design.language][
+                        "port_must_be_number"
+                    ],
                 )
 
         else:
