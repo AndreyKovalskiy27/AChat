@@ -33,7 +33,13 @@
         "load": "Load",
         "delete": "Delete",
         "user_deleted_by_an_error": "was deleted from server by an error",
-        "port_range_error": "Post must be number from 0 to 65535"
+        "port_range_error": "Post must be number from 0 to 65535",
+        "other_settings": "Other settings",
+        "push_messages": "Push-messages",
+        "logging": "Logging",
+        "theme": "Theme",
+        "light": "Light",
+        "dark": "Dark"
     },
     "ua": {
         "stickers": "Стікери",
@@ -69,6 +75,12 @@
         "load": "Завантажити",
         "delete": "Видалити",
         "user_deleted_by_an_error": "був видалений з сервера через помилку",
-        "port_range_error": "Порт повиннен бути числом з 0 до 65535"
+        "port_range_error": "Порт повиннен бути числом з 0 до 65535",
+        "other_settings": "Інші налаштування",
+        "push_messages": "Push-повідомлення",
+        "logging": "Логування",
+        "theme": "Тема",
+        "light": "Світла",
+        "dark": "Темна"
     }
 }
