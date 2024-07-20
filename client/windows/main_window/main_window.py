@@ -19,6 +19,10 @@ class MainWindow(QMainWindow):
 
         language = Language().get()
 
+        # Інші налаштування
+        self.push_messages = True
+        self.logging = False
+
         self.design = main_window.MainWindowDesign()
         self.design.setupUi(self, language)
         self.design.messages.setIconSize(QSize(70, 70))

@@ -63,9 +63,13 @@ class ConnectToServerWindow(QMainWindow):
         """Завантажити інші налаштування"""
         try:
             other_settings = self.other_settings.get()
-            self.design.push_messages.setChecked(other_settings["push_messages"])
-            self.design.logging.setChecked(other_settings["logging"])
-            self.design.new_theme.setCurrentIndex(0 if other_settings["theme"] == "light" else 1)
+
+            if other_settings:
+                self.design.push_messages.setChecked(other_settings["push_messages"])
+                self.design.logging.setChecked(other_settings["logging"])
+                self.design.new_theme.setCurrentIndex(0 if other_settings["theme"] == "light" else 1)
+                self.main_window.push_messages = other_settings["push_messages"]
+                self.main_window.logging = other_settings["logging"]
 
         except Exception:
             remove(self.other_settings.other_settings_file_path)
@@ -76,6 +80,8 @@ class ConnectToServerWindow(QMainWindow):
         logging = self.design.logging.isChecked()
         theme = "light" if self.design.new_theme.currentIndex() == 0 else "dark"
         self.other_settings.write(push_messages, logging, theme)
+        self.main_window.push_messages = push_messages
+        self.main_window.logging = logging
 
     def set_language(self) -> None:
         """Встановити мову"""

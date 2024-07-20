@@ -33,7 +33,8 @@ class OtherSettings:
 
     def get(self) -> Union[dict, None]:
         """Отримати інші налаштування"""
-        with open(
-            self.other_settings_file_path, "r", encoding="utf-8"
-        ) as other_settings_file:
-            return load(other_settings_file)
+        if exists(self.other_settings_file_path):
+            with open(
+                self.other_settings_file_path, "r", encoding="utf-8"
+            ) as other_settings_file:
+                return load(other_settings_file)

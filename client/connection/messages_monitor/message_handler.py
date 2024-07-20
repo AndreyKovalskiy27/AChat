@@ -51,5 +51,6 @@ def message_handler(data: dict, main_window) -> None:
     else:
         icon = QIcon(icon)
 
-    if not main_window.isActiveWindow():
-        main_window.tray_icon.showMessage(data["nikname"], data["message"], icon, 3000)
+    if main_window.push_messages:
+        if not main_window.isActiveWindow():
+            main_window.tray_icon.showMessage(data["nikname"], data["message"], icon, 3000)

@@ -11,10 +11,11 @@ def user_connection_handler(data: dict, main_window) -> None:
         "new_user_connected"]}"
     add_message(main_window, text)
 
-    if not main_window.isActiveWindow():
-        main_window.tray_icon.showMessage(
-            text, "", main_window.tray_icon.MessageIcon.NoIcon, 3000
-        )
+    if main_window.push_messages:
+        if not main_window.isActiveWindow():
+            main_window.tray_icon.showMessage(
+                text, "", main_window.tray_icon.MessageIcon.NoIcon, 3000
+            )
 
 
 def user_exit_handler(data: dict, main_window) -> None:
@@ -37,7 +38,8 @@ def user_exit_handler(data: dict, main_window) -> None:
 
     add_message(main_window, text)
 
-    if not main_window.isActiveWindow():
-        main_window.tray_icon.showMessage(
-            text, "", main_window.tray_icon.MessageIcon.NoIcon, 3000
-        )
+    if main_window.push_messages:
+        if not main_window.isActiveWindow():
+            main_window.tray_icon.showMessage(
+                text, "", main_window.tray_icon.MessageIcon.NoIcon, 3000
+            )
