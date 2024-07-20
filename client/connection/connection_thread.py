@@ -2,6 +2,7 @@
 
 from PyQt6.QtCore import QThread, pyqtSignal
 from connection.connection import Connection
+from loguru import logger
 
 
 class ConnectionThread(QThread):
@@ -18,6 +19,7 @@ class ConnectionThread(QThread):
         self.ip = ip
         self.port = port
         self.nikname = nikname
+        logger.success("Ініціалізован поток підключення до серверу")
 
     def run(self) -> None:
         try:
@@ -26,6 +28,10 @@ class ConnectionThread(QThread):
 
         except TimeoutError:
             self.signal.emit("Server not answering more than 3 seconds")
+            logger.error(
+                "Помилка під час підключення до сервера: сервер не відповідає більше 3 секунд"
+            )
 
         except Exception as error:
             self.signal.emit(str(error))
+            logger.error(f"Помилка під час підключення до сервера: {error}")

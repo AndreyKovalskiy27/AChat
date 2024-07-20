@@ -2,6 +2,7 @@
 
 from typing import Union
 from os import remove
+from loguru import logger
 import messages
 import translation
 
@@ -51,6 +52,7 @@ def save_connection_data(self) -> None:
 
     if form_data:
         self.connection_data.write(form_data[0], form_data[1], form_data[2])
+        logger.success("Данні для підключення до серверу збережені")
 
 
 def load_connection_data(self) -> None:
@@ -63,5 +65,10 @@ def load_connection_data(self) -> None:
             self.design.port.setText(str(connection_data_json["port"]))
             self.design.nikname.setText(connection_data_json["nikname"])
 
-    except Exception:
+        logger.success("Завантаженні данні для підключення до серверу")
+
+    except Exception as error:
+        logger.error(
+            f"Помилка під час завантаження данних для підключення до серверу: {error}"
+        )
         remove(self.connection_data.connection_data_file_path)

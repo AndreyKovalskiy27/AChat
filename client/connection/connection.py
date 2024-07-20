@@ -3,6 +3,7 @@
 from typing import Any
 import socket
 from connection import chiper
+from loguru import logger
 import rsa
 
 
@@ -15,12 +16,14 @@ class Connection:
         self.connection_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.connection_socket.connect((ip, port))
         self.connection_socket.settimeout(3)
+        logger.success("Створенне підключення з сервером")
 
         # Отримання ключа шифрування від сервера
         public_key, private_key = rsa.newkeys(500)
         self.connection_socket.send(public_key.save_pkcs1())
         key_str = self.connection_socket.recv(100000)
         key_str = rsa.decrypt(key_str, private_key)
+        logger.success("Отриманий ключ шифрування від сервера")
 
         self.chiper = chiper.Chiper(key_str)
         self.send_message({"type": "client_ok", "nikname": nikname})
@@ -34,12 +37,16 @@ class Connection:
                 )
             )
 
+        logger.success("Успішне підключення до серверу")
+
     def get_data_from_server(self) -> Any:
         """Отримати данні з серверу"""
         data = self.connection_socket.recv(100000)
         data = self.chiper.decrypt(data)
+        logger.debug("Отриманні данні з серверу: ######")
         return data
 
     def send_message(self, message: Any) -> None:
         """Відправити повідомлення на сервер"""
         self.connection_socket.sendall(self.chiper.encrypt(message))
+        logger.success("Відправлено повідомлення до серверу")

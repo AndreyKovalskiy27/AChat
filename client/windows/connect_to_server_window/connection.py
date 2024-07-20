@@ -1,5 +1,6 @@
 """Функції які відносяться до підключення до сервера"""
 
+from loguru import logger
 from connection.connection import Connection
 from connection.connection_thread import ConnectionThread
 from connection.messages_monitor import MessagesMonitor
@@ -28,8 +29,10 @@ def connection_signal_handler(self, value) -> None:
             translation.TRANSLATION[self.design.language]["connection_message"],
         )
         self.connection_thread.terminate()
+        logger.success("Успішне підключення до сервер!")
 
     else:
+        logger.error(f"Помилка під час підключення до сервера: {value}")
         messages.show(
             translation.TRANSLATION[self.design.language]["connection_to_server_error"],
             translation.TRANSLATION[self.design.language]["connection_to_server_error"],

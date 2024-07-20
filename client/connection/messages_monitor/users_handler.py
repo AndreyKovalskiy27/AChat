@@ -2,6 +2,7 @@
 
 from windows.main_window.add_message import add_message
 import translation
+from loguru import logger
 
 
 def user_connection_handler(data: dict, main_window) -> None:
@@ -16,6 +17,8 @@ def user_connection_handler(data: dict, main_window) -> None:
             main_window.tray_icon.showMessage(
                 text, "", main_window.tray_icon.MessageIcon.NoIcon, 3000
             )
+
+    logger.success("Оброблено підключення нового користувача")
 
 
 def user_exit_handler(data: dict, main_window) -> None:
@@ -43,3 +46,5 @@ def user_exit_handler(data: dict, main_window) -> None:
             main_window.tray_icon.showMessage(
                 text, "", main_window.tray_icon.MessageIcon.NoIcon, 3000
             )
+
+    logger.success("Оброблено відключення користувача")

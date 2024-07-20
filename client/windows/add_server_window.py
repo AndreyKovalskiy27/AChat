@@ -2,6 +2,7 @@
 
 import translation
 from PyQt6.QtWidgets import QMainWindow
+from loguru import logger
 from design import add_server
 from settings import Servers
 from .connect_to_server_window.servers import load_servers
@@ -24,6 +25,7 @@ class AddServerWindow(QMainWindow):
         self.servers = Servers()
 
         self.design.add_server.clicked.connect(self.add_server)
+        logger.success("Ініціалізовано вікно додавання сервера")
 
     def add_server(self) -> None:
         """Додати сервер"""
@@ -38,9 +40,13 @@ class AddServerWindow(QMainWindow):
                 if port >= 0 and port <= 65535:
                     try:
                         self.servers.add_server(name, ip, int(port))
+                        logger.success("Доданий новий сервер")
                         self.close()
 
                     except Exception as error:
+                        logger.error(
+                            f"Помилка під час додавання нового сервера: {error}"
+                        )
                         messages.show(
                             translation.TRANSLATION[self.design.language][
                                 "server_add_error"

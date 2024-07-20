@@ -5,6 +5,7 @@ from base64 import b64decode
 from PyQt6.QtGui import QIcon, QPixmap
 from PyQt6.QtCore import Qt
 from windows.main_window.add_message import add_message
+from loguru import logger
 
 
 def message_handler(data: dict, main_window) -> None:
@@ -53,4 +54,8 @@ def message_handler(data: dict, main_window) -> None:
 
     if main_window.push_messages:
         if not main_window.isActiveWindow():
-            main_window.tray_icon.showMessage(data["nikname"], data["message"], icon, 3000)
+            main_window.tray_icon.showMessage(
+                data["nikname"], data["message"], icon, 3000
+            )
+
+    logger.success("Оброблено нове повідомлення")

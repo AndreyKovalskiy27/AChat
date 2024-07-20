@@ -1,6 +1,7 @@
 """Модуль для показу соповіщень на єкран"""
 
 from PyQt6.QtWidgets import QMessageBox
+from loguru import logger
 
 
 def show(
@@ -21,4 +22,5 @@ def show(
     if detailed_text:
         qmessagebox.setDetailedText(str(detailed_text))
 
+    logger.success("Показано повідомлення QMessageBox")
     qmessagebox.exec()

@@ -4,6 +4,7 @@ from os.path import join, exists
 from os import remove
 from shutil import copy
 from base64 import b64encode
+from loguru import logger
 from .settings_folder import SETTINGS_FOLDER
 
 
@@ -13,6 +14,7 @@ class UserAvatar:
     def __init__(self) -> None:
         self.base_avatar_file_path = join("assets", "user.png")
         self.user_avatar_file_path = join(SETTINGS_FOLDER, "user.png")
+        logger.success("Ініціалізовано класс для роботи з аватаром користувача")
 
     def has_own_avatar(self) -> bool:
         """Повертає True, якщо користувач встановив свій аватар. Інакше False"""
@@ -38,3 +40,4 @@ class UserAvatar:
             remove(self.user_avatar_file_path)
 
         copy(new_avatar_file_path, self.user_avatar_file_path)
+        logger.success("Встановлений новий аватар")

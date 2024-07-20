@@ -347,6 +347,7 @@ class ConnectToServerWindowDesign(object):
         self.new_theme.setItemText(1, _translate("MainWindow", TRANSLATION["dark"]))
         self.theme_label.setText(_translate("MainWindow", TRANSLATION["theme"]))
         self.save_other_settings.setText(_translate("MainWindow", TRANSLATION["save"]))
+        self.push_messages.setChecked(True)
 
         # Налаштування таблиці серверів
         self.servers.setEditTriggers(

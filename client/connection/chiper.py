@@ -3,6 +3,7 @@
 from typing import Any
 from pickle import dumps, loads
 from cryptography.fernet import Fernet
+from loguru import logger
 
 
 class Chiper:
@@ -10,11 +11,16 @@ class Chiper:
 
     def __init__(self, key) -> None:
         self.chiper = Fernet(key)
+        logger.success("Ініціалізован шифрувальник")
 
     def encrypt(self, data: Any) -> bytes:
         """Зашифрувати данні"""
-        return self.chiper.encrypt(dumps(data))
+        encrypted = self.chiper.encrypt(dumps(data))
+        logger.debug(f"Зашифровано повідомлення: {encrypted}")
+        return encrypted
 
-    def decrypt(self, data: bytes) -> Any:
+    def decrypt(self, encrypted: bytes) -> Any:
         """Розшифрувати данні"""
-        return loads(self.chiper.decrypt(data))
+        decrypted = loads(self.chiper.decrypt(encrypted))
+        logger.debug("Розшифровано повідомлення: ######")
+        return decrypted

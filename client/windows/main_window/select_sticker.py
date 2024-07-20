@@ -1,5 +1,7 @@
 """Обробка нажаття на стікер"""
 
+from loguru import logger
+
 
 def setup_stickers(self) -> None:
     """Налаштувати стікери"""
@@ -29,12 +31,15 @@ def setup_stickers(self) -> None:
             lambda _, current_sticker=sticker: select_sticker(self, current_sticker)
         )
 
+    logger.success("Стікери налаштовані")
+
 
 def select_sticker(self, sticker_number: int) -> None:
     """Вибрати стікер"""
     if self.selected_sticker == sticker_number:
         self.stickers[sticker_number].setStyleSheet("")
         self.selected_sticker = None
+        logger.debug(f"Вибраний стікер: {self.selected_sticker}")
 
     else:
         if self.selected_sticker:
@@ -44,3 +49,4 @@ def select_sticker(self, sticker_number: int) -> None:
             "border-radius: 50%; border: 2px solid white;"
         )
         self.selected_sticker = sticker_number
+        logger.debug(f"Вибраний стікер: {self.selected_sticker}")

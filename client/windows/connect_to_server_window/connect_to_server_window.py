@@ -1,9 +1,9 @@
 """Модуль вікна підключення до сервера"""
 
-
 from os import remove
 from PyQt6.QtWidgets import QMainWindow
 from PyQt6.QtGui import QPixmap
+from loguru import logger
 from design.connect_to_server import ConnectToServerWindowDesign
 from windows.add_server_window import AddServerWindow
 from .servers import (
@@ -17,6 +17,7 @@ from .connection_data import (
 )
 from .connection import connect_to_server
 from .avatar import set_avatar, delete_avatar
+from logger import enable, disable
 import settings
 
 
@@ -59,6 +60,8 @@ class ConnectToServerWindow(QMainWindow):
         self.design.delete_avatar.clicked.connect(lambda: delete_avatar(self))
         self.design.save_other_settings.clicked.connect(self.save_other_settings)
 
+        logger.success("Ініціалізовано вікно підключення до сервера")
+
     def load_other_settings(self) -> None:
         """Завантажити інші налаштування"""
         try:
@@ -67,11 +70,16 @@ class ConnectToServerWindow(QMainWindow):
             if other_settings:
                 self.design.push_messages.setChecked(other_settings["push_messages"])
                 self.design.logging.setChecked(other_settings["logging"])
-                self.design.new_theme.setCurrentIndex(0 if other_settings["theme"] == "light" else 1)
+                self.design.new_theme.setCurrentIndex(
+                    0 if other_settings["theme"] == "light" else 1
+                )
                 self.main_window.push_messages = other_settings["push_messages"]
                 self.main_window.logging = other_settings["logging"]
 
-        except Exception:
+            logger.success("Завантажені інші налаштування")
+
+        except Exception as error:
+            logger.error(f"Помилка під час завантаження інших налаштуваннь: {error}")
             remove(self.other_settings.other_settings_file_path)
 
     def save_other_settings(self) -> None:
@@ -81,7 +89,14 @@ class ConnectToServerWindow(QMainWindow):
         theme = "light" if self.design.new_theme.currentIndex() == 0 else "dark"
         self.other_settings.write(push_messages, logging, theme)
         self.main_window.push_messages = push_messages
-        self.main_window.logging = logging
+
+        if logging:
+            enable()
+
+        else:
+            disable()
+
+        logger.success("Збережені інші налаштування")
 
     def set_language(self) -> None:
         """Встановити мову"""
@@ -97,3 +112,4 @@ class ConnectToServerWindow(QMainWindow):
             self.add_server_window, new_language
         )
         self.language.write(new_language)
+        logger.success(f"Мова встановлена: {new_language}")

@@ -3,6 +3,7 @@
 from PyQt6.QtWidgets import QListWidgetItem
 from PyQt6.QtGui import QFont, QPixmap, QIcon
 from PyQt6.QtCore import Qt
+from loguru import logger
 
 
 def add_message(
@@ -33,3 +34,4 @@ def add_message(
 
     self.design.messages.addItem(item)
     self.design.messages.scrollToBottom()  # Автоскролл
+    logger.success("Додано нове повідомлення у список повідомленнь")

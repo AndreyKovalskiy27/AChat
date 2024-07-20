@@ -4,6 +4,7 @@ from os.path import join
 from PyQt6.QtWidgets import QMainWindow, QSystemTrayIcon, QMenu
 from PyQt6.QtGui import QIcon, QAction
 from PyQt6.QtCore import QSize
+from loguru import logger
 from design import main_window
 from design import btn_locker
 from windows.connect_to_server_window import ConnectToServerWindow
@@ -19,9 +20,8 @@ class MainWindow(QMainWindow):
 
         language = Language().get()
 
-        # Інші налаштування
+        # Чи показувати push-повідомлення
         self.push_messages = True
-        self.logging = False
 
         self.design = main_window.MainWindowDesign()
         self.design.setupUi(self, language)
@@ -56,16 +56,19 @@ class MainWindow(QMainWindow):
         )
         self.design.send_message.clicked.connect(lambda: connection.send_message(self))
         self.design.exit.clicked.connect(lambda: connection.exit_from_server(self))
+        logger.success("Ініціалізоване головне вікно")
 
     def block_chat(self) -> None:
         """Заблокувати чат (кнопки для відправки повідомлення та виходу з сервера)"""
         btn_locker.lock_btn(self.design.send_message)
         btn_locker.lock_btn(self.design.exit)
+        logger.success("Чат заблокований")
 
     def unblock_chat(self) -> None:
         """Розблокувати чат (кнопки для відправки повідомлення та виходу з сервера)"""
         btn_locker.unlock_btn(self.design.send_message)
         btn_locker.unlock_btn(self.design.exit)
+        logger.success("Чат розблокований")
 
     def closeEvent(self, a0) -> None:
         """
