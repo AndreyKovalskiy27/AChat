@@ -4,10 +4,10 @@ from loguru import logger
 from connection.connection import Connection
 from connection.connection_thread import ConnectionThread
 from connection.messages_monitor import MessagesMonitor
-from design import btn_locker
+from design.utils import btn_locker
 from windows.main_window.add_message import add_message
 from .connection_data import check_not_empty
-import translation
+from design.utils import translation as translation
 import messages
 
 

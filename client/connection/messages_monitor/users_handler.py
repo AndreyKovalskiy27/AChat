@@ -1,7 +1,7 @@
 """Обробка підключень та відключеннь користувачів"""
 
 from windows.main_window.add_message import add_message
-import translation
+from design.utils import translation as translation
 from loguru import logger
 
 

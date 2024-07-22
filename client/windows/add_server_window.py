@@ -1,6 +1,6 @@
 """Вікно додавання сервера"""
 
-import translation
+from design.utils import translation as translation
 from PyQt6.QtWidgets import QMainWindow
 from loguru import logger
 from design import add_server

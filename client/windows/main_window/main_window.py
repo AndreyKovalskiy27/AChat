@@ -6,7 +6,7 @@ from PyQt6.QtGui import QIcon, QAction
 from PyQt6.QtCore import QSize
 from loguru import logger
 from design import main_window
-from design import btn_locker
+from design.utils import btn_locker
 from windows.connect_to_server_window import ConnectToServerWindow
 from settings import Language
 from . import connection, select_sticker

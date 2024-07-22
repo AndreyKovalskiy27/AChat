@@ -4,7 +4,7 @@ from os import remove
 from PyQt6.QtWidgets import QTableWidgetItem
 from loguru import logger
 import messages
-import translation
+from design.utils import translation as translation
 
 
 def load_servers(self) -> None:

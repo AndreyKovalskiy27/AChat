@@ -7,7 +7,7 @@
 
 
 from PyQt6 import QtCore, QtGui, QtWidgets
-import translation
+from design.utils import translation as translation
 
 
 class ConnectToServerWindowDesign(object):

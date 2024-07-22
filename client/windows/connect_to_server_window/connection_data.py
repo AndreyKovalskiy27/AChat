@@ -4,7 +4,7 @@ from typing import Union
 from os import remove
 from loguru import logger
 import messages
-import translation
+from design.utils import translation as translation
 
 
 def check_not_empty(self, check_data=True) -> Union[tuple, None]:

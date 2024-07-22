@@ -3,9 +3,9 @@
 from os.path import join
 from PyQt6.QtCore import Qt
 from loguru import logger
-from design import btn_locker
+from design.utils import btn_locker
 from .add_message import add_message
-import translation
+from design.utils import translation
 import messages
 
 
