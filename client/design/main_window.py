@@ -7,14 +7,23 @@
 
 
 from design.utils import translation as translation
+from settings.other_settings import OtherSettings
+from .themes.css import dark, light
 from PyQt6 import QtCore, QtGui, QtWidgets
 
 
 class MainWindowDesign(object):
     def setupUi(self, MainWindow, language: str):
+        try:
+            self.theme = OtherSettings().get()["theme"]
+            self.theme = dark if self.theme == "dark" else light
+
+        except Exception:
+            pass
+
         MainWindow.setObjectName("MainWindow")
         MainWindow.setFixedSize(1190, 690)
-        MainWindow.setStyleSheet("background-color: rgb(64, 65, 62); color: black;")
+        MainWindow.setStyleSheet(self.theme.background_style)
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.messages = QtWidgets.QListWidget(parent=self.centralwidget)
@@ -28,9 +37,7 @@ class MainWindowDesign(object):
         self.messages.setObjectName("messages")
         self.frame = QtWidgets.QFrame(parent=self.centralwidget)
         self.frame.setGeometry(QtCore.QRect(10, 10, 411, 671))
-        self.frame.setStyleSheet(
-            "background-color: rgb(35, 35, 35);\n" "border-radius: 15px;"
-        )
+        self.frame.setStyleSheet(self.theme.frame_style)
         self.frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame.setObjectName("frame")
@@ -40,7 +47,7 @@ class MainWindowDesign(object):
         font.setPointSize(40)
         font.setBold(True)
         self.label.setFont(font)
-        self.label.setStyleSheet("color: rgb(255, 255, 255);")
+        self.label.setStyleSheet(self.theme.text_style)
         self.label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label.setObjectName("label")
         self.sticker1 = QtWidgets.QPushButton(parent=self.frame)
@@ -342,9 +349,7 @@ class MainWindowDesign(object):
         self.sticker15.setObjectName("sticker15")
         self.frame_2 = QtWidgets.QFrame(parent=self.centralwidget)
         self.frame_2.setGeometry(QtCore.QRect(430, 10, 751, 671))
-        self.frame_2.setStyleSheet(
-            "background-color: rgb(35, 35, 35);\n" "border-radius: 15px;"
-        )
+        self.frame_2.setStyleSheet(self.theme.frame_style)
         self.frame_2.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame_2.setObjectName("frame_2")
@@ -360,45 +365,21 @@ class MainWindowDesign(object):
         self.exit = QtWidgets.QPushButton(parent=self.frame_2)
         self.exit.setGeometry(QtCore.QRect(380, 530, 361, 61))
         self.exit.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
-        self.exit.setStyleSheet(
-            "QPushButton {\n"
-            "    background-color: rgb(123, 123, 123);\n"
-            "    border-radius: 15px;\n"
-            "}\n"
-            "QPushButton:hover {\n"
-            "    background-color: rgb(108, 108, 108);\n"
-            "}"
-        )
+        self.exit.setStyleSheet(self.theme.button_style)
         self.exit.setObjectName("exit")
         self.send_message = QtWidgets.QPushButton(parent=self.frame_2)
         self.send_message.setGeometry(QtCore.QRect(10, 530, 361, 61))
         self.send_message.setCursor(
             QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor)
         )
-        self.send_message.setStyleSheet(
-            "QPushButton {\n"
-            "    background-color: rgb(123, 123, 123);\n"
-            "    border-radius: 15px;\n"
-            "}\n"
-            "QPushButton:hover {\n"
-            "    background-color: rgb(108, 108, 108);\n"
-            "}"
-        )
+        self.send_message.setStyleSheet(self.theme.button_style)
         self.send_message.setObjectName("send_message")
         self.connect_to_server = QtWidgets.QPushButton(parent=self.frame_2)
         self.connect_to_server.setGeometry(QtCore.QRect(10, 600, 731, 61))
         self.connect_to_server.setCursor(
             QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor)
         )
-        self.connect_to_server.setStyleSheet(
-            "QPushButton {\n"
-            "    background-color: rgb(123, 123, 123);\n"
-            "    border-radius: 15px;\n"
-            "}\n"
-            "QPushButton:hover {\n"
-            "    background-color: rgb(108, 108, 108);\n"
-            "}"
-        )
+        self.connect_to_server.setStyleSheet(self.theme.button_style)
         self.connect_to_server.setObjectName("connect_to_server")
         self.frame_2.raise_()
         self.messages.raise_()

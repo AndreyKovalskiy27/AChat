@@ -45,8 +45,6 @@ def select_sticker(self, sticker_number: int) -> None:
         if self.selected_sticker:
             self.stickers[self.selected_sticker].setStyleSheet("")
 
-        self.stickers[sticker_number].setStyleSheet(
-            "border-radius: 50%; border: 2px solid white;"
-        )
+        self.stickers[sticker_number].setStyleSheet(self.design.theme.circle_style)
         self.selected_sticker = sticker_number
         logger.debug(f"Вибраний стікер: {self.selected_sticker}")
