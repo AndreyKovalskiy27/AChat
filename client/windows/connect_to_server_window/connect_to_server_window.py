@@ -96,7 +96,20 @@ class ConnectToServerWindow(QMainWindow):
         else:
             disable()
 
+        self.set_theme()
         logger.success("Збережені інші налаштування")
+
+    def set_theme(self):
+        """Встановити тему"""
+        try:
+            language = self.language_codes[self.design.new_language.currentText()]
+
+        except Exception:
+            language = "en"
+
+        self.main_window.design.setupUi(self.main_window, language)
+        self.design.setupUi(self, language)
+        self.add_server_window.design.setupUi(self.add_server_window, language)
 
     def set_language(self) -> None:
         """Встановити мову"""
