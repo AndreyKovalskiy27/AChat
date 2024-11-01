@@ -9,6 +9,7 @@ from settings import OtherSettings
 
 if __name__ == "__main__":
     try:
+        disable()
         logging = OtherSettings().get()["logging"]
 
         if logging:
