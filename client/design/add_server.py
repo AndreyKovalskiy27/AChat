@@ -7,14 +7,23 @@
 
 
 from design.utils import translation as translation
+from .themes.css import dark, light
+from settings.other_settings import OtherSettings
 from PyQt6 import QtCore, QtGui, QtWidgets
 
 
 class AddServerWindowDesign(object):
     def setupUi(self, MainWindow, language: str):
+        try:
+            self.theme = OtherSettings().get()["theme"]
+            self.theme = dark if self.theme == "dark" else light
+
+        except Exception:
+            pass
+
         MainWindow.setObjectName("MainWindow")
         MainWindow.setFixedSize(410, 289)
-        MainWindow.setStyleSheet("background-color: rgb(64, 65, 62); color: black;")
+        MainWindow.setStyleSheet(self.theme.background_style)
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.ip = QtWidgets.QLineEdit(parent=self.centralwidget)
@@ -50,13 +59,13 @@ class AddServerWindowDesign(object):
             QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor)
         )
         self.add_server.setStyleSheet(
-            "QPushButton {\n"
-            "    background-color: rgb(123, 123, 123);\n"
-            "    border-radius: 15px;\n"
-            "}\n"
-            "QPushButton:hover {\n"
-            "    background-color: rgb(108, 108, 108);\n"
-            "}"
+            """QPushButton {
+	background-color: rgb(123, 123, 123);
+	border-radius: 15px;
+}
+QPushButton:hover {
+	background-color: rgb(108, 108, 108);
+}"""
         )
         self.add_server.setObjectName("add_server")
         MainWindow.setCentralWidget(self.centralwidget)

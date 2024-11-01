@@ -8,20 +8,27 @@
 
 from PyQt6 import QtCore, QtGui, QtWidgets
 from design.utils import translation as translation
+from settings.other_settings import OtherSettings
+from .themes.css import dark, light
 
 
 class ConnectToServerWindowDesign(object):
     def setupUi(self, MainWindow, language: str):
+        try:
+            self.theme = OtherSettings().get()["theme"]
+            self.theme = dark if self.theme == "dark" else light
+
+        except Exception:
+            pass
+
         MainWindow.setObjectName("MainWindow")
         MainWindow.setFixedSize(1190, 609)
-        MainWindow.setStyleSheet("background-color: rgb(64, 65, 62);\n" "color: black;")
+        MainWindow.setStyleSheet(self.theme.background_style)
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(parent=self.centralwidget)
         self.frame.setGeometry(QtCore.QRect(10, 240, 411, 361))
-        self.frame.setStyleSheet(
-            "background-color: rgb(35, 35, 35);\n" "border-radius: 15px;"
-        )
+        self.frame.setStyleSheet(self.theme.frame_style)
         self.frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame.setObjectName("frame")
@@ -40,13 +47,13 @@ class ConnectToServerWindowDesign(object):
             QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor)
         )
         self.connect_to_server.setStyleSheet(
-            "QPushButton {\n"
-            "    background-color: rgb(123, 123, 123);\n"
-            "    border-radius: 15px;\n"
-            "}\n"
-            "QPushButton:hover {\n"
-            "    background-color: rgb(108, 108, 108);\n"
-            "}"
+            """QPushButton {
+	background-color: rgb(123, 123, 123);
+	border-radius: 15px;
+}
+QPushButton:hover {
+	background-color: rgb(108, 108, 108);
+}"""
         )
         self.connect_to_server.setObjectName("connect_to_server")
         self.nikname = QtWidgets.QLineEdit(parent=self.frame)
@@ -71,19 +78,25 @@ class ConnectToServerWindowDesign(object):
         self.save.setGeometry(QtCore.QRect(10, 220, 391, 61))
         self.save.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
         self.save.setStyleSheet(
-            "QPushButton {\n"
-            "    background-color: rgb(123, 123, 123);\n"
-            "    border-radius: 15px;\n"
-            "}\n"
-            "QPushButton:hover {\n"
-            "    background-color: rgb(108, 108, 108);\n"
-            "}"
+            """QPushButton {
+	background-color: rgb(123, 123, 123);
+	border-radius: 15px;
+}
+QPushButton:hover {
+	background-color: rgb(108, 108, 108);
+}"""
         )
         self.save.setObjectName("save")
         self.frame_2 = QtWidgets.QFrame(parent=self.centralwidget)
         self.frame_2.setGeometry(QtCore.QRect(430, 240, 461, 361))
         self.frame_2.setStyleSheet(
-            "background-color: rgb(35, 35, 35);\n" "border-radius: 15px;"
+            """QPushButton {
+	background-color: rgb(123, 123, 123);
+	border-radius: 15px;
+}
+QPushButton:hover {
+	background-color: rgb(108, 108, 108);
+}"""
         )
         self.frame_2.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
@@ -102,13 +115,13 @@ class ConnectToServerWindowDesign(object):
             QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor)
         )
         self.add_server.setStyleSheet(
-            "QPushButton {\n"
-            "    background-color: rgb(123, 123, 123);\n"
-            "    border-radius: 15px;\n"
-            "}\n"
-            "QPushButton:hover {\n"
-            "    background-color: rgb(108, 108, 108);\n"
-            "}"
+            """QPushButton {
+	background-color: rgb(123, 123, 123);
+	border-radius: 15px;
+}
+QPushButton:hover {
+	background-color: rgb(108, 108, 108);
+}"""
         )
         self.add_server.setObjectName("add_server")
         self.delete_server = QtWidgets.QPushButton(parent=self.frame_2)
@@ -117,13 +130,13 @@ class ConnectToServerWindowDesign(object):
             QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor)
         )
         self.delete_server.setStyleSheet(
-            "QPushButton {\n"
-            "    background-color: rgb(123, 123, 123);\n"
-            "    border-radius: 15px;\n"
-            "}\n"
-            "QPushButton:hover {\n"
-            "    background-color: rgb(108, 108, 108);\n"
-            "}"
+            """QPushButton {
+	background-color: rgb(123, 123, 123);
+	border-radius: 15px;
+}
+QPushButton:hover {
+	background-color: rgb(108, 108, 108);
+}"""
         )
         self.delete_server.setObjectName("delete_server")
         self.apply_server = QtWidgets.QPushButton(parent=self.frame_2)
@@ -132,20 +145,18 @@ class ConnectToServerWindowDesign(object):
             QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor)
         )
         self.apply_server.setStyleSheet(
-            "QPushButton {\n"
-            "    background-color: rgb(123, 123, 123);\n"
-            "    border-radius: 15px;\n"
-            "}\n"
-            "QPushButton:hover {\n"
-            "    background-color: rgb(108, 108, 108);\n"
-            "}"
+            """QPushButton {
+	background-color: rgb(123, 123, 123);
+	border-radius: 15px;
+}
+QPushButton:hover {
+	background-color: rgb(108, 108, 108);
+}"""
         )
         self.apply_server.setObjectName("apply_server")
         self.frame_3 = QtWidgets.QFrame(parent=self.centralwidget)
         self.frame_3.setGeometry(QtCore.QRect(490, 10, 401, 221))
-        self.frame_3.setStyleSheet(
-            "background-color: rgb(35, 35, 35);\n" "border-radius: 15px;"
-        )
+        self.frame_3.setStyleSheet(self.theme.frame_style)
         self.frame_3.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame_3.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame_3.setObjectName("frame_3")
@@ -165,7 +176,7 @@ class ConnectToServerWindowDesign(object):
         self.translations_note.setObjectName("translations_note")
         self.new_language = QtWidgets.QComboBox(parent=self.frame_3)
         self.new_language.setGeometry(QtCore.QRect(50, 70, 141, 91))
-        self.new_language.setStyleSheet("background-color: none;\n" "color: white;")
+        self.new_language.setStyleSheet("background-color: none;\n" "color: black;")
         self.new_language.setObjectName("new_language")
         self.new_language.addItem("")
         self.new_language.addItem("")
@@ -175,20 +186,18 @@ class ConnectToServerWindowDesign(object):
             QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor)
         )
         self.set_language.setStyleSheet(
-            "QPushButton {\n"
-            "    background-color: rgb(123, 123, 123);\n"
-            "    border-radius: 15px;\n"
-            "}\n"
-            "QPushButton:hover {\n"
-            "    background-color: rgb(108, 108, 108);\n"
-            "}"
+            """QPushButton {
+	background-color: rgb(123, 123, 123);
+	border-radius: 15px;
+}
+QPushButton:hover {
+	background-color: rgb(108, 108, 108);
+}"""
         )
         self.set_language.setObjectName("set_language")
         self.frame_4 = QtWidgets.QFrame(parent=self.centralwidget)
         self.frame_4.setGeometry(QtCore.QRect(10, 10, 471, 221))
-        self.frame_4.setStyleSheet(
-            "background-color: rgb(35, 35, 35);\n" "border-radius: 15px;"
-        )
+        self.frame_4.setStyleSheet(self.theme.frame_style)
         self.frame_4.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame_4.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame_4.setObjectName("frame_4")
@@ -204,13 +213,13 @@ class ConnectToServerWindowDesign(object):
             QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor)
         )
         self.load_avatar.setStyleSheet(
-            "QPushButton {\n"
-            "    background-color: rgb(123, 123, 123);\n"
-            "    border-radius: 15px;\n"
-            "}\n"
-            "QPushButton:hover {\n"
-            "    background-color: rgb(108, 108, 108);\n"
-            "}"
+            """QPushButton {
+	background-color: rgb(123, 123, 123);
+	border-radius: 15px;
+}
+QPushButton:hover {
+	background-color: rgb(108, 108, 108);
+}"""
         )
         self.load_avatar.setObjectName("load_avatar")
         self.delete_avatar = QtWidgets.QPushButton(parent=self.frame_4)
@@ -219,22 +228,18 @@ class ConnectToServerWindowDesign(object):
             QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor)
         )
         self.delete_avatar.setStyleSheet(
-            "QPushButton {\n"
-            "    background-color: rgb(123, 123, 123);\n"
-            "    border-radius: 15px;\n"
-            "}\n"
-            "QPushButton:hover {\n"
-            "    background-color: rgb(108, 108, 108);\n"
-            "}"
+            """QPushButton {
+	background-color: rgb(123, 123, 123);
+	border-radius: 15px;
+}
+QPushButton:hover {
+	background-color: rgb(108, 108, 108);
+}"""
         )
         self.delete_avatar.setObjectName("delete_avatar")
         self.frame_5 = QtWidgets.QFrame(parent=self.centralwidget)
         self.frame_5.setGeometry(QtCore.QRect(900, 10, 281, 591))
-        self.frame_5.setStyleSheet(
-            "background-color: rgb(35, 35, 35);\n"
-            "border-radius: 15px;\n"
-            "color: white;"
-        )
+        self.frame_5.setStyleSheet(self.theme.frame_style)
         self.frame_5.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame_5.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame_5.setObjectName("frame_5")
@@ -244,7 +249,7 @@ class ConnectToServerWindowDesign(object):
         font.setPointSize(25)
         font.setBold(True)
         self.other_settings_label.setFont(font)
-        self.other_settings_label.setStyleSheet("color: white;")
+        self.other_settings_label.setStyleSheet(self.theme.text_style)
         self.other_settings_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.other_settings_label.setObjectName("other_settings_label")
         self.push_messages = QtWidgets.QCheckBox(parent=self.frame_5)
@@ -267,7 +272,7 @@ class ConnectToServerWindowDesign(object):
         self.logging.setObjectName("logging")
         self.new_theme = QtWidgets.QComboBox(parent=self.frame_5)
         self.new_theme.setGeometry(QtCore.QRect(20, 190, 151, 91))
-        self.new_theme.setStyleSheet("background-color: none;\n" "color: white;")
+        self.new_theme.setStyleSheet("background-color: none;\n" "color: black;")
         self.new_theme.setObjectName("new_theme")
         self.new_theme.addItem("")
         self.new_theme.addItem("")
@@ -277,7 +282,7 @@ class ConnectToServerWindowDesign(object):
         font.setPointSize(40)
         font.setBold(True)
         self.theme_label.setFont(font)
-        self.theme_label.setStyleSheet("color: white;")
+        self.theme_label.setStyleSheet(self.theme.text_style)
         self.theme_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.theme_label.setObjectName("theme_label")
         self.save_other_settings = QtWidgets.QPushButton(parent=self.frame_5)
@@ -286,14 +291,13 @@ class ConnectToServerWindowDesign(object):
             QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor)
         )
         self.save_other_settings.setStyleSheet(
-            "QPushButton {\n"
-            "    background-color: rgb(123, 123, 123);\n"
-            "    border-radius: 15px;\n"
-            "    color: black;\n"
-            "}\n"
-            "QPushButton:hover {\n"
-            "    background-color: rgb(108, 108, 108);\n"
-            "}"
+            """QPushButton {
+	background-color: rgb(123, 123, 123);
+	border-radius: 15px;
+}
+QPushButton:hover {
+	background-color: rgb(108, 108, 108);
+}"""
         )
         self.save_other_settings.setObjectName("save_other_settings")
         MainWindow.setCentralWidget(self.centralwidget)
