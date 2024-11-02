@@ -38,8 +38,12 @@ def check_data(self, check_data=True) -> Union[tuple, None]:
 
                 else:
                     messages.show(
-                        translation.TRANSLATION[self.design.language]["port_range_error"],
-                        translation.TRANSLATION[self.design.language]["port_range_error"],
+                        translation.TRANSLATION[self.design.language][
+                            "port_range_error"
+                        ],
+                        translation.TRANSLATION[self.design.language][
+                            "port_range_error"
+                        ],
                     )
 
             else:

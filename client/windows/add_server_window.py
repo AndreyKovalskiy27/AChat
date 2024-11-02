@@ -65,10 +65,15 @@ class AddServerWindow(QMainWindow):
                     finally:
                         load_servers(self.connect_to_server_window)
 
-                messages.show(
-                    translation.TRANSLATION[self.design.language]["port_range_error"],
-                    translation.TRANSLATION[self.design.language]["port_range_error"],
-                )
+                else:
+                    messages.show(
+                        translation.TRANSLATION[self.design.language][
+                            "port_range_error"
+                        ],
+                        translation.TRANSLATION[self.design.language][
+                            "port_range_error"
+                        ],
+                    )
 
             else:
                 messages.show(
