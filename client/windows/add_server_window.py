@@ -7,6 +7,7 @@ from design import add_server
 from settings import Servers
 from .connect_to_server_window.servers import load_servers
 import messages
+import re
 
 
 class AddServerWindow(QMainWindow):
@@ -42,28 +43,42 @@ class AddServerWindow(QMainWindow):
                 port = int(port)
 
                 if port >= 0 and port <= 65535:
-                    try:
-                        self.servers.add_server(name, ip, int(port))
-                        logger.success("Доданий новий сервер")
-                        self.close()
+                    pattern = r"^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$"
+                    is_ip_valid = re.match(pattern, ip) is not None
 
-                    except Exception as error:
-                        logger.error(
-                            f"Помилка під час додавання нового сервера: {error}"
-                        )
+                    if is_ip_valid:
+                        try:
+                            self.servers.add_server(name, ip, int(port))
+                            logger.success("Доданий новий сервер")
+                            self.close()
+
+                        except Exception as error:
+                            logger.error(
+                                f"Помилка під час додавання нового сервера: {error}"
+                            )
+                            messages.show(
+                                translation.TRANSLATION[self.design.language][
+                                    "server_add_error"
+                                ],
+                                translation.TRANSLATION[self.design.language][
+                                    "server_add_error"
+                                ],
+                                messages.QMessageBox.Icon.Critical,
+                                error,
+                            )
+
+                        finally:
+                            load_servers(self.connect_to_server_window)
+
+                    else:
                         messages.show(
                             translation.TRANSLATION[self.design.language][
-                                "server_add_error"
+                                "incorrect_ip_error"
                             ],
                             translation.TRANSLATION[self.design.language][
-                                "server_add_error"
+                                "incorrect_ip_error"
                             ],
-                            messages.QMessageBox.Icon.Critical,
-                            error,
                         )
-
-                    finally:
-                        load_servers(self.connect_to_server_window)
 
                 else:
                     messages.show(
