@@ -6,7 +6,7 @@ from connection.connection_thread import ConnectionThread
 from connection.messages_monitor import MessagesMonitor
 from design.utils import btn_locker
 from windows.main_window.add_message import add_message
-from .connection_data import check_not_empty
+from .connection_data import check_data
 from design.utils import translation as translation
 import messages
 
@@ -43,7 +43,7 @@ def connection_signal_handler(self, value) -> None:
 
 def connect_to_server(self) -> None:
     """Підключитися до серверу"""
-    form_data = check_not_empty(self)
+    form_data = check_data(self)
 
     if form_data:
         self.connection_thread = ConnectionThread(

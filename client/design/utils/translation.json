@@ -39,7 +39,8 @@
         "logging": "Logging",
         "theme": "Theme",
         "light": "Light",
-        "dark": "Dark"
+        "dark": "Dark",
+        "incorrect_ip_error": "Enter correct IP"
     },
     "ua": {
         "stickers": "Стікери",
@@ -81,6 +82,7 @@
         "logging": "Логування",
         "theme": "Тема",
         "light": "Світла",
-        "dark": "Темна"
+        "dark": "Темна",
+        "incorrect_ip_error": "Введіть правильний IP"
     }
 }
