@@ -4,7 +4,9 @@ from os import remove
 from PyQt6.QtWidgets import QMainWindow
 from PyQt6.QtGui import QPixmap
 from loguru import logger
-from design.connect_to_server import ConnectToServerWindowDesign
+import design.add_server
+import design.connect_to_server
+import design.main_window
 from windows.add_server_window import AddServerWindow
 from .servers import (
     load_servers,
@@ -18,6 +20,7 @@ from .connection_data import (
 from .connection import connect_to_server
 from .avatar import set_avatar, delete_avatar
 from logger import enable, disable
+import design
 import settings
 
 
@@ -27,7 +30,7 @@ class ConnectToServerWindow(QMainWindow):
     def __init__(self, main_window, language: str = "ua") -> None:
         super().__init__(main_window)
 
-        self.design = ConnectToServerWindowDesign()
+        self.design = design.connect_to_server.ConnectToServerWindowDesign()
         self.design.setupUi(self, language)
 
         self.connection_data = settings.ConnectionData()
@@ -49,16 +52,7 @@ class ConnectToServerWindow(QMainWindow):
         load_servers(self)
         self.load_other_settings()
 
-        # Натискання на кнопки
-        self.design.connect_to_server.clicked.connect(lambda: connect_to_server(self))
-        self.design.save.clicked.connect(lambda: save_connection_data(self))
-        self.design.add_server.clicked.connect(self.add_server_window.show)
-        self.design.delete_server.clicked.connect(lambda: delete_server(self))
-        self.design.apply_server.clicked.connect(lambda: apply_server(self))
-        self.design.set_language.clicked.connect(self.set_language)
-        self.design.load_avatar.clicked.connect(lambda: set_avatar(self))
-        self.design.delete_avatar.clicked.connect(lambda: delete_avatar(self))
-        self.design.save_other_settings.clicked.connect(self.save_other_settings)
+        self.setup_buttons()
 
         logger.success("Ініціалізовано вікно підключення до сервера")
 
@@ -101,18 +95,39 @@ class ConnectToServerWindow(QMainWindow):
 
     def set_theme(self):
         """Встановити тему"""
+        logger.debug("set_theme")
         try:
             language = self.language_codes[self.design.new_language.currentText()]
 
-        except Exception:
+        except Exception as error:
             language = "en"
+            logger.error(error)
+
+        logger.debug(f"LANGUAGE: {language}")
 
         self.main_window.design.setupUi(self.main_window, language)
         self.design.setupUi(self, language)
         self.add_server_window.design.setupUi(self.add_server_window, language)
 
+        self.main_window.setup_buttons()
+        self.setup_buttons()
+        self.add_server_window.setup_buttons()
+
+    def setup_buttons(self):
+        """Налаштувати обробники кнопок"""
+        self.design.connect_to_server.clicked.connect(lambda: connect_to_server(self))
+        self.design.save.clicked.connect(lambda: save_connection_data(self))
+        self.design.add_server.clicked.connect(self.add_server_window.show)
+        self.design.delete_server.clicked.connect(lambda: delete_server(self))
+        self.design.apply_server.clicked.connect(lambda: apply_server(self))
+        self.design.set_language.clicked.connect(self.set_language)
+        self.design.load_avatar.clicked.connect(lambda: set_avatar(self))
+        self.design.delete_avatar.clicked.connect(lambda: delete_avatar(self))
+        self.design.save_other_settings.clicked.connect(self.save_other_settings)
+
     def set_language(self) -> None:
         """Встановити мову"""
+        logger.debug("set_language")
         new_language = self.language_codes[self.design.new_language.currentText()]
 
         self.main_window.design.language = new_language

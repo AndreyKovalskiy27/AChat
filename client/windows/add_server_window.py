@@ -24,8 +24,12 @@ class AddServerWindow(QMainWindow):
 
         self.servers = Servers()
 
-        self.design.add_server.clicked.connect(self.add_server)
+        self.setup_buttons()
         logger.success("Ініціалізовано вікно додавання сервера")
+
+    def setup_buttons(self):
+        """Налаштувати обробники кнопок"""
+        self.design.add_server.clicked.connect(self.add_server)
 
     def add_server(self) -> None:
         """Додати сервер"""

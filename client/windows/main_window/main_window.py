@@ -48,15 +48,17 @@ class MainWindow(QMainWindow):
         self.tray_icon.setContextMenu(menu)
         self.tray_icon.show()
 
-        select_sticker.setup_stickers(self)
+        self.setup_buttons()
+        logger.success("Ініціалізоване головне вікно")
 
-        # Обробка нажаття на кнопки
+    def setup_buttons(self):
+        """Налаштувати обробники кнопок"""
+        select_sticker.setup_stickers(self)
         self.design.connect_to_server.clicked.connect(
             self.connect_to_server_window.show
         )
         self.design.send_message.clicked.connect(lambda: connection.send_message(self))
         self.design.exit.clicked.connect(lambda: connection.exit_from_server(self))
-        logger.success("Ініціалізоване головне вікно")
 
     def block_chat(self) -> None:
         """Заблокувати чат (кнопки для відправки повідомлення та виходу з сервера)"""

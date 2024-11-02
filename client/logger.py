@@ -16,6 +16,11 @@ def disable() -> None:
 def enable() -> None:
     """Увімкнути логування"""
     logger.add(
-        join(expanduser("~"), SETTINGS_FOLDER, "logs", str(datetime.now())),
+        join(
+            expanduser("~"),
+            SETTINGS_FOLDER,
+            "logs",
+            datetime.now().strftime("%Y-%m-%d %H-%M-%S"),
+        ),
         level="DEBUG",
     )
