@@ -40,7 +40,8 @@
         "theme": "Theme",
         "light": "Light",
         "dark": "Dark",
-        "incorrect_ip_error": "Enter correct IP"
+        "incorrect_ip_error": "Enter correct IP",
+        "avatar_too_heavy_error": "Avatar is too heavy"
     },
     "ua": {
         "stickers": "Стікери",
@@ -83,6 +84,7 @@
         "theme": "Тема",
         "light": "Світла",
         "dark": "Темна",
-        "incorrect_ip_error": "Введіть правильний IP"
+        "incorrect_ip_error": "Введіть правильний IP",
+        "avatar_too_heavy_error": "Аватар занадто великий"
     }
 }

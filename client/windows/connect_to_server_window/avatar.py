@@ -4,7 +4,10 @@ from os import remove
 from os.path import exists
 from PyQt6.QtWidgets import QFileDialog
 from PyQt6.QtGui import QPixmap
+from settings.user_avatar import AvatarTooHeavyError
 from loguru import logger
+import messages
+from design.utils import translation
 
 
 def set_avatar(self) -> None:
@@ -14,10 +17,21 @@ def set_avatar(self) -> None:
     )[0]
 
     if new_avatar_file_path:
-        self.avatar.set_avatar(new_avatar_file_path)
-        self.design.avatar.setPixmap(QPixmap(new_avatar_file_path))
-        logger.success("Встановлений новий аватар користувача")
+        try:
+            self.avatar.set_avatar(new_avatar_file_path)
+            self.design.avatar.setPixmap(QPixmap(new_avatar_file_path))
+            logger.success("Встановлений новий аватар користувача")
 
+        except AvatarTooHeavyError as error:
+            logger.error(error)
+            messages.show(
+                translation.TRANSLATION[self.design.language][
+                    "incorrect_ip_error"
+                ],
+                translation.TRANSLATION[self.design.language][
+                    "incorrect_ip_error"
+                ],
+            )
 
 def delete_avatar(self) -> None:
     """Видалити аватар"""
