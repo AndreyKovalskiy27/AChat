@@ -1,6 +1,5 @@
 """Модуль вікна підключення до сервера"""
 
-from os import remove
 from PyQt6.QtWidgets import QMainWindow
 from PyQt6.QtGui import QPixmap
 from loguru import logger
@@ -19,7 +18,7 @@ from .connection_data import (
 )
 from .connection import connect_to_server
 from .avatar import set_avatar, delete_avatar
-from logger import enable, disable
+from .other_settings import load_other_settings, save_other_settings
 import design
 import settings
 
@@ -50,70 +49,11 @@ class ConnectToServerWindow(QMainWindow):
         self.design.avatar.setPixmap(QPixmap(self.avatar.get_avatar_path()))
         load_connection_data(self)
         load_servers(self)
-        self.load_other_settings()
+        load_other_settings(self)
 
         self.setup_buttons()
 
         logger.success("Ініціалізовано вікно підключення до сервера")
-
-    def load_other_settings(self) -> None:
-        """Завантажити інші налаштування"""
-        try:
-            other_settings = self.other_settings.get()
-
-            if other_settings:
-                self.design.push_messages.setChecked(other_settings["push_messages"])
-                self.design.logging.setChecked(other_settings["logging"])
-                self.design.new_theme.setCurrentIndex(
-                    0 if other_settings["theme"] == "light" else 1
-                )
-                self.main_window.push_messages = other_settings["push_messages"]
-                self.main_window.logging = other_settings["logging"]
-
-            logger.success("Завантажені інші налаштування")
-
-        except Exception as error:
-            logger.error(f"Помилка під час завантаження інших налаштуваннь: {error}")
-            remove(self.other_settings.other_settings_file_path)
-
-    def save_other_settings(self) -> None:
-        """Зберегти інші налаштування"""
-        push_messages = self.design.push_messages.isChecked()
-        logging = self.design.logging.isChecked()
-        theme = "light" if self.design.new_theme.currentIndex() == 0 else "dark"
-        self.other_settings.write(push_messages, logging, theme)
-        self.main_window.push_messages = push_messages
-
-        if logging:
-            enable()
-
-        else:
-            disable()
-
-        self.set_theme()
-        logger.success("Збережені інші налаштування")
-
-    def set_theme(self):
-        """Встановити тему"""
-        logger.debug("set_theme")
-
-        language_combobox_index = self.design.new_language.currentIndex()
-        theme_combobox_index = self.design.new_theme.currentIndex()
-        push_messages_checkbox = self.design.push_messages.isChecked()
-        logging_checkbox = self.design.logging.isChecked()
-
-        self.main_window.design.setupUi(self.main_window, self.design.language)
-        self.design.setupUi(self, self.design.language)
-        self.add_server_window.design.setupUi(self.add_server_window, self.design.language)
-
-        self.main_window.setup_buttons()
-        self.setup_buttons()
-        self.add_server_window.setup_buttons()
-
-        self.design.new_language.setCurrentIndex(language_combobox_index)
-        self.design.new_theme.setCurrentIndex(theme_combobox_index)
-        self.design.push_messages.setChecked(push_messages_checkbox)
-        self.design.logging.setChecked(logging_checkbox)
 
     def setup_buttons(self):
         """Налаштувати обробники кнопок"""
@@ -125,7 +65,9 @@ class ConnectToServerWindow(QMainWindow):
         self.design.set_language.clicked.connect(self.set_language)
         self.design.load_avatar.clicked.connect(lambda: set_avatar(self))
         self.design.delete_avatar.clicked.connect(lambda: delete_avatar(self))
-        self.design.save_other_settings.clicked.connect(self.save_other_settings)
+        self.design.save_other_settings.clicked.connect(
+            lambda: save_other_settings(self)
+        )
 
     def set_language(self) -> None:
         """Встановити мову"""
