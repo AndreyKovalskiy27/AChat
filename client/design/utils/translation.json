@@ -41,7 +41,8 @@
         "light": "Light",
         "dark": "Dark",
         "incorrect_ip_error": "Enter correct IP",
-        "avatar_too_heavy_error": "Avatar is too heavy"
+        "avatar_too_heavy_error": "Avatar is too heavy",
+        "please_connect_to_server": "Please connect to server"
     },
     "ua": {
         "stickers": "Стікери",
@@ -85,6 +86,7 @@
         "light": "Світла",
         "dark": "Темна",
         "incorrect_ip_error": "Введіть правильний IP",
-        "avatar_too_heavy_error": "Аватар занадто великий"
+        "avatar_too_heavy_error": "Аватар занадто великий",
+        "please_connect_to_server": "Будь-ласка підключіться до серверу"
     }
 }

@@ -19,7 +19,7 @@ def connection_signal_handler(self, value) -> None:
             self.main_window.connection, self.main_window
         )
         self.main_window.messages_monitor.start()
-
+        self.main_window.is_connected = True
         self.close()
         btn_locker.lock_btn(self.design.connect_to_server)
         self.main_window.design.messages.clear()

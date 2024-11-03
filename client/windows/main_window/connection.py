@@ -14,42 +14,57 @@ def send_message(self) -> None:
     message = self.design.message.text()
 
     if message.strip():
-        try:
-            self.connection.send_message(
-                {
-                    "type": "message",
-                    "message": message,
-                    "avatar": self.selected_sticker
+        logger.debug(self.is_connected)
+        if self.is_connected:
+            try:
+                self.connection.send_message(
+                    {
+                        "type": "message",
+                        "message": message,
+                        "avatar": self.selected_sticker
+                        if self.selected_sticker
+                        else self.connect_to_server_window.avatar.get_avatar_encoded()
+                        if self.connect_to_server_window.avatar.has_own_avatar()
+                        else None,
+                    }
+                )
+
+                sticker = (
+                    join("assets", f"{self.selected_sticker}.png")
                     if self.selected_sticker
-                    else self.connect_to_server_window.avatar.get_avatar_encoded()
-                    if self.connect_to_server_window.avatar.has_own_avatar()
-                    else None,
-                }
-            )
+                    else self.connect_to_server_window.avatar.get_avatar_path()
+                )
+                add_message(
+                    self,
+                    f"{self.connection.nikname} ({translation.TRANSLATION[self.design.language]["you"]}):\n{
+                        message}",
+                    False,
+                    aligment=Qt.AlignmentFlag.AlignRight,
+                    icon=sticker,
+                )
+                logger.success("Відправлено повідомлення")
 
-            sticker = (
-                join("assets", f"{self.selected_sticker}.png")
-                if self.selected_sticker
-                else self.connect_to_server_window.avatar.get_avatar_path()
-            )
-            add_message(
-                self,
-                f"{self.connection.nikname} ({translation.TRANSLATION[self.design.language]["you"]}):\n{
-                    message}",
-                False,
-                aligment=Qt.AlignmentFlag.AlignRight,
-                icon=sticker,
-            )
-            logger.success("Відправлено повідомлення")
-
-        except Exception as error:
-            logger.error(f"Помилка під час надсилання повідомлення: {error}")
-            self.exit_from_server()
+            except Exception as error:
+                logger.error(f"Помилка під час надсилання повідомлення: {error}")
+                exit_from_server(self)
+                messages.show(
+                    translation.TRANSLATION[self.design.language][
+                        "sending_message_error"
+                    ],
+                    translation.TRANSLATION[self.design.language][
+                        "sending_message_error"
+                    ],
+                    messages.QMessageBox.Icon.Critical,
+                    error,
+                )
+        else:
             messages.show(
-                translation.TRANSLATION[self.design.language]["sending_message_error"],
-                translation.TRANSLATION[self.design.language]["sending_message_error"],
-                messages.QMessageBox.Icon.Critical,
-                error,
+                translation.TRANSLATION[self.design.language][
+                    "please_connect_to_server"
+                ],
+                translation.TRANSLATION[self.design.language][
+                    "please_connect_to_server"
+                ],
             )
     else:
         messages.show(
@@ -73,6 +88,7 @@ def exit_from_server(self) -> None:
     except Exception as error:
         logger.error(error)
 
+    self.is_connected = False
     add_message(self, translation.TRANSLATION[self.design.language]["exit_message"])
     self.block_chat()
     btn_locker.unlock_btn(self.connect_to_server_window.design.connect_to_server)

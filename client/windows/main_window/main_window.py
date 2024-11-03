@@ -2,7 +2,7 @@
 
 from os.path import join
 from PyQt6.QtWidgets import QMainWindow, QSystemTrayIcon, QMenu
-from PyQt6.QtGui import QIcon, QAction
+from PyQt6.QtGui import QIcon, QAction, QShortcut, QKeySequence
 from PyQt6.QtCore import QSize
 from loguru import logger
 from design import main_window
@@ -19,6 +19,7 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         language = Language().get()
+        self.is_connected = False
 
         # Чи показувати push-повідомлення
         self.push_messages = True
@@ -58,6 +59,9 @@ class MainWindow(QMainWindow):
             self.connect_to_server_window.show
         )
         self.design.send_message.clicked.connect(lambda: connection.send_message(self))
+        QShortcut(QKeySequence("Return"), self).activated.connect(
+            lambda: connection.send_message(self)
+        )  # Відправка повідомлення по Enter
         self.design.exit.clicked.connect(lambda: connection.exit_from_server(self))
 
     def block_chat(self) -> None:

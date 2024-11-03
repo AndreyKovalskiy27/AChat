@@ -11,6 +11,7 @@ from .settings_folder import SETTINGS_FOLDER
 class AvatarTooHeavyError(Exception):
     """Ця помилка виникає коли користувач хоче встановити занадто великий аватар"""
 
+
 class UserAvatar:
     """Класс для роботи з аватаром користувача"""
 

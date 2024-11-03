@@ -25,13 +25,10 @@ def set_avatar(self) -> None:
         except AvatarTooHeavyError as error:
             logger.error(error)
             messages.show(
-                translation.TRANSLATION[self.design.language][
-                    "incorrect_ip_error"
-                ],
-                translation.TRANSLATION[self.design.language][
-                    "incorrect_ip_error"
-                ],
+                translation.TRANSLATION[self.design.language]["incorrect_ip_error"],
+                translation.TRANSLATION[self.design.language]["incorrect_ip_error"],
             )
+
 
 def delete_avatar(self) -> None:
     """Видалити аватар"""
