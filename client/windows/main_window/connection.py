@@ -42,6 +42,7 @@ def send_message(self) -> None:
                     aligment=Qt.AlignmentFlag.AlignRight,
                     icon=sticker,
                 )
+                self.design.message.clear()
                 logger.success("Відправлено повідомлення")
 
             except Exception as error:
