@@ -21,9 +21,6 @@ class MainWindow(QMainWindow):
         language = Language().get()
         self.is_connected = False
 
-        # Чи показувати push-повідомлення
-        self.push_messages = True
-
         self.design = main_window.MainWindowDesign()
         self.design.setupUi(self, language)
         self.design.messages.setIconSize(QSize(70, 70))

@@ -96,22 +96,24 @@ class ConnectToServerWindow(QMainWindow):
     def set_theme(self):
         """Встановити тему"""
         logger.debug("set_theme")
-        try:
-            language = self.language_codes[self.design.new_language.currentText()]
 
-        except Exception as error:
-            language = "en"
-            logger.error(error)
+        language_combobox_index = self.design.new_language.currentIndex()
+        theme_combobox_index = self.design.new_theme.currentIndex()
+        push_messages_checkbox = self.design.push_messages.isChecked()
+        logging_checkbox = self.design.logging.isChecked()
 
-        logger.debug(f"LANGUAGE: {language}")
-
-        self.main_window.design.setupUi(self.main_window, language)
-        self.design.setupUi(self, language)
-        self.add_server_window.design.setupUi(self.add_server_window, language)
+        self.main_window.design.setupUi(self.main_window, self.design.language)
+        self.design.setupUi(self, self.design.language)
+        self.add_server_window.design.setupUi(self.add_server_window, self.design.language)
 
         self.main_window.setup_buttons()
         self.setup_buttons()
         self.add_server_window.setup_buttons()
+
+        self.design.new_language.setCurrentIndex(language_combobox_index)
+        self.design.new_theme.setCurrentIndex(theme_combobox_index)
+        self.design.push_messages.setChecked(push_messages_checkbox)
+        self.design.logging.setChecked(logging_checkbox)
 
     def setup_buttons(self):
         """Налаштувати обробники кнопок"""
