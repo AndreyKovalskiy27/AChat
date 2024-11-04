@@ -38,15 +38,22 @@ class UserAvatar:
 
         return self.base_avatar_file_path
 
+    def is_file_not_heavy(self, file_path) -> bool:
+        """Чи не має файл розмір більше 90 мегабайт"""
+        size = getsize(file_path)
+
+        if size > 50_491_520:
+            return False
+
+        return True
+
     def set_avatar(self, new_avatar_file_path: str) -> None:
         """Встановити аватар"""
+        if not self.is_file_not_heavy(new_avatar_file_path):
+            raise AvatarTooHeavyError("Avatar is too heavy")
+
         if exists(self.user_avatar_file_path):
             remove(self.user_avatar_file_path)
-
-        size = getsize(new_avatar_file_path)
-
-        if size > 94_491_520:
-            raise AvatarTooHeavyError("Розмір аватара більше 90 мегабайт")
 
         copy(new_avatar_file_path, self.user_avatar_file_path)
         logger.success("Встановлений новий аватар")

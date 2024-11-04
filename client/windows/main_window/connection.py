@@ -17,23 +17,40 @@ def send_message(self) -> None:
         logger.debug(self.is_connected)
         if self.is_connected:
             try:
+                if self.selected_sticker:
+                    avatar = self.selected_sticker
+
+                else:
+                    if self.connect_to_server_window.avatar.has_own_avatar():
+                        if self.connect_to_server_window.avatar.is_file_not_heavy(
+                            self.connect_to_server_window.avatar.get_avatar_path()
+                        ):
+                            avatar = self.connect_to_server_window.avatar.get_avatar_encoded()
+
+                        else:
+                            avatar = None
+                            messages.show(
+                                translation.TRANSLATION[self.design.language][
+                                    "avatar_too_heavy_error"
+                                ],
+                                translation.TRANSLATION[self.design.language][
+                                    "avatar_too_heavy_error"
+                                ],
+                            )
+
+                    else:
+                        avatar = None
+
+                logger.debug(f"AVATAR: {avatar}")
+
                 self.connection.send_message(
-                    {
-                        "type": "message",
-                        "message": message,
-                        "avatar": self.selected_sticker
-                        if self.selected_sticker
-                        else self.connect_to_server_window.avatar.get_avatar_encoded()
-                        if self.connect_to_server_window.avatar.has_own_avatar()
-                        else None,
-                    }
+                    {"type": "message", "message": message, "avatar": avatar}
                 )
 
                 sticker = (
                     join("assets", f"{self.selected_sticker}.png")
-                    if self.selected_sticker
-                    else self.connect_to_server_window.avatar.get_avatar_path()
-                )
+                    if isinstance(avatar, int) else avatar if avatar else join("assets", "user.png"))
+
                 add_message(
                     self,
                     f"{self.connection.nikname} ({translation.TRANSLATION[self.design.language]["you"]}):\n{
