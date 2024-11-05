@@ -49,7 +49,11 @@ def send_message(self) -> None:
 
                 sticker = (
                     join("assets", f"{self.selected_sticker}.png")
-                    if isinstance(avatar, int) else avatar if avatar else join("assets", "user.png"))
+                    if isinstance(avatar, int)
+                    else avatar
+                    if avatar
+                    else join("assets", "user.png")
+                )
 
                 add_message(
                     self,
