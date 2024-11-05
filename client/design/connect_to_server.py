@@ -21,14 +21,13 @@ class ConnectToServerWindowDesign(object):
         except Exception:
             pass
 
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.setFixedSize(1190, 609)
-        MainWindow.setStyleSheet(self.theme.background_style)
+        self.MainWindow = MainWindow
+        self.MainWindow.setObjectName("MainWindow")
+        self.MainWindow.setFixedSize(1190, 609)
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(parent=self.centralwidget)
         self.frame.setGeometry(QtCore.QRect(10, 240, 411, 361))
-        self.frame.setStyleSheet(self.theme.frame_style)
         self.frame.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame.setObjectName("frame")
@@ -156,7 +155,6 @@ QPushButton:hover {
         self.apply_server.setObjectName("apply_server")
         self.frame_3 = QtWidgets.QFrame(parent=self.centralwidget)
         self.frame_3.setGeometry(QtCore.QRect(490, 10, 401, 221))
-        self.frame_3.setStyleSheet(self.theme.frame_style)
         self.frame_3.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame_3.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame_3.setObjectName("frame_3")
@@ -197,7 +195,6 @@ QPushButton:hover {
         self.set_language.setObjectName("set_language")
         self.frame_4 = QtWidgets.QFrame(parent=self.centralwidget)
         self.frame_4.setGeometry(QtCore.QRect(10, 10, 471, 221))
-        self.frame_4.setStyleSheet(self.theme.frame_style)
         self.frame_4.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame_4.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame_4.setObjectName("frame_4")
@@ -239,7 +236,6 @@ QPushButton:hover {
         self.delete_avatar.setObjectName("delete_avatar")
         self.frame_5 = QtWidgets.QFrame(parent=self.centralwidget)
         self.frame_5.setGeometry(QtCore.QRect(900, 10, 281, 591))
-        self.frame_5.setStyleSheet(self.theme.frame_style)
         self.frame_5.setFrameShape(QtWidgets.QFrame.Shape.StyledPanel)
         self.frame_5.setFrameShadow(QtWidgets.QFrame.Shadow.Raised)
         self.frame_5.setObjectName("frame_5")
@@ -249,14 +245,12 @@ QPushButton:hover {
         font.setPointSize(18)
         font.setBold(True)
         self.other_settings_label.setFont(font)
-        self.other_settings_label.setStyleSheet(self.theme.text_style)
         self.other_settings_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.other_settings_label.setObjectName("other_settings_label")
         self.push_messages = QtWidgets.QCheckBox(parent=self.frame_5)
         self.push_messages.setGeometry(QtCore.QRect(20, 50, 241, 41))
         font = QtGui.QFont()
         font.setPointSize(18)
-        self.push_messages.setStyleSheet(self.theme.text_style)
         self.push_messages.setFont(font)
         self.push_messages.setChecked(False)
         self.push_messages.setTristate(False)
@@ -265,7 +259,6 @@ QPushButton:hover {
         self.logging.setGeometry(QtCore.QRect(20, 90, 241, 41))
         font = QtGui.QFont()
         font.setPointSize(20)
-        self.logging.setStyleSheet(self.theme.text_style)
         self.logging.setFont(font)
         self.logging.setChecked(False)
         self.logging.setTristate(False)
@@ -282,7 +275,6 @@ QPushButton:hover {
         font.setPointSize(40)
         font.setBold(True)
         self.theme_label.setFont(font)
-        self.theme_label.setStyleSheet(self.theme.text_style)
         self.theme_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.theme_label.setObjectName("theme_label")
         self.save_other_settings = QtWidgets.QPushButton(parent=self.frame_5)
@@ -300,10 +292,23 @@ QPushButton:hover {
 }"""
         )
         self.save_other_settings.setObjectName("save_other_settings")
-        MainWindow.setCentralWidget(self.centralwidget)
+        self.MainWindow.setCentralWidget(self.centralwidget)
 
+        self.setStyleSheet(self.theme)
         self.retranslateUi(MainWindow, language)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def setStyleSheet(self, theme: object) -> None:
+        """Встановити тему"""
+        self.MainWindow.setStyleSheet(theme.background_style)
+        self.theme_label.setStyleSheet(theme.text_style)
+        self.logging.setStyleSheet(theme.text_style)
+        self.push_messages.setStyleSheet(theme.text_style)
+        self.other_settings_label.setStyleSheet(theme.text_style)
+        self.frame_5.setStyleSheet(theme.frame_style)
+        self.frame_4.setStyleSheet(theme.frame_style)
+        self.frame.setStyleSheet(theme.frame_style)
+        self.frame_3.setStyleSheet(theme.frame_style)
 
     def retranslateUi(self, MainWindow, language):
         _translate = QtCore.QCoreApplication.translate

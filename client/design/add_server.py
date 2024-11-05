@@ -21,9 +21,9 @@ class AddServerWindowDesign(object):
         except Exception:
             pass
 
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.setFixedSize(410, 289)
-        MainWindow.setStyleSheet(self.theme.background_style)
+        self.MainWindow = MainWindow
+        self.MainWindow.setObjectName("MainWindow")
+        self.MainWindow.setFixedSize(410, 289)
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.ip = QtWidgets.QLineEdit(parent=self.centralwidget)
@@ -69,9 +69,14 @@ QPushButton:hover {
         )
         self.add_server.setObjectName("add_server")
         MainWindow.setCentralWidget(self.centralwidget)
+        self.setStyleSheet(self.theme)
 
         self.retranslateUi(MainWindow, language)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def setStyleSheet(self, theme: object) -> None:
+        """Змінити тему"""
+        self.MainWindow.setStyleSheet(theme.background_style)
 
     def retranslateUi(self, MainWindow, language):
         self.language = language

@@ -3,6 +3,7 @@
 from os import remove
 from loguru import logger
 from logger import enable, disable
+from design.themes.css import dark, light
 
 
 def load_other_settings(self) -> None:
@@ -40,28 +41,15 @@ def save_other_settings(self) -> None:
     else:
         disable()
 
-    set_theme(self)
+    set_theme(self, theme)
     logger.success("Збережені інші налаштування")
 
 
-def set_theme(self):
+def set_theme(self, theme):
     """Встановити тему"""
     logger.debug("set_theme")
+    theme = dark if theme == "dark" else light
 
-    language_combobox_index = self.design.new_language.currentIndex()
-    theme_combobox_index = self.design.new_theme.currentIndex()
-    push_messages_checkbox = self.design.push_messages.isChecked()
-    logging_checkbox = self.design.logging.isChecked()
-
-    self.main_window.design.setupUi(self.main_window, self.design.language)
-    self.design.setupUi(self, self.design.language)
-    self.add_server_window.design.setupUi(self.add_server_window, self.design.language)
-
-    self.main_window.setup_buttons()
-    self.setup_buttons()
-    self.add_server_window.setup_buttons()
-
-    self.design.new_language.setCurrentIndex(language_combobox_index)
-    self.design.new_theme.setCurrentIndex(theme_combobox_index)
-    self.design.push_messages.setChecked(push_messages_checkbox)
-    self.design.logging.setChecked(logging_checkbox)
+    self.main_window.design.setStyleSheet(theme)
+    self.design.setStyleSheet(theme)
+    self.add_server_window.design.setStyleSheet(theme)
