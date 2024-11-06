@@ -14,12 +14,6 @@ from .themes.css import dark, light
 
 class ConnectToServerWindowDesign(object):
     def setupUi(self, MainWindow, language: str):
-        try:
-            self.theme = OtherSettings().get()["theme"]
-            self.theme = dark if self.theme == "dark" else light
-
-        except Exception:
-            pass
 
         self.MainWindow = MainWindow
         self.MainWindow.setObjectName("MainWindow")
@@ -75,7 +69,8 @@ QPushButton:hover {
         self.port.setObjectName("port")
         self.save = QtWidgets.QPushButton(parent=self.frame)
         self.save.setGeometry(QtCore.QRect(10, 220, 391, 61))
-        self.save.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.save.setCursor(QtGui.QCursor(
+            QtCore.Qt.CursorShape.PointingHandCursor))
         self.save.setStyleSheet(
             """QPushButton {
 	background-color: rgb(123, 123, 123);
@@ -170,11 +165,13 @@ QPushButton:hover {
         self.translations_note = QtWidgets.QLabel(parent=self.frame_3)
         self.translations_note.setGeometry(QtCore.QRect(10, 190, 381, 20))
         self.translations_note.setStyleSheet("color: white;")
-        self.translations_note.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.translations_note.setAlignment(
+            QtCore.Qt.AlignmentFlag.AlignCenter)
         self.translations_note.setObjectName("translations_note")
         self.new_language = QtWidgets.QComboBox(parent=self.frame_3)
         self.new_language.setGeometry(QtCore.QRect(50, 70, 141, 91))
-        self.new_language.setStyleSheet("background-color: none;\n" "color: black;")
+        self.new_language.setStyleSheet(
+            "background-color: none;\n" "color: black;")
         self.new_language.setObjectName("new_language")
         self.new_language.addItem("")
         self.new_language.addItem("")
@@ -201,7 +198,8 @@ QPushButton:hover {
         self.avatar = QtWidgets.QLabel(parent=self.frame_4)
         self.avatar.setGeometry(QtCore.QRect(10, 10, 201, 201))
         self.avatar.setText("")
-        self.avatar.setPixmap(QtGui.QPixmap("design/QtDesigner/../../assets/user.png"))
+        self.avatar.setPixmap(QtGui.QPixmap(
+            "design/QtDesigner/../../assets/user.png"))
         self.avatar.setScaledContents(True)
         self.avatar.setObjectName("avatar")
         self.load_avatar = QtWidgets.QPushButton(parent=self.frame_4)
@@ -245,7 +243,8 @@ QPushButton:hover {
         font.setPointSize(18)
         font.setBold(True)
         self.other_settings_label.setFont(font)
-        self.other_settings_label.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
+        self.other_settings_label.setAlignment(
+            QtCore.Qt.AlignmentFlag.AlignCenter)
         self.other_settings_label.setObjectName("other_settings_label")
         self.push_messages = QtWidgets.QCheckBox(parent=self.frame_5)
         self.push_messages.setGeometry(QtCore.QRect(20, 50, 241, 41))
@@ -265,7 +264,8 @@ QPushButton:hover {
         self.logging.setObjectName("logging")
         self.new_theme = QtWidgets.QComboBox(parent=self.frame_5)
         self.new_theme.setGeometry(QtCore.QRect(20, 190, 151, 91))
-        self.new_theme.setStyleSheet("background-color: none;\n" "color: black;")
+        self.new_theme.setStyleSheet(
+            "background-color: none;\n" "color: black;")
         self.new_theme.setObjectName("new_theme")
         self.new_theme.addItem("")
         self.new_theme.addItem("")
@@ -294,7 +294,14 @@ QPushButton:hover {
         self.save_other_settings.setObjectName("save_other_settings")
         self.MainWindow.setCentralWidget(self.centralwidget)
 
-        self.setStyleSheet(self.theme)
+        try:
+            theme = OtherSettings().get()["theme"]
+            theme = dark if theme == "dark" else light
+
+        except Exception:
+            pass
+
+        self.setStyleSheet(theme)
         self.retranslateUi(MainWindow, language)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -320,26 +327,33 @@ QPushButton:hover {
             _translate("MainWindow", TRANSLATION["add_server_window_title"])
         )
         MainWindow.setWindowTitle(
-            _translate("MainWindow", TRANSLATION["connect_to_server_window_title"])
+            _translate(
+                "MainWindow", TRANSLATION["connect_to_server_window_title"])
         )
         self.ip.setPlaceholderText(_translate("MainWindow", TRANSLATION["ip"]))
-        self.connect_to_server.setText(_translate("MainWindow", TRANSLATION["connect"]))
+        self.connect_to_server.setText(_translate(
+            "MainWindow", TRANSLATION["connect"]))
         self.nikname.setPlaceholderText(
             _translate("MainWindow", TRANSLATION["nikname"])
         )
-        self.port.setPlaceholderText(_translate("MainWindow", TRANSLATION["port"]))
+        self.port.setPlaceholderText(
+            _translate("MainWindow", TRANSLATION["port"]))
         self.save.setText(_translate("MainWindow", TRANSLATION["save"]))
-        self.add_server.setText(_translate("MainWindow", TRANSLATION["add_server"]))
+        self.add_server.setText(_translate(
+            "MainWindow", TRANSLATION["add_server"]))
         self.delete_server.setText(
             _translate("MainWindow", TRANSLATION["delete_server"])
         )
-        self.apply_server.setText(_translate("MainWindow", TRANSLATION["apply"]))
+        self.apply_server.setText(_translate(
+            "MainWindow", TRANSLATION["apply"]))
         self.language_label.setText(
             _translate("MainWindow", TRANSLATION["language_label"])
         )
-        self.new_language.setItemText(0, _translate("MainWindow", "Українська"))
+        self.new_language.setItemText(
+            0, _translate("MainWindow", "Українська"))
         self.new_language.setItemText(1, _translate("MainWindow", "English"))
-        self.set_language.setText(_translate("MainWindow", TRANSLATION["set_language"]))
+        self.set_language.setText(_translate(
+            "MainWindow", TRANSLATION["set_language"]))
         self.translations_note.setText(
             _translate("MainWindow", TRANSLATION["translations_note"])
         )
@@ -352,10 +366,14 @@ QPushButton:hover {
             _translate("MainWindow", TRANSLATION["push_messages"])
         )
         self.logging.setText(_translate("MainWindow", TRANSLATION["logging"]))
-        self.new_theme.setItemText(0, _translate("MainWindow", TRANSLATION["light"]))
-        self.new_theme.setItemText(1, _translate("MainWindow", TRANSLATION["dark"]))
-        self.theme_label.setText(_translate("MainWindow", TRANSLATION["theme"]))
-        self.save_other_settings.setText(_translate("MainWindow", TRANSLATION["save"]))
+        self.new_theme.setItemText(0, _translate(
+            "MainWindow", TRANSLATION["light"]))
+        self.new_theme.setItemText(1, _translate(
+            "MainWindow", TRANSLATION["dark"]))
+        self.theme_label.setText(_translate(
+            "MainWindow", TRANSLATION["theme"]))
+        self.save_other_settings.setText(
+            _translate("MainWindow", TRANSLATION["save"]))
         self.push_messages.setChecked(True)
 
         # Налаштування таблиці серверів

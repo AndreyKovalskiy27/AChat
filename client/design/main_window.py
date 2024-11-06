@@ -15,12 +15,6 @@ from loguru import logger
 
 class MainWindowDesign(object):
     def setupUi(self, MainWindow, language: str):
-        try:
-            self.theme = OtherSettings().get()["theme"]
-            self.theme = dark if self.theme == "dark" else light
-
-        except Exception:
-            pass
 
         self.MainWindow = MainWindow
         self.MainWindow.setObjectName("MainWindow")
@@ -50,7 +44,8 @@ class MainWindowDesign(object):
         self.label.setObjectName("label")
         self.sticker1 = QtWidgets.QPushButton(parent=self.frame)
         self.sticker1.setGeometry(QtCore.QRect(20, 70, 111, 111))
-        self.sticker1.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.sticker1.setCursor(QtGui.QCursor(
+            QtCore.Qt.CursorShape.PointingHandCursor))
         self.sticker1.setText("")
         icon = QtGui.QIcon()
         icon.addPixmap(
@@ -69,7 +64,8 @@ class MainWindowDesign(object):
         self.sticker1.setObjectName("sticker1")
         self.sticker2 = QtWidgets.QPushButton(parent=self.frame)
         self.sticker2.setGeometry(QtCore.QRect(150, 70, 111, 111))
-        self.sticker2.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.sticker2.setCursor(QtGui.QCursor(
+            QtCore.Qt.CursorShape.PointingHandCursor))
         self.sticker2.setText("")
         icon1 = QtGui.QIcon()
         icon1.addPixmap(
@@ -88,7 +84,8 @@ class MainWindowDesign(object):
         self.sticker2.setObjectName("sticker2")
         self.sticker3 = QtWidgets.QPushButton(parent=self.frame)
         self.sticker3.setGeometry(QtCore.QRect(280, 70, 111, 111))
-        self.sticker3.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.sticker3.setCursor(QtGui.QCursor(
+            QtCore.Qt.CursorShape.PointingHandCursor))
         self.sticker3.setText("")
         icon2 = QtGui.QIcon()
         icon2.addPixmap(
@@ -107,7 +104,8 @@ class MainWindowDesign(object):
         self.sticker3.setObjectName("sticker3")
         self.sticker5 = QtWidgets.QPushButton(parent=self.frame)
         self.sticker5.setGeometry(QtCore.QRect(150, 190, 111, 111))
-        self.sticker5.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.sticker5.setCursor(QtGui.QCursor(
+            QtCore.Qt.CursorShape.PointingHandCursor))
         self.sticker5.setText("")
         icon3 = QtGui.QIcon()
         icon3.addPixmap(
@@ -126,7 +124,8 @@ class MainWindowDesign(object):
         self.sticker5.setObjectName("sticker5")
         self.sticker6 = QtWidgets.QPushButton(parent=self.frame)
         self.sticker6.setGeometry(QtCore.QRect(280, 190, 111, 111))
-        self.sticker6.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.sticker6.setCursor(QtGui.QCursor(
+            QtCore.Qt.CursorShape.PointingHandCursor))
         self.sticker6.setText("")
         icon4 = QtGui.QIcon()
         icon4.addPixmap(
@@ -145,7 +144,8 @@ class MainWindowDesign(object):
         self.sticker6.setObjectName("sticker6")
         self.sticker4 = QtWidgets.QPushButton(parent=self.frame)
         self.sticker4.setGeometry(QtCore.QRect(20, 190, 111, 111))
-        self.sticker4.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.sticker4.setCursor(QtGui.QCursor(
+            QtCore.Qt.CursorShape.PointingHandCursor))
         self.sticker4.setText("")
         icon5 = QtGui.QIcon()
         icon5.addPixmap(
@@ -164,7 +164,8 @@ class MainWindowDesign(object):
         self.sticker4.setObjectName("sticker4")
         self.sticker7 = QtWidgets.QPushButton(parent=self.frame)
         self.sticker7.setGeometry(QtCore.QRect(20, 310, 111, 111))
-        self.sticker7.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.sticker7.setCursor(QtGui.QCursor(
+            QtCore.Qt.CursorShape.PointingHandCursor))
         self.sticker7.setText("")
         icon6 = QtGui.QIcon()
         icon6.addPixmap(
@@ -183,7 +184,8 @@ class MainWindowDesign(object):
         self.sticker7.setObjectName("sticker7")
         self.sticker8 = QtWidgets.QPushButton(parent=self.frame)
         self.sticker8.setGeometry(QtCore.QRect(150, 310, 111, 111))
-        self.sticker8.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.sticker8.setCursor(QtGui.QCursor(
+            QtCore.Qt.CursorShape.PointingHandCursor))
         self.sticker8.setText("")
         icon7 = QtGui.QIcon()
         icon7.addPixmap(
@@ -202,7 +204,8 @@ class MainWindowDesign(object):
         self.sticker8.setObjectName("sticker8")
         self.sticker9 = QtWidgets.QPushButton(parent=self.frame)
         self.sticker9.setGeometry(QtCore.QRect(280, 310, 111, 111))
-        self.sticker9.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.sticker9.setCursor(QtGui.QCursor(
+            QtCore.Qt.CursorShape.PointingHandCursor))
         self.sticker9.setText("")
         icon8 = QtGui.QIcon()
         icon8.addPixmap(
@@ -356,7 +359,8 @@ class MainWindowDesign(object):
         self.message.setObjectName("message")
         self.exit = QtWidgets.QPushButton(parent=self.frame_2)
         self.exit.setGeometry(QtCore.QRect(380, 530, 361, 61))
-        self.exit.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.exit.setCursor(QtGui.QCursor(
+            QtCore.Qt.CursorShape.PointingHandCursor))
 
         self.exit.setObjectName("exit")
         self.send_message = QtWidgets.QPushButton(parent=self.frame_2)
@@ -414,7 +418,14 @@ QPushButton:hover {
             "background-color: rgb(183, 183, 183);\n" "border-radius: 15px;"
         )
 
-        self.setStyleSheet(self.theme)
+        try:
+            theme = OtherSettings().get()["theme"]
+            theme = dark if theme == "dark" else light
+
+        except Exception:
+            pass
+
+        self.setStyleSheet(theme)
         self.retranslateUi(MainWindow, language)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -433,8 +444,10 @@ QPushButton:hover {
 
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "AChat"))
-        self.send_message.setText(_translate("MainWindow", TRANSLATION["send"]))
-        self.connect_to_server.setText(_translate("MainWindow", TRANSLATION["connect"]))
+        self.send_message.setText(_translate(
+            "MainWindow", TRANSLATION["send"]))
+        self.connect_to_server.setText(_translate(
+            "MainWindow", TRANSLATION["connect"]))
         self.exit.setText(_translate("MainWindow", TRANSLATION["exit"]))
         self.message.setPlaceholderText(
             _translate("MainWindow", TRANSLATION["enter_message"])

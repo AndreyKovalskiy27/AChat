@@ -14,12 +14,6 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 
 class AddServerWindowDesign(object):
     def setupUi(self, MainWindow, language: str):
-        try:
-            self.theme = OtherSettings().get()["theme"]
-            self.theme = dark if self.theme == "dark" else light
-
-        except Exception:
-            pass
 
         self.MainWindow = MainWindow
         self.MainWindow.setObjectName("MainWindow")
@@ -69,8 +63,15 @@ QPushButton:hover {
         )
         self.add_server.setObjectName("add_server")
         MainWindow.setCentralWidget(self.centralwidget)
-        self.setStyleSheet(self.theme)
 
+        try:
+            theme = OtherSettings().get()["theme"]
+            theme = dark if theme == "dark" else light
+
+        except Exception:
+            pass
+
+        self.setStyleSheet(theme)
         self.retranslateUi(MainWindow, language)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -87,6 +88,9 @@ QPushButton:hover {
             _translate("MainWindow", TRANSLATION["add_server_window_title"])
         )
         self.ip.setPlaceholderText(_translate("MainWindow", TRANSLATION["ip"]))
-        self.port.setPlaceholderText(_translate("MainWindow", TRANSLATION["port"]))
-        self.name.setPlaceholderText(_translate("MainWindow", TRANSLATION["name"]))
-        self.add_server.setText(_translate("MainWindow", TRANSLATION["add_server"]))
+        self.port.setPlaceholderText(
+            _translate("MainWindow", TRANSLATION["port"]))
+        self.name.setPlaceholderText(
+            _translate("MainWindow", TRANSLATION["name"]))
+        self.add_server.setText(_translate(
+            "MainWindow", TRANSLATION["add_server"]))
